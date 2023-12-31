@@ -1,3 +1,4 @@
+import './styles/globals.css';
 import type { Metadata } from 'next';
 import { Montserrat } from 'next/font/google';
 import { getServerSession } from 'next-auth';
@@ -15,7 +16,9 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   const session = await getServerSession();
 
   return (
-    <html lang='en'>
+    <html
+      lang='en'
+      suppressHydrationWarning>
       <body className={montserratFont.className}>
         <nav>
           {!!session && <Logout />}

@@ -1,10 +1,9 @@
-import styles from './page.module.css';
 import Link from 'next/link';
 
-export default function Home() {
+export default function HomePage() {
   return (
-    <main className={styles.main}>
-      <h1>homepage</h1>
+    <main>
+      <p className='text-4xl font-bold underline'>homepage</p>
       <Link href={'/register'}>REGISTER</Link>
       <Link href={'/dashboard'}>go to DASHBOARD</Link>
     </main>
