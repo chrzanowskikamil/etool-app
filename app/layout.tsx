@@ -1,9 +1,8 @@
 import './styles/globals.css';
 import type { Metadata } from 'next';
 import { Montserrat } from 'next/font/google';
-import { getServerSession } from 'next-auth';
-import Link from 'next/link';
-import Logout from './logout';
+import { Sidebar } from '@/components/sidebar';
+import { ThemeProvider } from '@/components/theme-provider';
 
 export const metadata: Metadata = {
   title: 'ETool',
@@ -13,18 +12,17 @@ export const metadata: Metadata = {
 const montserratFont = Montserrat({ subsets: ['latin'] });
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
-  const session = await getServerSession();
-
   return (
     <html
       lang='en'
       suppressHydrationWarning>
-      <body className={montserratFont.className}>
-        <nav>
-          {!!session && <Logout />}
-          {!session && <Link href='/login'> Login </Link>}
-        </nav>
-        {children}
+      <body className={`${montserratFont.className} flex`}>
+        <ThemeProvider
+          attribute='class'
+          defaultTheme='dark'>
+          <Sidebar />
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );
