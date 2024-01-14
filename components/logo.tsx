@@ -1,11 +1,16 @@
-export function Logo() {
+interface LogoProps {
+  size?: string;
+  title?: string;
+}
+
+export function Logo({ size, title }: LogoProps) {
   return (
     <div className='flex items-center justify-center'>
       <svg
         strokeWidth='0'
         viewBox='0 0 48 48'
-        height='60px'
-        width='60px'
+        height={size}
+        width={size}
         xmlns='http://www.w3.org/2000/svg'>
         <rect
           x='7'
@@ -57,7 +62,7 @@ export function Logo() {
           <polygon points='36,29 39,25 33,25' />
         </g>
       </svg>
-      <h1 className='text-2xl font-medium p-3'>ETool</h1>
+      <h1 className='text-2xl font-medium p-3'>{title}</h1>
     </div>
   );
 }

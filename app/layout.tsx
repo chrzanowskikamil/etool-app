@@ -19,7 +19,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       <body className={`${montserratFont.className} flex`}>
         <ThemeProvider
           attribute='class'
-          defaultTheme='dark'>
+          defaultTheme='system'>
           <Sidebar />
           {children}
         </ThemeProvider>
