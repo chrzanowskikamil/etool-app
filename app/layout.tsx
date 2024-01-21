@@ -1,7 +1,6 @@
 import './styles/globals.css';
 import type { Metadata } from 'next';
 import { Montserrat } from 'next/font/google';
-import { Sidebar } from '@/components/sidebar';
 import { ThemeProvider } from '@/components/theme-provider';
 
 export const metadata: Metadata = {
@@ -16,11 +15,10 @@ export default async function RootLayout({ children }: { children: React.ReactNo
     <html
       lang='en'
       suppressHydrationWarning>
-      <body className={`${montserratFont.className} flex`}>
+      <body className={`${montserratFont.className} relative flex min-h-screen flex-col`}>
         <ThemeProvider
           attribute='class'
-          defaultTheme='system'>
-          <Sidebar />
+          defaultTheme='dark'>
           {children}
         </ThemeProvider>
       </body>

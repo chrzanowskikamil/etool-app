@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { DashboardIcon, FileTextIcon, MagnifyingGlassIcon, PersonIcon, QuestionMarkCircledIcon } from '@radix-ui/react-icons';
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
-import { AlertDialog, AlertDialogAction, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from './ui/alert-dialog';
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from './ui/alert-dialog';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuTrigger } from './ui/dropdown-menu';
 import { Separator } from './ui/separator';
 import { Logo } from './logo';
@@ -85,37 +85,51 @@ export async function Sidebar() {
       <div className='flex flex-col  '>
         <Separator className='my-4 bg-white' />
         {session ? (
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <span className='flex items-center space-x-2 hover:cursor-pointer'>
-                <Avatar>
-                  {/* // ! WHEN WE FINISHED REGISTER PAGE PLEASE HANDLE IT */}
-                  <AvatarImage src='https://github.com/shadcn.png' />
-                  {/* // ! CREATE  A FUNCTION TO CREATE SCHROUT FROM NAME AND SURNAME */}
-                  <AvatarFallback className='text-black border-2 border-black'>KC</AvatarFallback>
-                </Avatar>
-                {/* // ! WE WANT A NAME HERE WHEN A REGISTER PAGE FINISHED */}
-                <h2>{session.user?.email}</h2>
-              </span>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent>
-              <DropdownMenuGroup>
-                <DropdownMenuItem asChild>
-                  <Link
-                    className=' w-56 hover:cursor-pointer'
-                    href={ROUTES.PROFILE}>
-                    Profile
-                  </Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem>
-                  <ThemeToggleButton />
-                </DropdownMenuItem>
-                <DropdownMenuItem>
-                  <LogoutButton />
-                </DropdownMenuItem>
-              </DropdownMenuGroup>
-            </DropdownMenuContent>
-          </DropdownMenu>
+          <AlertDialog>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <span className='flex items-center space-x-2 hover:cursor-pointer'>
+                  <Avatar>
+                    {/* // ! WHEN WE FINISHED REGISTER PAGE PLEASE HANDLE IT */}
+                    <AvatarImage src='https://github.com/shadcn.png' />
+                    {/* // ! CREATE  A FUNCTION TO CREATE SCHROUT FROM NAME AND SURNAME */}
+                    <AvatarFallback className='text-black border-2 border-black'>KC</AvatarFallback>
+                  </Avatar>
+                  {/* // ! WE WANT A NAME HERE WHEN A REGISTER PAGE FINISHED */}
+                  <h2>{session.user?.email}</h2>
+                </span>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent>
+                <DropdownMenuGroup>
+                  <DropdownMenuItem asChild>
+                    <Link
+                      className=' w-56 hover:cursor-pointer'
+                      href={ROUTES.PROFILE}>
+                      Profile
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem>
+                    <ThemeToggleButton />
+                  </DropdownMenuItem>
+                  <DropdownMenuItem>
+                    <AlertDialogTrigger>
+                      <a>Logout</a>
+                    </AlertDialogTrigger>
+                  </DropdownMenuItem>
+                </DropdownMenuGroup>
+              </DropdownMenuContent>
+            </DropdownMenu>
+            <AlertDialogContent>
+              <AlertDialogHeader>
+                <AlertDialogTitle>Are you sure?</AlertDialogTitle>
+                <AlertDialogDescription>You will be redirect to home page.</AlertDialogDescription>
+              </AlertDialogHeader>
+              <AlertDialogFooter>
+                <AlertDialogCancel>Cancel</AlertDialogCancel>
+                <LogoutButton />
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialog>
         ) : (
           <Link
             className='flex px-4 text-xl hover:cursor-pointer'
