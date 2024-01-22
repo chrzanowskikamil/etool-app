@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { DashboardIcon } from '@radix-ui/react-icons';
-import { Button } from './ui/button';
+import { buttonVariants } from './ui/button';
 import { Logo } from './logo';
 import { ThemeToggleButton } from './theme-toggle-button';
 import { ROUTES } from '@/lib/routes';
@@ -52,10 +52,10 @@ export function Navbar() {
                 <ThemeToggleButton />
               </li>
               <li>
-                <Link href={ROUTES.DASHBOARD}>
-                  <Button variant='outline'>
-                    <DashboardIcon className='mr-2' /> Dashboard
-                  </Button>
+                <Link
+                  href={ROUTES.DASHBOARD}
+                  className={buttonVariants({ variant: 'outline' })}>
+                  <DashboardIcon className='mr-2' /> Dashboard
                 </Link>
               </li>
             </div>
