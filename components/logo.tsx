@@ -5,7 +5,7 @@ interface LogoProps {
 
 export function Logo({ size, title }: LogoProps) {
   return (
-    <div className='flex items-center justify-center'>
+    <div className='flex items-center'>
       <svg
         strokeWidth='0'
         viewBox='0 0 48 48'

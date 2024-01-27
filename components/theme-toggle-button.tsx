@@ -9,24 +9,25 @@ import { usePathname } from 'next/navigation';
 export function ThemeToggleButton() {
   const { theme, setTheme } = useTheme();
   const pathname = usePathname();
-  const isHomePage = pathname === ROUTES.HOME;
+  const isDashboardPage = pathname === ROUTES.DASHBOARD;
 
   const handleSwitchTheme = () => {
     setTheme(theme === 'dark' ? 'light' : 'dark');
   };
 
-  return isHomePage ? (
+  return isDashboardPage ? (
+    <Button
+      variant={'ghost'}
+      size={'icon'}
+      onClick={() => handleSwitchTheme()}>
+      Switch theme
+    </Button>
+  ) : (
     <Button
       variant={'outline'}
       size={'icon'}
       onClick={() => handleSwitchTheme()}>
       {theme === 'light' ? <MoonIcon /> : <SunIcon />}
     </Button>
-  ) : (
-    <button
-      className='w-52 hover:cursor-pointer'
-      onClick={() => handleSwitchTheme()}>
-      Switch theme
-    </button>
   );
 }
