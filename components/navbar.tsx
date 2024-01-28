@@ -5,6 +5,7 @@ import { Logo } from './logo';
 import { MobileNavButton } from './mobile-nav-button';
 import { ThemeToggleButton } from './theme-toggle-button';
 import { ROUTES } from '@/lib/routes';
+import { cn } from '@/lib/utils';
 
 export function Navbar() {
   const NAVBAR_ITEMS = [
@@ -55,8 +56,7 @@ export function Navbar() {
           <li className='hidden md:inline-flex'>
             <Link
               href={ROUTES.DASHBOARD}
-              passHref
-              className={buttonVariants({ variant: 'outline' })}>
+              className={cn(buttonVariants({ variant: 'outline' }))}>
               <DashboardIcon className='mr-2' /> Dashboard
             </Link>
           </li>

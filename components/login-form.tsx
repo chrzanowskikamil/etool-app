@@ -77,7 +77,13 @@ export default function LoginForm() {
               <FormLabel>Email</FormLabel>
               <FormControl>
                 <Input
+                  autoCapitalize='off'
+                  autoComplete='email'
+                  autoCorrect='off'
+                  disabled={isSubmitting}
+                  id='email'
                   placeholder='name@mail.com'
+                  type='email'
                   {...field}
                 />
               </FormControl>
@@ -94,6 +100,9 @@ export default function LoginForm() {
               <FormControl>
                 <div className='flex w-full max-w-sm items-center space-x-2'>
                   <Input
+                    autoCapitalize='off'
+                    disabled={isSubmitting}
+                    id='password'
                     type={passwordVisible ? 'text' : 'password'}
                     placeholder='********'
                     {...field}
@@ -117,7 +126,7 @@ export default function LoginForm() {
             </FormItem>
           )}
         />
-        <Button type='submit'>{isSubmitting ? <LoadingSpinner /> : 'Login'}</Button>
+        <Button type='submit'>Login {isSubmitting ? <LoadingSpinner /> : null}</Button>
       </form>
     </Form>
   );
