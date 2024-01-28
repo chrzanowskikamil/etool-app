@@ -17,21 +17,29 @@ const handler = NextAuth({
         password: {},
       },
       async authorize(credentials, req) {
-        const response = await sql`
-        SELECT * FROM users WHERE email = ${credentials?.email};
-        `;
-        const user = response.rows[0];
-        const passwordCorrect = await compare(credentials?.password || '', user.password);
+        try {
+          const response = await sql`
+          SELECT * FROM users WHERE email = ${credentials?.email};
+          `;
+          const user = response.rows[0];
 
-        console.log({ passwordCorrect });
+          if (!user) {
+            return null;
+          }
 
-        if (passwordCorrect) {
-          return {
-            id: user.id,
-            email: user.email,
-          };
+          const passwordCorrect = await compare(credentials?.password || '', user.password);
+
+          if (passwordCorrect) {
+            return {
+              id: user.id,
+              email: user.email,
+            };
+          }
+          return null;
+        } catch (error) {
+          console.error(`Auth error: ${error}`);
+          return null;
         }
-        return null;
       },
     }),
   ],

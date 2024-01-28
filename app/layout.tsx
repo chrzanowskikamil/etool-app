@@ -3,6 +3,7 @@ import type { Metadata } from 'next';
 import { Montserrat } from 'next/font/google';
 import { ThemeProvider } from '@/components/theme-provider';
 import { Toaster } from '@/components/ui/toaster';
+import { Navbar } from '@/components/navbar';
 
 export const metadata: Metadata = {
   title: 'ETool',
@@ -20,6 +21,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <ThemeProvider
           attribute='class'
           defaultTheme='dark'>
+          <Navbar />
           {children}
           <Toaster />
         </ThemeProvider>

@@ -55,6 +55,7 @@ export function Navbar() {
           <li className='hidden md:inline-flex'>
             <Link
               href={ROUTES.DASHBOARD}
+              passHref
               className={buttonVariants({ variant: 'outline' })}>
               <DashboardIcon className='mr-2' /> Dashboard
             </Link>
