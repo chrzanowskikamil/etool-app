@@ -13,7 +13,7 @@ export default async function LoginPage() {
 
   return (
     <main className='flex flex-col items-center container'>
-      <Card className='my-16 sm:w-3/4 md:w-1/3 md:my-60 md:h-1/2'>
+      <Card className='my-16 sm:w-3/4 md:w-1/3 md:my-48 md:h-1/2'>
         <CardHeader>
           <h1 className='text-3xl font-medium text-center p-2 '>Welcome back!</h1>
         </CardHeader>
