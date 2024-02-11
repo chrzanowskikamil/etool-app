@@ -83,7 +83,7 @@ export default function LoginForm() {
                   disabled={isSubmitting}
                   id='email'
                   placeholder='name@mail.com'
-                  type='email'
+                  type='text'
                   {...field}
                 />
               </FormControl>

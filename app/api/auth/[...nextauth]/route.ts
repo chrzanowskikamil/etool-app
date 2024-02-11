@@ -1,7 +1,7 @@
 import NextAuth from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import { compare } from 'bcrypt';
-import { sql } from '@vercel/postgres';
+import prisma from 'lib/prisma';
 
 const handler = NextAuth({
   session: {
@@ -17,11 +17,15 @@ const handler = NextAuth({
         password: {},
       },
       async authorize(credentials, req) {
+        if (!credentials?.email || !credentials?.password) {
+          return null;
+        }
         try {
-          const response = await sql`
-          SELECT * FROM users WHERE email = ${credentials?.email};
-          `;
-          const user = response.rows[0];
+          const user = await prisma.users.findUnique({
+            where: {
+              email: credentials?.email,
+            },
+          });
 
           if (!user) {
             return null;
@@ -31,7 +35,7 @@ const handler = NextAuth({
 
           if (passwordCorrect) {
             return {
-              id: user.id,
+              id: user.id.toString(),
               email: user.email,
             };
           }
