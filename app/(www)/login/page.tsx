@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import LoginForm from '../../components/login-form';
+import LoginForm from '@/components/login-form';
 import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card';
 import { ROUTES } from '@/lib/routes';
 import { redirect } from 'next/navigation';
