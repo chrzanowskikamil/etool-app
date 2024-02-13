@@ -42,7 +42,8 @@ export default function LoginForm() {
     const response = await signIn('credentials', {
       email: values.email as string,
       password: values.password as string,
-      redirect: false,
+      // redirect: false,
+      callbackUrl: ROUTES.DASHBOARD,
     });
 
     console.log(response);
@@ -51,9 +52,6 @@ export default function LoginForm() {
       setError('email', { type: 'manual', message: 'Your email or password is incorrect. Please try again.' });
       setError('password', { type: 'manual', message: 'Your email or password is incorrect. Please try again.' });
     } else {
-      router.push(ROUTES.DASHBOARD);
-      router.refresh();
-
       toast({
         title: 'Login successful',
         description: 'You have successfully logged in!',

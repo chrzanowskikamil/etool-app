@@ -6,12 +6,20 @@ datasource db {
     provider = "postgresql"
     url = env("POSTGRES_PRISMA_URL")
     directUrl = env("POSTGRES_URL_NON_POOLING")
+ }
+
+model User {
+    id String @id
+    username String @unique
+    hashed_password String 
+    firstName String?
+    lastName String?   
+    sessions Session[]
 }
 
-model users {
-    id Int @id @default(autoincrement())
-    email String @unique
-    password String
-    firstName String?
-    lastName String?
+model Session {
+    id String @id
+    userId String
+    expiresAt DateTime
+    user User @relation(references: [id], fields: [userId], onDelete: Cascade)
 }

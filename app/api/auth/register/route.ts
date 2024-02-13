@@ -1,22 +1,33 @@
 import { NextResponse } from 'next/server';
 import { hash } from 'bcrypt';
 import prisma from '@/lib/prisma';
+import { Argon2id } from 'oslo/password';
+import { generateId } from 'lucia';
+import { auth } from '@/lib/auth';
+import { cookies } from 'next/headers';
+import { redirect } from 'next/navigation';
 
-export async function POST(request: Request) {
+export async function POST(request: Request, response: Response) {
   try {
-    const { firstName, lastName, email, password } = await request.json();
-    const hashedPassword = await hash(password, 10);
+    const { firstName, lastName, username, password } = await request.json();
+    const hashedPassword = await new Argon2id().hash(password);
+    const userId = generateId(15);
 
-    const response = await prisma.users.create({
+    console.log(firstName, lastName, username, password, hashedPassword, userId);
+
+    await prisma.user.create({
       data: {
+        id: userId,
         firstName,
         lastName,
-        email,
-        password: hashedPassword,
+        username,
+        hashed_password: hashedPassword,
       },
     });
 
-    console.log(response);
+    const session = await auth.createSession(userId, {});
+    const sessionCookie = auth.createSessionCookie(session.id);
+    cookies().set(sessionCookie.name, sessionCookie.value, sessionCookie.attributes);
   } catch (error) {
     console.log(error);
   }
