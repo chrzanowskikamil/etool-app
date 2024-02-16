@@ -1,7 +1,7 @@
-import RegisterForm from '@/components/register-form';
 import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card';
-import { ROUTES } from '@/lib/routes';
+import RegisterForm from '@/components/register-form';
 import Link from 'next/link';
+import { ROUTES } from '@/lib/routes';
 
 export default async function RegisterPage() {
   return (

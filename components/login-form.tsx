@@ -1,6 +1,5 @@
 'use client';
 
-import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
@@ -20,13 +19,13 @@ export default function LoginForm() {
   const { toast } = useToast();
   const router = useRouter();
   const loginFormSchema = z.object({
-    email: z.string().email(),
+    username: z.string().email(),
     password: z.string().min(4, { message: 'Password must be at least 8 characters long' }).max(100),
   });
   const form = useForm<z.infer<typeof loginFormSchema>>({
     resolver: zodResolver(loginFormSchema),
     defaultValues: {
-      email: '',
+      username: '',
       password: '',
     },
     mode: 'onTouched',
@@ -39,24 +38,38 @@ export default function LoginForm() {
   } = form;
 
   async function onSubmit(values: z.infer<typeof loginFormSchema>) {
-    const response = await signIn('credentials', {
-      email: values.email as string,
-      password: values.password as string,
-      // redirect: false,
-      callbackUrl: ROUTES.DASHBOARD,
-    });
-
-    console.log(response);
-
-    if (response?.error) {
-      setError('email', { type: 'manual', message: 'Your email or password is incorrect. Please try again.' });
-      setError('password', { type: 'manual', message: 'Your email or password is incorrect. Please try again.' });
-    } else {
-      toast({
-        title: 'Login successful',
-        description: 'You have successfully logged in!',
-        duration: 6000,
+    //     const response = await signIn('credentials', {
+    //       email: values.email as string,
+    //       password: values.password as string,
+    //       // redirect: false,
+    //       callbackUrl: ROUTES.DASHBOARD,
+    //     });
+    //
+    //     console.log(response);
+    //
+    //     if (response?.error) {
+    //       setError('email', { type: 'manual', message: 'Your email or password is incorrect. Please try again.' });
+    //       setError('password', { type: 'manual', message: 'Your email or password is incorrect. Please try again.' });
+    //     } else {
+    //       toast({
+    //         title: 'Login successful',
+    //         description: 'You have successfully logged in!',
+    //         duration: 6000,
+    //       });
+    //     }
+    try {
+      const response = await fetch('/api/auth/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(values),
       });
+
+      const data = await response.json();
+      console.log(data);
+    } catch (error) {
+      console.log(error);
     }
   }
 
@@ -69,7 +82,7 @@ export default function LoginForm() {
         onSubmit={form.handleSubmit(onSubmit)}>
         <FormField
           control={form.control}
-          name='email'
+          name='username'
           render={({ field }) => (
             <FormItem>
               <FormLabel>Email</FormLabel>
@@ -79,7 +92,7 @@ export default function LoginForm() {
                   autoComplete='email'
                   autoCorrect='off'
                   disabled={isSubmitting}
-                  id='email'
+                  id='username'
                   placeholder='name@mail.com'
                   type='text'
                   {...field}
