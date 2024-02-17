@@ -4,10 +4,11 @@ import { Button } from './ui/button';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from './ui/form';
 import { Input } from './ui/input';
 import { LoadingSpinner } from './icons';
-import { useRegisterForm } from '@/hooks/useRegisterForm';
+import { useRegisterForm } from '@/hooks/use-register-form';
 
 export default function RegisterForm() {
-  const { form, onSubmit, isSubmitting } = useRegisterForm();
+  const { form, onSubmit } = useRegisterForm();
+  const { isSubmitting } = form.formState;
 
   return (
     <Form {...form}>

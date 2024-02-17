@@ -3,11 +3,12 @@ import LoginForm from '@/components/login-form';
 import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card';
 import { ROUTES } from '@/lib/routes';
 import { redirect } from 'next/navigation';
-import { getServerSession } from 'next-auth';
+import { validateRequest } from '@/lib/auth';
 
 export default async function LoginPage() {
-  const session = await getServerSession();
-  if (session) {
+  const { user } = await validateRequest();
+
+  if (user) {
     redirect(ROUTES.DASHBOARD);
   }
 
