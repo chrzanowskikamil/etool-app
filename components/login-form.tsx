@@ -67,7 +67,16 @@ export default function LoginForm() {
       });
 
       const data = await response.json();
-      console.log(data);
+
+      if (data.status === 401) {
+        setError('username', { type: 'manual', message: 'Your email or password is incorrect. Please try again.' });
+        setError('password', { type: 'manual', message: 'Your email or password is incorrect. Please try again.' });
+      }
+
+      if (data.status === 200) {
+        router.push(ROUTES.DASHBOARD);
+        console.log(data);
+      }
     } catch (error) {
       console.log(error);
     }
