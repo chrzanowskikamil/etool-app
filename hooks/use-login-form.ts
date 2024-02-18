@@ -1,26 +1,28 @@
 import z from 'zod';
-import { REGISTER_FORM_SCHEMA, REGISTER_DEFAULT_VALUES } from '@/schemas/auth';
-import { ROUTES, ENDPOINTS } from '@/lib/routes';
+import { LOGIN_DEFAULT_VALUES, LOGIN_FORM_SCHEMA } from '@/schemas/auth';
+import { ENDPOINTS, ROUTES } from '@/lib/routes';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
 import { useToast } from '@/components/ui/use-toast';
 
-export function useRegisterForm() {
+export function useLoginForm() {
   const router = useRouter();
   const { toast } = useToast();
   const DELAY_ERROR = 300;
 
-  const form = useForm<z.infer<typeof REGISTER_FORM_SCHEMA>>({
-    resolver: zodResolver(REGISTER_FORM_SCHEMA),
-    defaultValues: REGISTER_DEFAULT_VALUES,
+  const form = useForm<z.infer<typeof LOGIN_FORM_SCHEMA>>({
+    resolver: zodResolver(LOGIN_FORM_SCHEMA),
+    defaultValues: LOGIN_DEFAULT_VALUES,
     mode: 'onTouched',
     delayError: DELAY_ERROR,
   });
 
-  async function onSubmit(values: z.infer<typeof REGISTER_FORM_SCHEMA>) {
+  const { setError } = form;
+
+  async function onSubmit(values: z.infer<typeof LOGIN_FORM_SCHEMA>) {
     try {
-      const response = await fetch(ENDPOINTS.REGISTER, {
+      const response = await fetch(ENDPOINTS.LOGIN, {
         method: 'POST',
         body: JSON.stringify(values),
       });
@@ -28,19 +30,19 @@ export function useRegisterForm() {
       const data = await response.json();
 
       if (data.status === 201) {
+        router.push(ROUTES.DASHBOARD);
         toast({
           title: data.message,
           description: data.description,
         });
-        router.push(ROUTES.DASHBOARD);
       }
 
       if (data.status === 409) {
-        toast({
-          title: data.message,
-          description: data.description,
-          variant: 'destructive',
-        });
+        setError('username', { type: 'manual', message: data.description });
+      }
+
+      if (data.status === 401) {
+        setError('password', { type: 'manual', message: data.description });
       }
     } catch (error) {
       console.log(error);

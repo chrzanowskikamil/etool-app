@@ -1,14 +1,13 @@
 'use client';
 
-import { ROUTES } from '@/lib/routes';
+import { ENDPOINTS, ROUTES } from '@/lib/routes';
 import { Button } from './ui/button';
 import { useRouter } from 'next/navigation';
 
 export function LogoutButton() {
   const router = useRouter();
   const handleLogout = async () => {
-    // TODO: consider to create a functions for api calls
-    const response = await fetch('api/auth/logout', {
+    const response = await fetch(ENDPOINTS.LOGOUT, {
       method: 'POST',
     });
     if (response.ok) {

@@ -7,8 +7,8 @@ import { Separator } from './ui/separator';
 import { Logo } from './logo';
 import { LogoutButton } from './logout-button';
 import { ThemeToggleButton } from './theme-toggle-button';
-import { getServerSession } from 'next-auth';
 import { ROUTES } from '@/lib/routes';
+import { validateRequest } from '@/lib/auth';
 
 const SIDEBAR_LINKS = [
   {
@@ -40,7 +40,7 @@ const sidebarLinksItems = SIDEBAR_LINKS.map((item) => (
 ));
 
 export async function Sidebar() {
-  const session = await getServerSession();
+  const { user } = await validateRequest();
 
   return (
     <nav
@@ -84,7 +84,7 @@ export async function Sidebar() {
       </div>
       <div className='flex flex-col  '>
         <Separator className='my-4 bg-white' />
-        {session ? (
+        {user ? (
           <AlertDialog>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
@@ -96,7 +96,7 @@ export async function Sidebar() {
                     <AvatarFallback className='text-black border-2 border-black'>KC</AvatarFallback>
                   </Avatar>
                   {/* // ! WE WANT A NAME HERE WHEN A REGISTER PAGE FINISHED */}
-                  <h2>{session.user?.email}</h2>
+                  <h2>{user.username}</h2>
                 </span>
               </DropdownMenuTrigger>
               <DropdownMenuContent>
