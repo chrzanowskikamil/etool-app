@@ -9,7 +9,7 @@ import { usePathname } from 'next/navigation';
 export function ThemeToggleButton() {
   const { theme, setTheme } = useTheme();
   const pathname = usePathname();
-  const isDashboardPage = pathname === ROUTES.DASHBOARD;
+  const isDashboardPage = pathname.includes(ROUTES.DASHBOARD);
 
   const handleSwitchTheme = () => {
     setTheme(theme === 'dark' ? 'light' : 'dark');

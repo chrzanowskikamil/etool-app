@@ -1,86 +1,19 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm } from 'react-hook-form';
-import * as z from 'zod';
+import Link from 'next/link';
+import { Button } from './ui/button';
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from './ui/form';
 import { Input } from './ui/input';
-import { Button } from './ui/button';
 import { ROUTES } from '@/lib/routes';
-import Link from 'next/link';
 import { EyeClosedIcon, EyeOpenIcon } from '@radix-ui/react-icons';
-import { useState } from 'react';
 import { LoadingSpinner } from './icons';
-import { useToast } from './ui/use-toast';
+import { useState } from 'react';
+import { useLoginForm } from '@/hooks/use-login-form';
 
 export default function LoginForm() {
+  const { form, onSubmit } = useLoginForm();
+  const { isSubmitting } = form.formState;
   const [passwordVisible, setPasswordVisible] = useState(false);
-  const { toast } = useToast();
-  const router = useRouter();
-  const loginFormSchema = z.object({
-    username: z.string().email(),
-    password: z.string().min(4, { message: 'Password must be at least 8 characters long' }).max(100),
-  });
-  const form = useForm<z.infer<typeof loginFormSchema>>({
-    resolver: zodResolver(loginFormSchema),
-    defaultValues: {
-      username: '',
-      password: '',
-    },
-    mode: 'onTouched',
-    delayError: 300,
-  });
-
-  const {
-    formState: { isSubmitting },
-    setError,
-  } = form;
-
-  async function onSubmit(values: z.infer<typeof loginFormSchema>) {
-    //     const response = await signIn('credentials', {
-    //       email: values.email as string,
-    //       password: values.password as string,
-    //       // redirect: false,
-    //       callbackUrl: ROUTES.DASHBOARD,
-    //     });
-    //
-    //     console.log(response);
-    //
-    //     if (response?.error) {
-    //       setError('email', { type: 'manual', message: 'Your email or password is incorrect. Please try again.' });
-    //       setError('password', { type: 'manual', message: 'Your email or password is incorrect. Please try again.' });
-    //     } else {
-    //       toast({
-    //         title: 'Login successful',
-    //         description: 'You have successfully logged in!',
-    //         duration: 6000,
-    //       });
-    //     }
-    try {
-      const response = await fetch('/api/auth/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(values),
-      });
-
-      const data = await response.json();
-
-      if (data.status === 401) {
-        setError('username', { type: 'manual', message: 'Your email or password is incorrect. Please try again.' });
-        setError('password', { type: 'manual', message: 'Your email or password is incorrect. Please try again.' });
-      }
-
-      if (data.status === 200) {
-        router.push(ROUTES.DASHBOARD);
-        console.log(data);
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  }
 
   const handleShowPassword = () => setPasswordVisible(!passwordVisible);
 

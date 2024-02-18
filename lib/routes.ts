@@ -2,13 +2,19 @@ export enum ROUTES {
   ABOUT = '/about',
   DASHBOARD = '/dashboard',
   DOCS = '/docs',
-  HELP = '/help',
+  HELP = '/dashboard/help',
   HOME = '/',
   LOGIN = '/login',
-  PROFILE = '/profile',
+  PROFILE = '/dashboard/profile',
   REGISTER = '/register',
   RESET_PASSWORD = '/reset-password',
-  REPORTS = '/reports',
+  REPORTS = '/dashboard/reports',
   REVIEWS = '/reviews',
   CONTACT = '/contact',
+}
+
+export enum ENDPOINTS {
+  LOGIN = '/api/auth/login',
+  LOGOUT = '/api/auth/logout',
+  REGISTER = '/api/auth/register',
 }

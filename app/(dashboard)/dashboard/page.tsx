@@ -1,22 +1,23 @@
-import { LogoutButton } from '@/components/logout-button';
 import { Sidebar } from '@/components/sidebar';
 import { validateRequest } from '@/lib/auth';
+import { ROUTES } from '@/lib/routes';
 import { redirect } from 'next/navigation';
 
 export default async function DashboardPage(): Promise<JSX.Element> {
   const { user } = await validateRequest();
-  console.log(`User from dashboard page: ${JSON.stringify(user)}`);
 
   if (!user) {
-    redirect('/login');
+    redirect(ROUTES.LOGIN);
   }
+
   return (
     <main className='flex'>
-      <Sidebar />
-      <div className='flex flex-col gap-6'>
+      {/* <Sidebar /> */}
+      <div className='flex w-screen flex-col gap-6 justify-center items-center'>
         <h1>Dashboard</h1>
-        <p>Logged user: {user.username}</p>
-        <LogoutButton />
+        <p>
+          Logged as: <strong>{user.username}</strong>
+        </p>
       </div>
     </main>
   );

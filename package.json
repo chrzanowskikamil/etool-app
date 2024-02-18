@@ -21,13 +21,10 @@
     "@radix-ui/react-separator": "^1.0.3",
     "@radix-ui/react-slot": "^1.0.2",
     "@radix-ui/react-toast": "^1.1.5",
-    "@vercel/postgres": "^0.5.1",
-    "bcrypt": "^5.1.1",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
     "lucia": "^3.0.1",
     "next": "14.1",
-    "next-auth": "^4.24.5",
     "next-themes": "^0.2.1",
     "oslo": "^1.1.1",
     "prisma": "^5.9.1",
@@ -39,14 +36,12 @@
     "zod": "^3.22.4"
   },
   "devDependencies": {
-    "@types/bcrypt": "^5.0.2",
-    "@types/node": "^20",
+    "@types/node": "20.11.19",
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "autoprefixer": "^10.4.16",
     "eslint": "^8",
     "eslint-config-next": "14.0.3",
-    "postcss": "^8.4.32",
     "tailwindcss": "^3.4.0",
     "typescript": "^5"
   }
