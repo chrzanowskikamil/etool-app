@@ -12,7 +12,6 @@ export default async function DashboardPage(): Promise<JSX.Element> {
 
   return (
     <main className='flex'>
-      {/* <Sidebar /> */}
       <div className='flex w-screen flex-col gap-6 justify-center items-center'>
         <h1>Dashboard</h1>
         <p>
