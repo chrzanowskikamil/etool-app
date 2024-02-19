@@ -1,13 +1,15 @@
 import Link from 'next/link';
-import { DashboardIcon } from '@radix-ui/react-icons';
+import { DashboardIcon, LockOpen1Icon } from '@radix-ui/react-icons';
 import { buttonVariants } from './ui/button';
 import { Logo } from './logo';
 import { MobileNavButton } from './mobile-nav-button';
 import { ThemeToggleButton } from './theme-toggle-button';
 import { ROUTES } from '@/lib/routes';
 import { cn } from '@/lib/utils';
+import { validateRequest } from '@/lib/auth';
 
-export function Navbar() {
+export async function Navbar() {
+  const { user } = await validateRequest();
   const NAVBAR_ITEMS = [
     {
       title: 'Docs',
@@ -53,13 +55,23 @@ export function Navbar() {
           <li className='mx-4'>
             <ThemeToggleButton />
           </li>
-          <li className='hidden md:inline-flex'>
-            <Link
-              href={ROUTES.DASHBOARD}
-              className={cn(buttonVariants({ variant: 'outline' }))}>
-              <DashboardIcon className='mr-2' /> Dashboard
-            </Link>
-          </li>
+          {!user ? (
+            <li className='hidden md:inline-flex'>
+              <Link
+                href={ROUTES.LOGIN}
+                className={cn(buttonVariants({ variant: 'outline' }))}>
+                <LockOpen1Icon className='mr-2' /> Sign in
+              </Link>
+            </li>
+          ) : (
+            <li className='hidden md:inline-flex'>
+              <Link
+                href={ROUTES.DASHBOARD}
+                className={cn(buttonVariants({ variant: 'outline' }))}>
+                <DashboardIcon className='mr-2' /> Dashboard
+              </Link>
+            </li>
+          )}
           <li className='md:hidden'>
             <MobileNavButton />
           </li>

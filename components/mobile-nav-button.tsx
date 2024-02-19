@@ -1,16 +1,13 @@
 import Link from 'next/link';
 import { Button } from './ui/button';
 import { HamburgerMenuIcon } from '@radix-ui/react-icons';
-import { Sheet, SheetContent, SheetHeader, SheetTrigger } from './ui/sheet';
+import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from './ui/dropdown-menu';
 import { ROUTES } from '@/lib/routes';
-import { Logo } from './logo';
+import { validateRequest } from '@/lib/auth';
 
-export function MobileNavButton() {
+export async function MobileNavButton() {
+  const { user } = await validateRequest();
   const MOBILE_NAVBAR_ITEMS = [
-    {
-      title: 'Dashboard',
-      href: ROUTES.DASHBOARD,
-    },
     {
       title: 'Docs',
       href: ROUTES.DOCS,
@@ -30,31 +27,36 @@ export function MobileNavButton() {
   ];
 
   const mobileNavbarItems = MOBILE_NAVBAR_ITEMS.map((item) => (
-    <li
-      className='text-xl font-bold p-8'
+    <DropdownMenuItem
+      asChild
       key={item.title}>
       <Link href={item.href}>{item.title}</Link>
-    </li>
+    </DropdownMenuItem>
   ));
 
   return (
-    <Sheet>
-      <SheetTrigger asChild>
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
         <Button
           variant={'outline'}
           size={'icon'}>
           <HamburgerMenuIcon />
         </Button>
-      </SheetTrigger>
-      <SheetContent side={'left'}>
-        <SheetHeader>
-          <Logo
-            size='40'
-            title='ETool'
-          />
-        </SheetHeader>
-        <ul>{mobileNavbarItems}</ul>
-      </SheetContent>
-    </Sheet>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent>
+        <DropdownMenuGroup>
+          {!user ? (
+            <DropdownMenuItem asChild>
+              <Link href={ROUTES.LOGIN}>Sign in</Link>
+            </DropdownMenuItem>
+          ) : (
+            <DropdownMenuItem asChild>
+              <Link href={ROUTES.DASHBOARD}>Dashboard</Link>
+            </DropdownMenuItem>
+          )}
+          {mobileNavbarItems}
+        </DropdownMenuGroup>
+      </DropdownMenuContent>
+    </DropdownMenu>
   );
 }
