@@ -35,7 +35,6 @@ export async function MobileNavButton() {
   ));
 
   return (
-    // <AlertDialog>
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button
