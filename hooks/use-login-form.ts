@@ -1,14 +1,13 @@
 import z from 'zod';
 import { LOGIN_DEFAULT_VALUES, LOGIN_FORM_SCHEMA } from '@/schemas/auth';
 import { ENDPOINTS, ROUTES } from '@/lib/routes';
+import { toast } from 'sonner';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
-import { useToast } from '@/components/ui/use-toast';
 
 export function useLoginForm() {
   const router = useRouter();
-  const { toast } = useToast();
   const DELAY_ERROR = 300;
 
   const form = useForm<z.infer<typeof LOGIN_FORM_SCHEMA>>({
@@ -31,10 +30,7 @@ export function useLoginForm() {
 
       if (data.status === 201) {
         router.push(ROUTES.DASHBOARD);
-        toast({
-          title: data.message,
-          description: data.description,
-        });
+        toast.success(data.message, { description: data.description });
       }
 
       if (data.status === 409) {
