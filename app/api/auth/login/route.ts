@@ -27,7 +27,7 @@ export async function POST(request: Request) {
     const sessionCookie = auth.createSessionCookie(session.id);
     cookies().set(sessionCookie.name, sessionCookie.value, sessionCookie.attributes);
 
-    return NextResponse.json({ message: 'Successful Login', description: `Hello ${user.firstName}, have a nice day!`, status: 201 });
+    return NextResponse.json({ message: 'Successful Login', description: `Hello ${user.firstName}, have a nice day! Redirecting...`, status: 201 });
   } catch (error) {
     console.log(error);
   }
