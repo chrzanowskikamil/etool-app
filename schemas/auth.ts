@@ -24,3 +24,11 @@ export const LOGIN_FORM_SCHEMA = object({
   username: string().email().toLowerCase(),
   password: string().min(VALIDATION_CONSTANTS.MIN_PASSWORD_LENGTH, { message: VALIDATION_CONSTANTS.PASSWORD_MIN_LENGTH_MESSAGE }).max(VALIDATION_CONSTANTS.MAX_PASSWORD_LENGTH),
 });
+
+export const RESET_PASSWORD_DEFAULT_VALUES = {
+  username: '',
+};
+
+export const RESET_PASSWORD_FROM_SCHEMA = object({
+  username: LOGIN_FORM_SCHEMA.shape.username,
+});

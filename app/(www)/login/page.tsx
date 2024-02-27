@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import LoginForm from '@/components/login-form';
-import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card';
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { ROUTES } from '@/lib/routes';
 import { redirect } from 'next/navigation';
 import { validateRequest } from '@/lib/auth';
@@ -16,7 +16,7 @@ export default async function LoginPage() {
     <main className='flex flex-col items-center container'>
       <Card className='my-16 sm:w-3/4 md:w-1/3 md:my-48 md:h-1/2'>
         <CardHeader>
-          <h1 className='text-3xl font-medium text-center p-2 '>Welcome back!</h1>
+          <CardTitle className='text-3xl font-medium text-center p-2 '>Welcome back!</CardTitle>
         </CardHeader>
         <CardContent>
           <LoginForm />
