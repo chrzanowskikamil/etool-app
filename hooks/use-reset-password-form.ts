@@ -15,7 +15,13 @@ export function useResetPasswordForm() {
   });
 
   async function onSubmit(value: z.infer<typeof RESET_PASSWORD_FROM_SCHEMA>) {
-    toast.success(value.username);
+    const response = await fetch('/api/auth/reset-password', {
+      method: 'POST',
+      body: JSON.stringify(value),
+    });
+
+    const data = await response.json();
+    toast.success(data.message, { description: data.description });
   }
 
   return { form, onSubmit };

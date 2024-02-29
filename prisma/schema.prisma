@@ -23,3 +23,10 @@ model Session {
     expiresAt DateTime
     user User @relation(references: [id], fields: [userId], onDelete: Cascade)
 }
+
+model ResetPasswordToken {
+    id String @id
+    token String 
+    userId String 
+    expiresAt DateTime
+}
