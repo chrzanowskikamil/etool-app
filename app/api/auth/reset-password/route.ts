@@ -19,14 +19,14 @@ export async function POST(request: Request) {
     if (!user) return NextResponse.json({ message: 'Reseting failed', description: `User with this email isn't exist.`, status: 400 });
 
     const verificationToken = await createPasswordResetToken(user.id);
-    const resetPasswordLink = `${process.env.NEXT_PUBLIC_BASE_URL}${ROUTES.RESET_PASSWORD}${verificationToken}`;
+    const resetPasswordLink = `${process.env.NEXT_PUBLIC_BASE_URL}${ROUTES.NEW_PASSWORD}?token=${verificationToken}`;
 
     const resend = new Resend(process.env.RESEND_API_KEY);
     const { data, error } = await resend.emails.send({
       from: 'reset-password@etool.solutions',
       to: username,
       subject: 'Password reset',
-      text: `Your password reset link: ${process.env.NEXT_PUBLIC_BASE_URL}${ROUTES.RESET_PASSWORD}${verificationToken}`,
+      text: `Your password reset link: ${resetPasswordLink}`,
     });
 
     if (error) {
