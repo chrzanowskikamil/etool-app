@@ -32,3 +32,13 @@ export const RESET_PASSWORD_DEFAULT_VALUES = {
 export const RESET_PASSWORD_FORM_SCHEMA = object({
   username: LOGIN_FORM_SCHEMA.shape.username,
 });
+
+export const NEW_PASSWORD_DEFAULT_VALUES = {
+  password: '',
+  confirmPassword: '',
+};
+
+export const NEW_PASSWORD_FORM_SCHEMA = object({
+  password: LOGIN_FORM_SCHEMA.shape.password,
+  confirmPassword: LOGIN_FORM_SCHEMA.shape.password,
+}).refine((data) => data.password === data.confirmPassword, { message: VALIDATION_CONSTANTS.PASSWORD_NOT_MATCH_MESSAGE, path: ['confirmPassword'] });

@@ -13,4 +13,5 @@ export const VALIDATION_CONSTANTS: ValidateConstantsType = {
   MAX_PASSWORD_LENGTH: 100,
   REQUIRED_FIELD_MESSAGE: 'This field is required',
   PASSWORD_MIN_LENGTH_MESSAGE: 'Password must be at least 8 characters long',
+  PASSWORD_NOT_MATCH_MESSAGE: 'Passwords do not match',
 };

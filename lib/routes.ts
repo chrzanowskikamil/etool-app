@@ -7,10 +7,11 @@ export enum ROUTES {
   LOGIN = '/login/',
   PROFILE = '/dashboard/profile/',
   REGISTER = '/register/',
-  RESET_PASSWORD = '/reset-password/',
   REPORTS = '/dashboard/reports/',
   REVIEWS = '/reviews/',
   CONTACT = '/contact/',
+  RESET_PASSWORD = '/reset-password',
+  NEW_PASSWORD = '/new-password',
 }
 
 export enum ENDPOINTS {

@@ -6,4 +6,5 @@ interface ValidateConstantsType {
   MAX_PASSWORD_LENGTH: number;
   REQUIRED_FIELD_MESSAGE: string;
   PASSWORD_MIN_LENGTH_MESSAGE: string;
+  PASSWORD_NOT_MATCH_MESSAGE: string;
 }
