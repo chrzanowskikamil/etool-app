@@ -4,12 +4,10 @@ import { NEW_PASSWORD_DEFAULT_VALUES, NEW_PASSWORD_FORM_SCHEMA } from '@/schemas
 import { toast } from 'sonner';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
-import { useSearchParams } from 'next/navigation';
 import { useRouter } from 'next/navigation';
 
 export function useNewPasswordForm() {
   const DELAY_ERROR = 300;
-  const searchParams = useSearchParams();
   const router = useRouter();
 
   const form = useForm<z.infer<typeof NEW_PASSWORD_FORM_SCHEMA>>({
@@ -20,7 +18,7 @@ export function useNewPasswordForm() {
   });
 
   async function onSubmit(value: z.infer<typeof NEW_PASSWORD_FORM_SCHEMA>) {
-    const verificationToken = searchParams.get('token');
+    const verificationToken = new URLSearchParams(window.location.search).get('token');
     try {
       const response = await fetch(ENDPOINTS.NEW_PASSWORD, {
         method: 'POST',
