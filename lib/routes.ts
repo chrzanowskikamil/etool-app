@@ -19,4 +19,5 @@ export enum ENDPOINTS {
   LOGOUT = '/api/auth/logout',
   REGISTER = '/api/auth/register',
   RESET_PASSWORD = '/api/auth/reset-password',
+  NEW_PASSWORD = '/api/auth/new-password',
 }
