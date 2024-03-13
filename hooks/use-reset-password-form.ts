@@ -33,6 +33,11 @@ export function useResetPasswordForm() {
         setError('username', { type: 'manual', message: data.description });
         toast.error(data.message, { description: data.description });
       }
+
+      if (data.status === 500) {
+        setError('username', { type: 'manual', message: data.message });
+        toast.error(data.message, { description: data.description });
+      }
     } catch (error) {
       console.log(error);
     }
