@@ -1,5 +1,5 @@
 import prisma from '@/lib/prisma';
-import { createPasswordResetToken } from '@/server/auth';
+import { createPasswordResetToken } from '@/actions/auth-service';
 import { RESET_PASSWORD_FORM_SCHEMA } from '@/schemas/auth';
 import { NextResponse } from 'next/server';
 import { Resend } from 'resend';
