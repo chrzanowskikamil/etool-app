@@ -3,12 +3,17 @@
 import { Button } from './ui/button';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from './ui/form';
 import { Input } from './ui/input';
+import { EyeClosedIcon, EyeOpenIcon } from '@radix-ui/react-icons';
 import { LoadingSpinner } from './icons';
 import { useRegisterForm } from '@/hooks/use-register-form';
+import { useState } from 'react';
 
 export default function RegisterForm() {
   const { form, onSubmit } = useRegisterForm();
   const { isSubmitting } = form.formState;
+  const [passwordVisible, setPasswordVisible] = useState(false);
+
+  const handleShowPassword = () => setPasswordVisible(!passwordVisible);
 
   return (
     <Form {...form}>
@@ -88,14 +93,22 @@ export default function RegisterForm() {
             <FormItem>
               <FormLabel form='password'>Password</FormLabel>
               <FormControl>
-                <Input
-                  autoCapitalize='off'
-                  disabled={isSubmitting}
-                  id='password'
-                  type='password'
-                  placeholder='********'
-                  {...field}
-                />
+                <div className='flex w-full max-w-sm items-center space-x-2'>
+                  <Input
+                    autoCapitalize='off'
+                    disabled={isSubmitting}
+                    id='password'
+                    type={passwordVisible ? 'text' : 'password'}
+                    placeholder='********'
+                    {...field}
+                  />
+                  <Button
+                    onClick={handleShowPassword}
+                    type='button'
+                    variant={'outline'}>
+                    {passwordVisible ? <EyeOpenIcon /> : <EyeClosedIcon />}
+                  </Button>
+                </div>
               </FormControl>
               <FormMessage />
             </FormItem>
