@@ -4,11 +4,18 @@ import { Button } from './ui/button';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from './ui/form';
 import { Input } from './ui/input';
 import { LoadingSpinner } from './icons';
+import { EyeClosedIcon, EyeOpenIcon } from '@radix-ui/react-icons';
 import { useNewPasswordForm } from '@/hooks/use-new-password-form';
+import { useState } from 'react';
 
 export default function NewPasswordForm() {
   const { form, onSubmit } = useNewPasswordForm();
   const { isSubmitting } = form.formState;
+  const [passwordVisible, setPasswordVisible] = useState(false);
+  const [confirmPasswordVisible, setConfirmPasswordVisible] = useState(false);
+
+  const handleShowPassword = () => setPasswordVisible(!passwordVisible);
+  const handleShowConfirmPassword = () => setConfirmPasswordVisible(!confirmPasswordVisible);
 
   return (
     <Form {...form}>
@@ -22,16 +29,24 @@ export default function NewPasswordForm() {
             <FormItem>
               <FormLabel>New password</FormLabel>
               <FormControl>
-                <Input
-                  autoCapitalize='off'
-                  autoComplete='new-password'
-                  autoCorrect='off'
-                  disabled={isSubmitting}
-                  id='password'
-                  placeholder='********'
-                  type='password'
-                  {...field}
-                />
+                <div className='flex w-full max-w-sm items-center space-x-2'>
+                  <Input
+                    autoCapitalize='off'
+                    autoComplete='new-password'
+                    autoCorrect='off'
+                    disabled={isSubmitting}
+                    id='password'
+                    placeholder='********'
+                    type={passwordVisible ? 'text' : 'password'}
+                    {...field}
+                  />
+                  <Button
+                    onClick={handleShowPassword}
+                    type='button'
+                    variant={'outline'}>
+                    {passwordVisible ? <EyeOpenIcon /> : <EyeClosedIcon />}
+                  </Button>
+                </div>
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -44,16 +59,24 @@ export default function NewPasswordForm() {
             <FormItem>
               <FormLabel>Confirm password</FormLabel>
               <FormControl>
-                <Input
-                  autoCapitalize='off'
-                  autoComplete='new-password'
-                  autoCorrect='off'
-                  disabled={isSubmitting}
-                  id='confirmPassword'
-                  placeholder='********'
-                  type='password'
-                  {...field}
-                />
+                <div className='flex w-full max-w-sm items-center space-x-2'>
+                  <Input
+                    autoCapitalize='off'
+                    autoComplete='new-password'
+                    autoCorrect='off'
+                    disabled={isSubmitting}
+                    id='confirmPassword'
+                    placeholder='********'
+                    type={confirmPasswordVisible ? 'text' : 'password'}
+                    {...field}
+                  />
+                  <Button
+                    onClick={handleShowConfirmPassword}
+                    type='button'
+                    variant={'outline'}>
+                    {confirmPasswordVisible ? <EyeOpenIcon /> : <EyeClosedIcon />}
+                  </Button>
+                </div>
               </FormControl>
               <FormMessage />
             </FormItem>
