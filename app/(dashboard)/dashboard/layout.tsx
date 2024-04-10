@@ -2,6 +2,7 @@ import '../../styles/globals.css';
 import type { Metadata } from 'next';
 import { Montserrat } from 'next/font/google';
 import { ThemeProvider } from '@/components/theme-provider';
+import Providers from '@/lib/providers';
 
 export const metadata: Metadata = {
   title: 'ETool',
@@ -16,11 +17,13 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       lang='en'
       suppressHydrationWarning>
       <body className={`${montserratFont.className} relative flex min-h-screen`}>
-        <ThemeProvider
-          attribute='class'
-          defaultTheme='dark'>
-          {children}
-        </ThemeProvider>
+        <Providers>
+          <ThemeProvider
+            attribute='class'
+            defaultTheme='dark'>
+            {children}
+          </ThemeProvider>
+        </Providers>
       </body>
     </html>
   );
