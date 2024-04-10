@@ -4,6 +4,7 @@ import { Montserrat } from 'next/font/google';
 import { ThemeProvider } from '@/components/theme-provider';
 import { Toaster } from '@/components/ui/sonner';
 import { Navbar } from '@/components/navbar';
+import Providers from '@/lib/providers';
 
 export const metadata: Metadata = {
   title: 'ETool',
@@ -20,22 +21,24 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       lang='en'
       suppressHydrationWarning>
       <body className={`${montserratFont.className} relative flex min-h-screen flex-col`}>
-        <ThemeProvider
-          attribute='class'
-          defaultTheme='dark'>
-          <Navbar />
-          <Toaster
-            toastOptions={{
-              style: {
-                fontFamily: `${montserratFont.style.fontFamily}`,
-              },
-            }}
-            offset={toastOffset}
-            position={toastPosition}
-            richColors
-          />
-          {children}
-        </ThemeProvider>
+        <Providers>
+          <ThemeProvider
+            attribute='class'
+            defaultTheme='dark'>
+            <Navbar />
+            <Toaster
+              toastOptions={{
+                style: {
+                  fontFamily: `${montserratFont.style.fontFamily}`,
+                },
+              }}
+              offset={toastOffset}
+              position={toastPosition}
+              richColors
+            />
+            {children}
+          </ThemeProvider>
+        </Providers>
       </body>
     </html>
   );

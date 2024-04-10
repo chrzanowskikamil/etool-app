@@ -4,9 +4,9 @@ import prisma from '@/lib/prisma';
 import { generateId } from 'lucia';
 import { TimeSpan, createDate } from 'oslo';
 
-export async function createPasswordResetToken(userId: string) {
-  const EXPIRE_IN = new TimeSpan(2, 'h');
+const EXPIRE_IN = new TimeSpan(2, 'h');
 
+export async function createPasswordResetToken(userId: string) {
   await prisma.resetPasswordToken.deleteMany({
     where: {
       userId: userId,
@@ -23,5 +23,6 @@ export async function createPasswordResetToken(userId: string) {
       expiresAt: createDate(EXPIRE_IN),
     },
   });
+
   return tokenId;
 }
