@@ -1,9 +1,9 @@
-import { z } from 'zod';
+import { createResetPasswordLink } from '@/server/actions/auth-service';
 import { RESET_PASSWORD_DEFAULT_VALUES, RESET_PASSWORD_FORM_SCHEMA } from '@/schemas/auth';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
 import { toast } from 'sonner';
-import { ENDPOINTS } from '@/lib/routes';
+import { z } from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm } from 'react-hook-form';
 
 export function useResetPasswordForm() {
   const DELAY_ERROR = 300;
@@ -18,28 +18,16 @@ export function useResetPasswordForm() {
   const { setError } = form;
 
   async function onSubmit(value: z.infer<typeof RESET_PASSWORD_FORM_SCHEMA>) {
-    try {
-      const response = await fetch(ENDPOINTS.RESET_PASSWORD, {
-        method: 'POST',
-        body: JSON.stringify(value),
-      });
+    const { username } = value;
+    const { success, error, message } = await createResetPasswordLink(username);
 
-      const data = await response.json();
+    if (error) {
+      setError('username', { message });
+      toast.error(error, { description: message });
+    }
 
-      if (data.status === 201) {
-        toast.success(data.message, { description: data.description });
-      }
-      if (data.status === 400) {
-        setError('username', { type: 'manual', message: data.description });
-        toast.error(data.message, { description: data.description });
-      }
-
-      if (data.status === 500) {
-        setError('username', { type: 'manual', message: data.message });
-        toast.error(data.message, { description: data.description });
-      }
-    } catch (error) {
-      console.log(error);
+    if (success) {
+      toast.success(success, { description: message });
     }
   }
   return { form, onSubmit };
