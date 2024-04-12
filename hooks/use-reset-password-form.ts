@@ -1,4 +1,4 @@
-import { createResetPasswordLink } from '@/server/actions/auth-service';
+import { sendPasswordResetLink } from '@/server/actions/user/reset-password';
 import { RESET_PASSWORD_DEFAULT_VALUES, RESET_PASSWORD_FORM_SCHEMA } from '@/schemas/auth';
 import { toast } from 'sonner';
 import { z } from 'zod';
@@ -19,7 +19,7 @@ export function useResetPasswordForm() {
 
   async function onSubmit(value: z.infer<typeof RESET_PASSWORD_FORM_SCHEMA>) {
     const { username } = value;
-    const { success, error, message } = await createResetPasswordLink(username);
+    const { success, error, message } = await sendPasswordResetLink(username);
 
     if (error) {
       setError('username', { message });
