@@ -2,7 +2,7 @@
 
 import prisma from '@/lib/prisma';
 import { ROUTES } from '@/lib/routes';
-import { NEW_PASSWORD_FORM_SCHEMA, RESET_PASSWORD_FORM_SCHEMA } from '@/schemas/auth';
+import { RESET_PASSWORD_FORM_SCHEMA } from '@/schemas/auth';
 import { generateId } from 'lucia';
 import { TimeSpan, createDate } from 'oslo';
 import { sendEmail } from '../email/send-email';
@@ -87,14 +87,14 @@ export async function createNewPassword(newPassword: string, verificationToken: 
     }
 
     await auth.invalidateUserSessions(token.userId);
-    const hashedPassword = await new Argon2id().hash(newPassword);
+    const newHashedPassword = await new Argon2id().hash(newPassword);
 
     await prisma.user.update({
       where: {
         id: token.userId,
       },
       data: {
-        hashed_password: hashedPassword,
+        hashed_password: newHashedPassword,
       },
     });
 
