@@ -1,10 +1,11 @@
 import z from 'zod';
 import { REGISTER_FORM_SCHEMA, REGISTER_DEFAULT_VALUES } from '@/schemas/auth';
-import { ROUTES, ENDPOINTS } from '@/lib/routes';
+import { ROUTES } from '@/lib/routes';
 import { toast } from 'sonner';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
+import { signUpByEmail } from '@/server/actions/user/sign-up';
 
 export function useRegisterForm() {
   const router = useRouter();
@@ -20,25 +21,16 @@ export function useRegisterForm() {
   const { setError } = form;
 
   async function onSubmit(values: z.infer<typeof REGISTER_FORM_SCHEMA>) {
-    try {
-      const response = await fetch(ENDPOINTS.REGISTER, {
-        method: 'POST',
-        body: JSON.stringify(values),
-      });
+    const { success, error, message } = await signUpByEmail(values);
 
-      const data = await response.json();
+    if (error) {
+      setError('username', { message });
+      toast.error(error, { description: message });
+    }
 
-      if (data.status === 201) {
-        toast.success(data.message, { description: data.description });
-        router.push(ROUTES.DASHBOARD);
-      }
-
-      if (data.status === 409) {
-        setError('username', { type: 'manual', message: data.description });
-        toast.error(data.message, { description: data.description });
-      }
-    } catch (error) {
-      console.log(error);
+    if (success) {
+      toast.success(success, { description: message });
+      router.push(ROUTES.DASHBOARD);
     }
   }
 
