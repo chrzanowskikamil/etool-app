@@ -1,10 +1,11 @@
 import z from 'zod';
 import { LOGIN_DEFAULT_VALUES, LOGIN_FORM_SCHEMA } from '@/schemas/auth';
-import { ENDPOINTS, ROUTES } from '@/lib/routes';
+import { ROUTES } from '@/lib/routes';
 import { toast } from 'sonner';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
+import { signIn } from '@/server/actions/auth/sign-in';
 
 export function useLoginForm() {
   const router = useRouter();
@@ -20,28 +21,21 @@ export function useLoginForm() {
   const { setError } = form;
 
   async function onSubmit(values: z.infer<typeof LOGIN_FORM_SCHEMA>) {
-    try {
-      const response = await fetch(ENDPOINTS.LOGIN, {
-        method: 'POST',
-        body: JSON.stringify(values),
-      });
+    const { error, success, message, isPasswordValid, isUserExist } = await signIn(values);
 
-      const data = await response.json();
+    if (isUserExist) {
+      setError('username', { message });
+      toast.error(error, { description: message });
+    }
 
-      if (data.status === 201) {
-        router.push(ROUTES.DASHBOARD);
-        toast.success(data.message, { description: data.description });
-      }
+    if (isPasswordValid) {
+      setError('password', { message });
+      toast.error(error, { description: message });
+    }
 
-      if (data.status === 409) {
-        setError('username', { type: 'manual', message: data.description });
-      }
-
-      if (data.status === 401) {
-        setError('password', { type: 'manual', message: data.description });
-      }
-    } catch (error) {
-      console.log(error);
+    if (success) {
+      toast.success(success, { description: message });
+      router.push(ROUTES.DASHBOARD);
     }
   }
 
