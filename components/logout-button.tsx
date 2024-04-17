@@ -1,19 +1,16 @@
 'use client';
 
-import { ENDPOINTS, ROUTES } from '@/lib/routes';
 import { Button } from './ui/button';
-import { useRouter } from 'next/navigation';
+import { LoadingSpinner } from './icons';
+import { signOut } from '@/server/actions/auth/sign-out';
+import { useState } from 'react';
 
 export function LogoutButton() {
-  const router = useRouter();
+  const [loading, setLoading] = useState<boolean>();
   const handleLogout = async () => {
-    const response = await fetch(ENDPOINTS.LOGOUT, {
-      method: 'POST',
-    });
-    if (response.ok) {
-      router.push(ROUTES.LOGIN);
-    }
+    await signOut();
+    setLoading(true);
   };
 
-  return <Button onClick={() => handleLogout()}>Logout</Button>;
+  return <Button onClick={() => handleLogout()}>Logout{loading ? <LoadingSpinner /> : null}</Button>;
 }

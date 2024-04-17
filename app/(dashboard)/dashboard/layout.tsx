@@ -3,6 +3,7 @@ import type { Metadata } from 'next';
 import { Montserrat } from 'next/font/google';
 import { ThemeProvider } from '@/components/theme-provider';
 import Providers from '@/lib/providers';
+import { Toaster } from 'sonner';
 
 export const metadata: Metadata = {
   title: 'ETool',
@@ -10,6 +11,8 @@ export const metadata: Metadata = {
 };
 
 const montserratFont = Montserrat({ subsets: ['latin'] });
+const toastPosition = 'top-right';
+const toastOffset = '52px';
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -22,6 +25,16 @@ export default async function RootLayout({ children }: { children: React.ReactNo
             attribute='class'
             defaultTheme='dark'>
             {children}
+            <Toaster
+              toastOptions={{
+                style: {
+                  fontFamily: `${montserratFont.style.fontFamily}`,
+                },
+              }}
+              offset={toastOffset}
+              position={toastPosition}
+              richColors
+            />
           </ThemeProvider>
         </Providers>
       </body>
