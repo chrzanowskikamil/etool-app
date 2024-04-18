@@ -1,4 +1,4 @@
-import { VALIDATION_CONSTANTS } from '@/lib/utils';
+import { VALIDATION_CONSTANTS } from '@/utils';
 import { object, string } from 'zod';
 
 export const REGISTER_DEFAULT_VALUES = {

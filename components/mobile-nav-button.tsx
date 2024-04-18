@@ -2,8 +2,8 @@ import Link from 'next/link';
 import { Button } from './ui/button';
 import { HamburgerMenuIcon } from '@radix-ui/react-icons';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from './ui/dropdown-menu';
-import { ROUTES } from '@/lib/routes';
-import { validateRequest } from '@/lib/auth';
+import { ROUTES } from '@/utils';
+import { validateRequest } from '@/lib/lucia-auth';
 
 export async function MobileNavButton() {
   const { user } = await validateRequest();

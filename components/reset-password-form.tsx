@@ -5,7 +5,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '
 import { LoadingSpinner } from './icons';
 import { EnvelopeClosedIcon } from '@radix-ui/react-icons';
 import { Input } from './ui/input';
-import { ROUTES } from '@/lib/routes';
+import { ROUTES } from '@/utils';
 import { useRouter } from 'next/navigation';
 import { useResetPasswordForm } from '@/hooks/use-reset-password-form';
 

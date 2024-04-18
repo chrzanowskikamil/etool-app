@@ -1,8 +1,8 @@
 'use server';
 
-import { auth } from '@/lib/auth';
+import { auth } from '@/lib/lucia-auth';
 import prisma from '@/lib/prisma';
-import { REGISTER_FORM_SCHEMA } from '@/schemas/auth';
+import { REGISTER_FORM_SCHEMA } from '@/schemas/form-schemas';
 import { generateId } from 'lucia';
 import { cookies } from 'next/headers';
 import { Argon2id } from 'oslo/password';
