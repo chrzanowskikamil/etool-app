@@ -2,7 +2,7 @@
 
 import { SunIcon, MoonIcon } from '@radix-ui/react-icons';
 import { Button } from './ui/button';
-import { ROUTES } from '@/lib/routes';
+import { ROUTES } from '@/utils';
 import { useTheme } from 'next-themes';
 import { usePathname } from 'next/navigation';
 

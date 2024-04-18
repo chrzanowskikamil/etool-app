@@ -1,6 +1,6 @@
 import { z } from 'zod';
-import { ROUTES } from '@/lib/routes';
-import { NEW_PASSWORD_DEFAULT_VALUES, NEW_PASSWORD_FORM_SCHEMA } from '@/schemas/auth';
+import { ROUTES } from '@/utils';
+import { NEW_PASSWORD_DEFAULT_VALUES, NEW_PASSWORD_FORM_SCHEMA } from '@/schemas/form-schemas';
 import { toast } from 'sonner';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';

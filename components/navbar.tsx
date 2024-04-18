@@ -4,9 +4,9 @@ import { buttonVariants } from './ui/button';
 import { Logo } from './logo';
 import { MobileNavButton } from './mobile-nav-button';
 import { ThemeToggleButton } from './theme-toggle-button';
-import { ROUTES } from '@/lib/routes';
-import { cn } from '@/lib/utils';
-import { validateRequest } from '@/lib/auth';
+import { ROUTES } from '@/utils';
+import { cn } from '@/utils';
+import { validateRequest } from '@/lib/lucia-auth';
 
 export async function Navbar() {
   const { user } = await validateRequest();

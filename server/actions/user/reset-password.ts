@@ -1,12 +1,12 @@
 'use server';
 
 import prisma from '@/lib/prisma';
-import { ROUTES } from '@/lib/routes';
-import { RESET_PASSWORD_FORM_SCHEMA } from '@/schemas/auth';
+import { ROUTES } from '@/utils';
+import { RESET_PASSWORD_FORM_SCHEMA } from '@/schemas/form-schemas';
 import { generateId } from 'lucia';
 import { TimeSpan, createDate } from 'oslo';
 import { sendEmail } from '../email/send-email';
-import { auth } from '@/lib/auth';
+import { auth } from '@/lib/lucia-auth';
 import { Argon2id } from 'oslo/password';
 
 const EXPIRE_IN = new TimeSpan(2, 'h');

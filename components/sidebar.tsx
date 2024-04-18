@@ -7,8 +7,8 @@ import { Separator } from './ui/separator';
 import { Logo } from './logo';
 import { LogoutButton } from './logout-button';
 import { ThemeToggleButton } from './theme-toggle-button';
-import { ROUTES } from '@/lib/routes';
-import { validateRequest } from '@/lib/auth';
+import { ROUTES } from '@/utils';
+import { validateRequest } from '@/lib/lucia-auth';
 
 const SIDEBAR_LINKS = [
   {

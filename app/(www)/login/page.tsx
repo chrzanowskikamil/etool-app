@@ -1,9 +1,9 @@
 import Link from 'next/link';
 import LoginForm from '@/components/login-form';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import { ROUTES } from '@/lib/routes';
+import { ROUTES } from '@/utils';
 import { redirect } from 'next/navigation';
-import { validateRequest } from '@/lib/auth';
+import { validateRequest } from '@/lib/lucia-auth';
 
 export default async function LoginPage() {
   const { user } = await validateRequest();

@@ -42,13 +42,13 @@ export const validateRequest = cache(async (): Promise<{ user: User; session: Se
   return result;
 });
 
+interface DatabaseUserAttributes {
+  username: string;
+}
+
 declare module 'lucia' {
   interface Register {
     Lucia: typeof auth;
     DatabaseUserAttributes: DatabaseUserAttributes;
   }
-}
-
-interface DatabaseUserAttributes {
-  username: string;
 }

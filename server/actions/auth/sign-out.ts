@@ -1,6 +1,6 @@
 'use server';
 
-import { auth, validateRequest } from '@/lib/auth';
+import { auth, validateRequest } from '@/lib/lucia-auth';
 import { cookies } from 'next/headers';
 
 export async function signOut() {

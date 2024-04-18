@@ -1,6 +1,6 @@
 import { Sidebar } from '@/components/sidebar';
-import { validateRequest } from '@/lib/auth';
-import { ROUTES } from '@/lib/routes';
+import { validateRequest } from '@/lib/lucia-auth';
+import { ROUTES } from '@/utils';
 import { redirect } from 'next/navigation';
 
 export default async function DashboardPage(): Promise<JSX.Element> {
