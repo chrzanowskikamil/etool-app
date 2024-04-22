@@ -8,7 +8,7 @@ import { Logo } from './logo';
 import { LogoutButton } from './logout-button';
 import { ThemeToggleButton } from './theme-toggle-button';
 import { ROUTES } from '@/utils';
-import { validateRequest } from '@/lib/lucia-auth';
+import { validateRequest } from '@/server/actions/auth/validate-request';
 
 const SIDEBAR_LINKS = [
   {

@@ -1,5 +1,5 @@
 import { Sidebar } from '@/components/sidebar';
-import { validateRequest } from '@/lib/lucia-auth';
+import { validateRequest } from '@/server/actions/auth/validate-request';
 import { ROUTES } from '@/utils';
 import { redirect } from 'next/navigation';
 

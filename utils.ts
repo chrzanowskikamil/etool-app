@@ -1,5 +1,6 @@
 import { type ClassValue, clsx } from 'clsx';
 import { twMerge } from 'tailwind-merge';
+import { ValidateConstantsType } from './types';
 
 export enum ROUTES {
   ABOUT = '/about/',

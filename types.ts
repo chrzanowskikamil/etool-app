@@ -1,4 +1,4 @@
-interface ValidateConstantsType {
+export interface ValidateConstantsType {
   MIN_FIRST_NAME_LENGTH: number;
   MAX_FIRST_NAME_LENGTH: number;
   MIN_PASSWORD_LENGTH: number;
