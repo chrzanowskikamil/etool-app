@@ -1,14 +1,11 @@
 import z from 'zod';
 import { LOGIN_DEFAULT_VALUES, LOGIN_FORM_SCHEMA } from '@/schemas/form-schemas';
-import { ROUTES } from '@/utils';
-import { toast } from 'sonner';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
-import { useRouter } from 'next/navigation';
 import { signIn } from '@/server/actions/auth/sign-in';
+import { toast } from 'sonner';
 
 export function useLoginForm() {
-  const router = useRouter();
   const DELAY_ERROR = 300;
 
   const form = useForm<z.infer<typeof LOGIN_FORM_SCHEMA>>({
@@ -21,23 +18,25 @@ export function useLoginForm() {
   const { setError } = form;
 
   async function onSubmit(values: z.infer<typeof LOGIN_FORM_SCHEMA>) {
-    const { error, success, message, isPasswordValid, isUserExist } = await signIn(values);
+    const { success, error, message, isPasswordValid, isUserExist } = await signIn(values);
 
-    if (isUserExist) {
-      setError('username', { message });
+    if (isPasswordValid === false) {
+      setError('password', {
+        message,
+      });
       toast.error(error, { description: message });
     }
 
-    if (isPasswordValid) {
-      setError('password', { message });
+    if (isUserExist === false) {
+      setError('username', {
+        message,
+      });
       toast.error(error, { description: message });
     }
 
     if (success) {
       toast.success(success, { description: message });
-      router.push(ROUTES.DASHBOARD);
     }
   }
-
   return { form, onSubmit };
 }

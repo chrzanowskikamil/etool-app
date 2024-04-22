@@ -1,6 +1,6 @@
 'use server';
 
-import { auth } from '@/lib/lucia-auth';
+import { auth } from '@/lib/lucia';
 import prisma from '@/lib/prisma';
 import { REGISTER_FORM_SCHEMA } from '@/schemas/form-schemas';
 import { generateId } from 'lucia';

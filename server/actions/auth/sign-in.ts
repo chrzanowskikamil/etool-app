@@ -1,49 +1,31 @@
 'use server';
 
-import { auth } from '@/lib/lucia-auth';
-import prisma from '@/lib/prisma';
 import { LOGIN_FORM_SCHEMA } from '@/schemas/form-schemas';
-import { cookies } from 'next/headers';
-import { Argon2id } from 'oslo/password';
+import { createSessionAndSetCookie } from './create-session-and-set-cookie';
+import { validatePassword } from './validate-password';
+import { validateUser } from './validate-user';
 import { z } from 'zod';
 
 export async function signIn(credentials: z.infer<typeof LOGIN_FORM_SCHEMA>) {
   const { username, password } = credentials;
+
   try {
-    const user = await prisma.user.findFirst({
-      where: { username },
-    });
+    const { success, error, message, user, isUserExist } = await validateUser(username);
 
-    if (!user?.username) {
-      return {
-        isUserExist: !user?.username,
-        error: 'Logging failed',
-        message: 'This email address is not registered',
-      };
-    }
+    if (!user) return { success, error, message, isUserExist };
 
-    const isPasswordValid = await new Argon2id().verify(user.hashed_password, password);
+    const isPasswordValid = await validatePassword(user.hashed_password, password);
 
-    if (!isPasswordValid) {
-      return {
-        isPasswordValid: !isPasswordValid,
-        error: 'Bad credentials',
-        message: 'Make sure you entered the correct credentials',
-      };
-    }
+    if (!isPasswordValid) return { success: false, error: 'Bad credentials', message: 'Wrong password', isPasswordValid };
 
-    const session = await auth.createSession(user.id, {});
-    const sessionCookie = auth.createSessionCookie(session.id);
-    cookies().set(sessionCookie.name, sessionCookie.value, sessionCookie.attributes);
-
-    return {
-      success: 'Successful Login',
-      message: `Hello ${user.firstName}, have a nice day! Redirecting...`,
-    };
+    await createSessionAndSetCookie(user.id);
+    return { success: true, error: '', message };
   } catch (error) {
+    console.error(`Error in signIn function: ${error}`);
     return {
-      error: 'Logging failed',
-      message: 'Something went wrong on the server',
+      success: false,
+      error: 'Internal server error',
+      message: 'An error occurred while signing in',
     };
   }
 }
