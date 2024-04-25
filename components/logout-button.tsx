@@ -2,7 +2,7 @@
 
 import { Button } from './ui/button';
 import { LoadingSpinner } from './icons';
-import { signOut } from '@/server/actions/auth/sign-out';
+import { signOut } from '@/server/auth/sign-out';
 import { useState } from 'react';
 
 export function LogoutButton() {

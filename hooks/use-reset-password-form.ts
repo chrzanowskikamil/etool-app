@@ -1,4 +1,4 @@
-import { sendPasswordResetLink } from '@/server/actions/user/reset-password';
+import { sendPasswordResetLink } from '@/server/auth/reset-password';
 import { RESET_PASSWORD_DEFAULT_VALUES, RESET_PASSWORD_FORM_SCHEMA } from '@/schemas/form-schemas';
 import { toast } from 'sonner';
 import { z } from 'zod';

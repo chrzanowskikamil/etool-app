@@ -6,10 +6,10 @@ import { MobileNavButton } from './mobile-nav-button';
 import { ThemeToggleButton } from './theme-toggle-button';
 import { ROUTES } from '@/utils';
 import { cn } from '@/utils';
-import { validateRequest } from '@/server/actions/auth/validate-request';
+import { getSession } from '@/server/auth/session';
 
 export async function Navbar() {
-  const { user } = await validateRequest();
+  const { user } = await getSession();
   const NAVBAR_ITEMS = [
     {
       title: 'Docs',

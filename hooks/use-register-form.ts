@@ -5,7 +5,7 @@ import { toast } from 'sonner';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
-import { signUpByEmail } from '@/server/actions/user/sign-up';
+import { signUpByEmail } from '@/server/auth/sign-up';
 
 export function useRegisterForm() {
   const router = useRouter();

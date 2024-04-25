@@ -8,7 +8,7 @@ import { Logo } from './logo';
 import { LogoutButton } from './logout-button';
 import { ThemeToggleButton } from './theme-toggle-button';
 import { ROUTES } from '@/utils';
-import { validateRequest } from '@/server/actions/auth/validate-request';
+import { getSession } from '@/server/auth/session';
 
 const SIDEBAR_LINKS = [
   {
@@ -40,7 +40,7 @@ const sidebarLinksItems = SIDEBAR_LINKS.map((item) => (
 ));
 
 export async function Sidebar() {
-  const { user } = await validateRequest();
+  const { user } = await getSession();
 
   return (
     <nav

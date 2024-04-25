@@ -2,6 +2,9 @@ import { type ClassValue, clsx } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 import { ValidateConstantsType } from './types';
 
+//TODO: Refactor to utils/paths.ts
+//TODO: Nice approach to use is here: https://bitbucket.org/spinbits/app-spinbits-2/src/master/frontend/src/utils/images-path.ts
+
 export enum ROUTES {
   ABOUT = '/about/',
   CONTACT = '/contact/',

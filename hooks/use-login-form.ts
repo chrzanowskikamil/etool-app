@@ -2,7 +2,7 @@ import z from 'zod';
 import { LOGIN_DEFAULT_VALUES, LOGIN_FORM_SCHEMA } from '@/schemas/form-schemas';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
-import { signIn } from '@/server/actions/auth/sign-in';
+import { signIn } from '@/server/auth/sign-in';
 import { toast } from 'sonner';
 
 export function useLoginForm() {
