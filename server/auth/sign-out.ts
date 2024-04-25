@@ -2,10 +2,10 @@
 
 import { auth } from '@/lib/lucia';
 import { cookies } from 'next/headers';
-import { validateRequest } from './validate-request';
+import { getSession } from './session';
 
 export async function signOut() {
-  const { session } = await validateRequest();
+  const { session } = await getSession();
   await auth.invalidateSession(session?.id as string);
 
   const sessionCookie = auth.createBlankSessionCookie();

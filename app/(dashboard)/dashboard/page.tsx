@@ -1,10 +1,11 @@
 import { Sidebar } from '@/components/sidebar';
-import { validateRequest } from '@/server/actions/auth/validate-request';
+import { getSession } from '@/server/auth/_index';
 import { ROUTES } from '@/utils';
+
 import { redirect } from 'next/navigation';
 
 export default async function DashboardPage(): Promise<JSX.Element> {
-  const { user } = await validateRequest();
+  const { user } = await getSession();
 
   if (!user) {
     redirect(ROUTES.LOGIN);

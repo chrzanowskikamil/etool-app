@@ -3,10 +3,10 @@ import { Button } from './ui/button';
 import { HamburgerMenuIcon } from '@radix-ui/react-icons';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from './ui/dropdown-menu';
 import { ROUTES } from '@/utils';
-import { validateRequest } from '@/server/actions/auth/validate-request';
+import { getSession } from '@/server/auth/session';
 
 export async function MobileNavButton() {
-  const { user } = await validateRequest();
+  const { user } = await getSession();
   const MOBILE_NAVBAR_ITEMS = [
     {
       title: 'Docs',
