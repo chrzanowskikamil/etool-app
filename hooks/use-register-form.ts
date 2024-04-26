@@ -5,7 +5,7 @@ import { toast } from 'sonner';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
-import { signUpByEmail } from '@/server/auth/sign-up';
+import { signUpUser } from '@/lib/user';
 
 export function useRegisterForm() {
   const router = useRouter();
@@ -21,7 +21,7 @@ export function useRegisterForm() {
   const { setError } = form;
 
   async function onSubmit(values: z.infer<typeof REGISTER_FORM_SCHEMA>) {
-    const { success, error, message } = await signUpByEmail(values);
+    const { success, error, message } = await signUpUser(values);
 
     if (error) {
       setError('username', { message });

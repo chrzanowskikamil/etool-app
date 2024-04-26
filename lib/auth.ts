@@ -1,8 +1,8 @@
+import { database } from '../db';
 import { Lucia } from 'lucia';
-import prisma from './prisma';
 import { PrismaAdapter } from '@lucia-auth/adapter-prisma';
 
-const adapter = new PrismaAdapter(prisma.session, prisma.user);
+const adapter = new PrismaAdapter(database.session, database.user);
 
 interface DatabaseUserAttributes {
   id: string;
@@ -10,6 +10,13 @@ interface DatabaseUserAttributes {
   hashed_password: string;
   firstName: string | null;
   lastName: string | null;
+}
+
+declare module 'lucia' {
+  interface Register {
+    Lucia: typeof auth;
+    DatabaseUserAttributes: DatabaseUserAttributes;
+  }
 }
 
 export const auth = new Lucia(adapter, {
@@ -28,10 +35,3 @@ export const auth = new Lucia(adapter, {
     };
   },
 });
-
-declare module 'lucia' {
-  interface Register {
-    Lucia: typeof auth;
-    DatabaseUserAttributes: DatabaseUserAttributes;
-  }
-}

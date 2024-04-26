@@ -5,7 +5,7 @@ import { toast } from 'sonner';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
-import { createNewPassword } from '@/server/auth/reset-password';
+import { createNewPassword } from '@/lib/user';
 
 export function useNewPasswordForm() {
   const DELAY_ERROR = 300;

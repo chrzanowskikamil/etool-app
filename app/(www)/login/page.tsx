@@ -3,7 +3,7 @@ import LoginForm from '@/components/login-form';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { ROUTES } from '@/utils';
 import { redirect } from 'next/navigation';
-import { getSession } from '@/server/auth/session';
+import { getSession } from '@/lib/session';
 
 export default async function LoginPage() {
   const { user } = await getSession();
