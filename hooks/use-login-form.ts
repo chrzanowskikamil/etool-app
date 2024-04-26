@@ -2,8 +2,8 @@ import z from 'zod';
 import { LOGIN_DEFAULT_VALUES, LOGIN_FORM_SCHEMA } from '@/schemas/form-schemas';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
-import { signIn } from '@/server/auth/sign-in';
 import { toast } from 'sonner';
+import { signInUser } from '@/lib/user';
 
 export function useLoginForm() {
   const DELAY_ERROR = 300;
@@ -18,7 +18,7 @@ export function useLoginForm() {
   const { setError } = form;
 
   async function onSubmit(values: z.infer<typeof LOGIN_FORM_SCHEMA>) {
-    const { success, error, message, isPasswordValid, isUserExist } = await signIn(values);
+    const { success, error, message, isPasswordValid, isUserExist } = await signInUser(values);
 
     if (isPasswordValid === false) {
       setError('password', {

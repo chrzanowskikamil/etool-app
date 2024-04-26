@@ -1,5 +1,5 @@
 import { Sidebar } from '@/components/sidebar';
-import { getSession } from '@/server/auth/_index';
+import { getSession } from '@/lib/session';
 import { ROUTES } from '@/utils';
 
 import { redirect } from 'next/navigation';

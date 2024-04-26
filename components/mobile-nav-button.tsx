@@ -3,7 +3,7 @@ import { Button } from './ui/button';
 import { HamburgerMenuIcon } from '@radix-ui/react-icons';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from './ui/dropdown-menu';
 import { ROUTES } from '@/utils';
-import { getSession } from '@/server/auth/session';
+import { getSession } from '@/lib/session';
 
 export async function MobileNavButton() {
   const { user } = await getSession();

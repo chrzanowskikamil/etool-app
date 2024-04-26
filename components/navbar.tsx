@@ -6,7 +6,7 @@ import { MobileNavButton } from './mobile-nav-button';
 import { ThemeToggleButton } from './theme-toggle-button';
 import { ROUTES } from '@/utils';
 import { cn } from '@/utils';
-import { getSession } from '@/server/auth/session';
+import { getSession } from '@/lib/session';
 
 export async function Navbar() {
   const { user } = await getSession();

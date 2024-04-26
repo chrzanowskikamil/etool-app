@@ -8,7 +8,7 @@ import { Logo } from './logo';
 import { LogoutButton } from './logout-button';
 import { ThemeToggleButton } from './theme-toggle-button';
 import { ROUTES } from '@/utils';
-import { getSession } from '@/server/auth/session';
+import { getSession } from '@/lib/session';
 
 const SIDEBAR_LINKS = [
   {
