@@ -8,6 +8,9 @@
     "start": "next start",
     "lint": "next lint"
   },
+  "prisma": {
+    "schema": "db/schema.prisma"
+  },
   "dependencies": {
     "@hookform/resolvers": "^3.3.4",
     "@lucia-auth/adapter-prisma": "^4.0.0",
