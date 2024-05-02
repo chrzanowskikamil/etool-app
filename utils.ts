@@ -2,25 +2,6 @@ import { type ClassValue, clsx } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 import { ValidateConstantsType } from './types';
 
-//TODO: Refactor to utils/paths.ts
-//TODO: Nice approach to use is here: https://bitbucket.org/spinbits/app-spinbits-2/src/master/frontend/src/utils/images-path.ts
-
-export enum ROUTES {
-  ABOUT = '/about/',
-  CONTACT = '/contact/',
-  DASHBOARD = '/dashboard/',
-  DOCS = '/docs/',
-  HELP = '/dashboard/help/',
-  HOME = '/',
-  LOGIN = '/login/',
-  NEW_PASSWORD = '/new-password',
-  PROFILE = '/dashboard/profile/',
-  REGISTER = '/register/',
-  REPORTS = '/dashboard/reports/',
-  REVIEWS = '/reviews/',
-  RESET_PASSWORD = '/reset-password',
-}
-
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }

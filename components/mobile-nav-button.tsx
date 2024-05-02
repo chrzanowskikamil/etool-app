@@ -1,28 +1,28 @@
 import Link from 'next/link';
+import { getSession } from '@/lib/session';
+import { urlPaths } from '@/utils/paths';
 import { Button } from './ui/button';
 import { HamburgerMenuIcon } from '@radix-ui/react-icons';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from './ui/dropdown-menu';
-import { ROUTES } from '@/utils';
-import { getSession } from '@/lib/session';
 
 export async function MobileNavButton() {
   const { user } = await getSession();
   const MOBILE_NAVBAR_ITEMS = [
     {
       title: 'Docs',
-      href: ROUTES.DOCS,
+      href: urlPaths.docs,
     },
     {
       title: 'About',
-      href: ROUTES.ABOUT,
+      href: urlPaths.about,
     },
     {
       title: 'Reviews',
-      href: ROUTES.REVIEWS,
+      href: urlPaths.reviews,
     },
     {
       title: 'Contact',
-      href: ROUTES.CONTACT,
+      href: urlPaths.contact,
     },
   ];
 
@@ -47,11 +47,11 @@ export async function MobileNavButton() {
         <DropdownMenuGroup>
           {!user ? (
             <DropdownMenuItem asChild>
-              <Link href={ROUTES.LOGIN}>Sign in</Link>
+              <Link href={urlPaths.login}>Sign in</Link>
             </DropdownMenuItem>
           ) : (
             <DropdownMenuItem asChild>
-              <Link href={ROUTES.DASHBOARD}>Dashboard</Link>
+              <Link href={urlPaths.dashboard}>Dashboard</Link>
             </DropdownMenuItem>
           )}
           {mobileNavbarItems}

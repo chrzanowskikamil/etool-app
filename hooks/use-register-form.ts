@@ -1,11 +1,11 @@
-import z from 'zod';
 import { REGISTER_FORM_SCHEMA, REGISTER_DEFAULT_VALUES } from '@/schemas/form-schemas';
-import { ROUTES } from '@/utils';
+import { signUpUser } from '@/lib/user';
 import { toast } from 'sonner';
+import { urlPaths } from '@/utils/paths';
+import z from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
-import { signUpUser } from '@/lib/user';
 
 export function useRegisterForm() {
   const router = useRouter();
@@ -30,7 +30,7 @@ export function useRegisterForm() {
 
     if (success) {
       toast.success(success, { description: message });
-      router.push(ROUTES.DASHBOARD);
+      router.push(urlPaths.dashboard);
     }
   }
 

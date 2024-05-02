@@ -1,11 +1,11 @@
-import { z } from 'zod';
-import { ROUTES } from '@/utils';
+import { createNewPassword } from '@/lib/user';
 import { NEW_PASSWORD_DEFAULT_VALUES, NEW_PASSWORD_FORM_SCHEMA } from '@/schemas/form-schemas';
+import { urlPaths } from '@/utils/paths';
 import { toast } from 'sonner';
+import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
-import { createNewPassword } from '@/lib/user';
 
 export function useNewPasswordForm() {
   const DELAY_ERROR = 300;
@@ -31,7 +31,7 @@ export function useNewPasswordForm() {
 
       if (success) {
         toast.success(success, { description: message });
-        router.push(ROUTES.LOGIN);
+        router.push(urlPaths.login);
       }
     }
   }

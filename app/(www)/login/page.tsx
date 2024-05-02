@@ -1,15 +1,15 @@
 import Link from 'next/link';
-import LoginForm from '@/components/login-form';
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import { ROUTES } from '@/utils';
 import { redirect } from 'next/navigation';
 import { getSession } from '@/lib/session';
+import { urlPaths } from '@/utils/paths';
+import LoginForm from '@/components/login-form';
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 
-export default async function LoginPage() {
+export default async function LoginPage(): Promise<JSX.Element> {
   const { user } = await getSession();
 
   if (user) {
-    redirect(ROUTES.DASHBOARD);
+    redirect(urlPaths.dashboard)
   }
 
   return (
@@ -24,7 +24,7 @@ export default async function LoginPage() {
         <CardFooter>
           <Link
             className='mx-auto text-sm text-foreground/60 hover:text-foreground/80 '
-            href={ROUTES.REGISTER}>
+            href={urlPaths.register}>
             No account? <strong>Join now!</strong>
           </Link>
         </CardFooter>

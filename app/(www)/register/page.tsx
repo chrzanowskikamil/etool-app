@@ -1,9 +1,9 @@
+import Link from 'next/link';
+import { urlPaths } from '@/utils/paths';
 import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card';
 import RegisterForm from '@/components/register-form';
-import Link from 'next/link';
-import { ROUTES } from '@/utils';
 
-export default async function RegisterPage() {
+export default async function RegisterPage(): Promise<JSX.Element> {
   return (
     <main className='flex flex-col items-center container'>
       <Card className='my-16 sm:w-3/4 md:w-1/3 md:my-36 md:h-1/2'>
@@ -16,7 +16,7 @@ export default async function RegisterPage() {
         <CardFooter>
           <Link
             className='mx-auto text-sm text-foreground/60 hover:text-foreground/80 '
-            href={ROUTES.LOGIN}>
+            href={urlPaths.login}>
             Already have an account? <strong>Log in</strong>
           </Link>
         </CardFooter>

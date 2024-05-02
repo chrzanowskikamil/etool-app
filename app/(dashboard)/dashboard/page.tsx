@@ -1,14 +1,13 @@
-import { Sidebar } from '@/components/sidebar';
 import { getSession } from '@/lib/session';
-import { ROUTES } from '@/utils';
-
+import { urlPaths } from '@/utils/paths';
 import { redirect } from 'next/navigation';
+import { Sidebar } from '@/components/sidebar';
 
 export default async function DashboardPage(): Promise<JSX.Element> {
   const { user } = await getSession();
 
   if (!user) {
-    redirect(ROUTES.LOGIN);
+    redirect(urlPaths.login);
   }
 
   return (
