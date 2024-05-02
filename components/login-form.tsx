@@ -1,10 +1,10 @@
 'use client';
 
 import Link from 'next/link';
+import { urlPaths } from '@/utils/paths';
 import { Button } from './ui/button';
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from './ui/form';
 import { Input } from './ui/input';
-import { ROUTES } from '@/utils';
 import { EyeClosedIcon, EyeOpenIcon } from '@radix-ui/react-icons';
 import { LoadingSpinner } from './icons';
 import { useState } from 'react';
@@ -72,7 +72,7 @@ export default function LoginForm() {
               <FormDescription>
                 <Link
                   className='text-xs text-foreground/60 hover:text-foreground/80 '
-                  href={ROUTES.RESET_PASSWORD}>
+                  href={urlPaths.resetPassword}>
                   Forgot password?
                 </Link>
               </FormDescription>

@@ -1,11 +1,11 @@
 'use client';
 
+import { urlPaths } from '@/utils/paths';
 import { Button } from './ui/button';
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from './ui/form';
-import { LoadingSpinner } from './icons';
 import { EnvelopeClosedIcon } from '@radix-ui/react-icons';
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from './ui/form';
 import { Input } from './ui/input';
-import { ROUTES } from '@/utils';
+import { LoadingSpinner } from './icons';
 import { useRouter } from 'next/navigation';
 import { useResetPasswordForm } from '@/hooks/use-reset-password-form';
 
@@ -51,7 +51,7 @@ export default function ResetPasswordForm() {
             <Button
               variant='outline'
               type='button'
-              onClick={() => router.push(ROUTES.LOGIN)}>
+              onClick={() => router.push(urlPaths.login)}>
               Back
             </Button>
             <Button type='submit'>Reset Password {isSubmitting ? <LoadingSpinner /> : null}</Button>

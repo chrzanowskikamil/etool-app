@@ -1,15 +1,15 @@
 'use client';
 
-import { SunIcon, MoonIcon } from '@radix-ui/react-icons';
+import { urlPaths } from '@/utils/paths';
 import { Button } from './ui/button';
-import { ROUTES } from '@/utils';
+import { SunIcon, MoonIcon } from '@radix-ui/react-icons';
 import { useTheme } from 'next-themes';
 import { usePathname } from 'next/navigation';
 
 export function ThemeToggleButton() {
   const { theme, setTheme } = useTheme();
   const pathname = usePathname();
-  const isDashboardPage = pathname.includes(ROUTES.DASHBOARD);
+  const isDashboardPage = pathname.includes(urlPaths.dashboard);
 
   const handleSwitchTheme = () => {
     setTheme(theme === 'dark' ? 'light' : 'dark');

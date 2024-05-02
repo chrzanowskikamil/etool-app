@@ -9,8 +9,8 @@ import { LOGIN_FORM_SCHEMA, REGISTER_FORM_SCHEMA, RESET_PASSWORD_FORM_SCHEMA } f
 import { User, generateId } from 'lucia';
 import { z } from 'zod';
 import { TimeSpan, createDate } from 'oslo';
-import { ROUTES } from '@/utils';
 import { sendEmail } from '@/server/email/send-email';
+import { createResetPasswordLink } from '@/utils/paths';
 
 export const createUser = async (credentials: z.infer<typeof REGISTER_FORM_SCHEMA>): Promise<User> => {
   const userId = generateId(15);
@@ -169,8 +169,7 @@ export const sendPasswordResetLink = async (username: string) => {
     }
 
     const resetPasswordToken = await createPasswordResetToken(user.id);
-    const resetPasswordLink = `${process.env.NEXT_PUBLIC_BASE_URL}${ROUTES.NEW_PASSWORD}?token=${resetPasswordToken}`;
-    sendEmail({ to: username, subject: 'Reset your password', text: `Click on this link to reset your password: ${resetPasswordLink}` });
+    sendEmail({ to: username, subject: 'Reset your password', text: `Click on this link to reset your password: ${createResetPasswordLink(resetPasswordToken)}` });
 
     return {
       success: 'Reseting - success',

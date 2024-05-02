@@ -1,4 +1,6 @@
 import Link from 'next/link';
+import { getSession } from '@/lib/session';
+import { urlPaths } from '@/utils/paths';
 import { DashboardIcon, FileTextIcon, MagnifyingGlassIcon, PersonIcon, QuestionMarkCircledIcon } from '@radix-ui/react-icons';
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from './ui/alert-dialog';
@@ -7,24 +9,22 @@ import { Separator } from './ui/separator';
 import { Logo } from './logo';
 import { LogoutButton } from './logout-button';
 import { ThemeToggleButton } from './theme-toggle-button';
-import { ROUTES } from '@/utils';
-import { getSession } from '@/lib/session';
 
 const SIDEBAR_LINKS = [
   {
     icon: <DashboardIcon className='h-6 w-6 mr-2' />, // ! STYLING HERE LOOKS BAD
     title: 'Dashboard',
-    href: ROUTES.DASHBOARD,
+    href: urlPaths.dashboard,
   },
   {
     icon: <FileTextIcon className='h-6 w-6 mr-2' />, // ! STYLING HERE LOOKS BAD
     title: 'Reports',
-    href: ROUTES.REPORTS,
+    href: urlPaths.reports
   },
   {
     icon: <QuestionMarkCircledIcon className='h-6 w-6 mr-2' />, // ! STYLING HERE LOOKS BAD
     title: 'Help',
-    href: ROUTES.HELP,
+    href: urlPaths.help,
   },
 ];
 
@@ -49,7 +49,7 @@ export async function Sidebar() {
       <div>
         <ul>
           <li>
-            <Link href={ROUTES.HOME}>
+            <Link href={urlPaths.home}>
               <Logo
                 size='60px'
                 title='ETool'
@@ -104,7 +104,7 @@ export async function Sidebar() {
                   <DropdownMenuItem asChild>
                     <Link
                       className=' w-56 hover:cursor-pointer'
-                      href={ROUTES.PROFILE}>
+                      href={urlPaths.profile}>
                       Profile
                     </Link>
                   </DropdownMenuItem>
@@ -133,7 +133,7 @@ export async function Sidebar() {
         ) : (
           <Link
             className='flex px-4 text-xl hover:cursor-pointer'
-            href={ROUTES.LOGIN}>
+            href={urlPaths.login}>
             {<PersonIcon className='h-6 w-6 mr-2' />}Log in
           </Link>
         )}

@@ -4,28 +4,28 @@ import { buttonVariants } from './ui/button';
 import { Logo } from './logo';
 import { MobileNavButton } from './mobile-nav-button';
 import { ThemeToggleButton } from './theme-toggle-button';
-import { ROUTES } from '@/utils';
 import { cn } from '@/utils';
 import { getSession } from '@/lib/session';
+import { urlPaths } from '@/utils/paths';
 
 export async function Navbar() {
   const { user } = await getSession();
   const NAVBAR_ITEMS = [
     {
       title: 'Docs',
-      href: ROUTES.DOCS,
+      href: urlPaths.docs,
     },
     {
       title: 'About',
-      href: ROUTES.ABOUT,
+      href: urlPaths.about,
     },
     {
       title: 'Reviews',
-      href: ROUTES.REVIEWS,
+      href: urlPaths.reviews,
     },
     {
       title: 'Contact',
-      href: ROUTES.CONTACT,
+      href: urlPaths.contact,
     },
   ];
 
@@ -42,7 +42,7 @@ export async function Navbar() {
       <header className='container flex max-w-screen-2xl items-center w-full'>
         <ul className='mr-8'>
           <li>
-            <Link href={ROUTES.HOME}>
+            <Link href={urlPaths.home}>
               <Logo
                 size='40px'
                 title='ETool'
@@ -58,7 +58,7 @@ export async function Navbar() {
           {!user ? (
             <li className='hidden md:inline-flex'>
               <Link
-                href={ROUTES.LOGIN}
+                href={urlPaths.login}
                 className={cn(buttonVariants({ variant: 'outline' }))}>
                 <LockOpen1Icon className='mr-2' /> Sign in
               </Link>
@@ -66,7 +66,7 @@ export async function Navbar() {
           ) : (
             <li className='hidden md:inline-flex'>
               <Link
-                href={ROUTES.DASHBOARD}
+                href={urlPaths.dashboard}
                 className={cn(buttonVariants({ variant: 'outline' }))}>
                 <DashboardIcon className='mr-2' /> Dashboard
               </Link>
