@@ -1,9 +1,9 @@
 import z from 'zod';
-import { LOGIN_DEFAULT_VALUES, LOGIN_FORM_SCHEMA } from '@/schemas/form-schemas';
+import { LOGIN_DEFAULT_VALUES, LOGIN_FORM_SCHEMA } from '@/features/user/schemas/login-form-schema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
-import { signInUser } from '@/lib/user';
+import { signInUser } from '@/features/user/actions/user';
 
 export function useLoginForm() {
   const DELAY_ERROR = 300;

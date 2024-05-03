@@ -4,9 +4,9 @@ import { buttonVariants } from './ui/button';
 import { Logo } from './logo';
 import { MobileNavButton } from './mobile-nav-button';
 import { ThemeToggleButton } from './theme-toggle-button';
-import { cn } from '@/utils';
-import { getSession } from '@/lib/session';
+import { getSession } from '@/features/session/session';
 import { urlPaths } from '@/utils/paths';
+import { cn } from '@/utils/cn';
 
 export async function Navbar() {
   const { user } = await getSession();

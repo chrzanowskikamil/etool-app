@@ -1,17 +1,15 @@
 'use client';
 
-import Link from 'next/link';
-import { urlPaths } from '@/utils/paths';
-import { Button } from './ui/button';
-import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from './ui/form';
-import { Input } from './ui/input';
+import { Button } from '../../../components/ui/button';
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '../../../components/ui/form';
+import { Input } from '../../../components/ui/input';
 import { EyeClosedIcon, EyeOpenIcon } from '@radix-ui/react-icons';
-import { LoadingSpinner } from './icons';
+import { LoadingSpinner } from '../../../components/icons';
+import { useRegisterForm } from '@/features/user/hooks/use-register-form';
 import { useState } from 'react';
-import { useLoginForm } from '@/hooks/use-login-form';
 
-export default function LoginForm() {
-  const { form, onSubmit } = useLoginForm();
+export default function RegisterForm() {
+  const { form, onSubmit } = useRegisterForm();
   const { isSubmitting } = form.formState;
   const [passwordVisible, setPasswordVisible] = useState(false);
 
@@ -22,6 +20,50 @@ export default function LoginForm() {
       <form
         className='flex flex-col gap-6'
         onSubmit={form.handleSubmit(onSubmit)}>
+        <FormField
+          control={form.control}
+          name='firstName'
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>First Name</FormLabel>
+              <FormControl>
+                <Input
+                  autoCapitalize='off'
+                  autoComplete='firstName'
+                  autoCorrect='off'
+                  disabled={isSubmitting}
+                  id='firstName'
+                  placeholder='John'
+                  type='text'
+                  {...field}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name='lastName'
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Last Name</FormLabel>
+              <FormControl>
+                <Input
+                  autoCapitalize='off'
+                  autoComplete='lastName'
+                  autoCorrect='off'
+                  disabled={isSubmitting}
+                  id='lastName'
+                  placeholder='Doe'
+                  type='text'
+                  {...field}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
         <FormField
           control={form.control}
           name='username'
@@ -69,17 +111,10 @@ export default function LoginForm() {
                 </div>
               </FormControl>
               <FormMessage />
-              <FormDescription>
-                <Link
-                  className='text-xs text-foreground/60 hover:text-foreground/80 '
-                  href={urlPaths.resetPassword}>
-                  Forgot password?
-                </Link>
-              </FormDescription>
             </FormItem>
           )}
         />
-        <Button type='submit'>Login {isSubmitting ? <LoadingSpinner /> : null}</Button>
+        <Button type='submit'>Register {isSubmitting ? <LoadingSpinner /> : null}</Button>
       </form>
     </Form>
   );

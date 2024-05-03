@@ -1,11 +1,11 @@
 'use client';
 
-import { Button } from './ui/button';
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from './ui/form';
-import { Input } from './ui/input';
-import { LoadingSpinner } from './icons';
+import { Button } from '../../../components/ui/button';
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '../../../components/ui/form';
+import { Input } from '../../../components/ui/input';
+import { LoadingSpinner } from '../../../components/icons';
 import { EyeClosedIcon, EyeOpenIcon } from '@radix-ui/react-icons';
-import { useNewPasswordForm } from '@/hooks/use-new-password-form';
+import { useNewPasswordForm } from '@/features/user/hooks/use-new-password-form';
 import { useState } from 'react';
 
 export default function NewPasswordForm() {

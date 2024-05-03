@@ -1,4 +1,4 @@
-import NewPasswordForm from '@/components/new-password-form';
+import NewPasswordForm from '@/features/user/components/new-password-form';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 
 export default async function NewPasswordPage() {

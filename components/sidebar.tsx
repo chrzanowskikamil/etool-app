@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { getSession } from '@/lib/session';
+import { getSession } from '@/features/session/session';
 import { urlPaths } from '@/utils/paths';
 import { DashboardIcon, FileTextIcon, MagnifyingGlassIcon, PersonIcon, QuestionMarkCircledIcon } from '@radix-ui/react-icons';
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';

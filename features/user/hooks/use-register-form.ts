@@ -1,11 +1,11 @@
-import { REGISTER_FORM_SCHEMA, REGISTER_DEFAULT_VALUES } from '@/schemas/form-schemas';
-import { signUpUser } from '@/lib/user';
+import { signUpUser } from '@/features/user/actions/user';
 import { toast } from 'sonner';
 import { urlPaths } from '@/utils/paths';
 import z from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
+import { REGISTER_DEFAULT_VALUES, REGISTER_FORM_SCHEMA } from '../schemas/register-form-schema';
 
 export function useRegisterForm() {
   const router = useRouter();
