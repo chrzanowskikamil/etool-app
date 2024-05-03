@@ -1,16 +1,18 @@
 'use server';
 
 import { Argon2id } from 'oslo/password';
-import { auth } from './auth';
-import { createSession, getSession } from './session';
+import { auth } from '../../../lib/auth';
+import { createSession, getSession } from '../../session/session';
 import { cookies } from 'next/headers';
 import { database } from '@/db';
-import { LOGIN_FORM_SCHEMA, REGISTER_FORM_SCHEMA, RESET_PASSWORD_FORM_SCHEMA } from '@/schemas/form-schemas';
+import { LOGIN_FORM_SCHEMA } from '@/features/user/schemas/login-form-schema';
 import { User, generateId } from 'lucia';
 import { z } from 'zod';
 import { TimeSpan, createDate } from 'oslo';
-import { sendEmail } from '@/server/email/send-email';
+import { sendEmail } from '@/features/email/send-email';
 import { createResetPasswordLink } from '@/utils/paths';
+import { REGISTER_FORM_SCHEMA } from '../schemas/register-form-schema';
+import { RESET_PASSWORD_FORM_SCHEMA } from '../schemas/reset-password-form-schema';
 
 export const createUser = async (credentials: z.infer<typeof REGISTER_FORM_SCHEMA>): Promise<User> => {
   const userId = generateId(15);

@@ -3,7 +3,7 @@
 import { Button } from './ui/button';
 import { LoadingSpinner } from './icons';
 import { useState } from 'react';
-import { signOutUser } from '@/lib/user';
+import { signOutUser } from '@/features/user/actions/user';
 
 export function LogoutButton() {
   const [loading, setLoading] = useState<boolean>();

@@ -1,13 +1,13 @@
 'use client';
 
 import { urlPaths } from '@/utils/paths';
-import { Button } from './ui/button';
+import { Button } from '../../../components/ui/button';
 import { EnvelopeClosedIcon } from '@radix-ui/react-icons';
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from './ui/form';
-import { Input } from './ui/input';
-import { LoadingSpinner } from './icons';
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '../../../components/ui/form';
+import { Input } from '../../../components/ui/input';
+import { LoadingSpinner } from '../../../components/icons';
 import { useRouter } from 'next/navigation';
-import { useResetPasswordForm } from '@/hooks/use-reset-password-form';
+import { useResetPasswordForm } from '@/features/user/hooks/use-reset-password-form';
 
 export default function ResetPasswordForm() {
   const { form, onSubmit } = useResetPasswordForm();

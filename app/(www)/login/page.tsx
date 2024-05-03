@@ -1,8 +1,8 @@
 import Link from 'next/link';
 import { redirect } from 'next/navigation';
-import { getSession } from '@/lib/session';
+import { getSession } from '@/features/session/session';
 import { urlPaths } from '@/utils/paths';
-import LoginForm from '@/components/login-form';
+import LoginForm from '@/features/user/components/login-form';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 
 export default async function LoginPage(): Promise<JSX.Element> {

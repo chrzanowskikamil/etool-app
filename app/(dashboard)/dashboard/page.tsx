@@ -1,4 +1,4 @@
-import { getSession } from '@/lib/session';
+import { getSession } from '@/features/session/session';
 import { urlPaths } from '@/utils/paths';
 import { redirect } from 'next/navigation';
 import { Sidebar } from '@/components/sidebar';

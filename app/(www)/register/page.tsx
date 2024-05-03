@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { urlPaths } from '@/utils/paths';
 import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card';
-import RegisterForm from '@/components/register-form';
+import RegisterForm from '@/features/user/components/register-form';
 
 export default async function RegisterPage(): Promise<JSX.Element> {
   return (
