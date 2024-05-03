@@ -2,8 +2,6 @@ import { database } from '../db';
 import { Lucia } from 'lucia';
 import { PrismaAdapter } from '@lucia-auth/adapter-prisma';
 
-const adapter = new PrismaAdapter(database.session, database.user);
-
 interface DatabaseUserAttributes {
   id: string;
   username: string;
@@ -18,6 +16,8 @@ declare module 'lucia' {
     DatabaseUserAttributes: DatabaseUserAttributes;
   }
 }
+
+const adapter = new PrismaAdapter(database.session, database.user);
 
 export const auth = new Lucia(adapter, {
   sessionCookie: {

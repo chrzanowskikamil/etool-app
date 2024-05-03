@@ -28,9 +28,9 @@ export const urlPaths: UrlPaths = {
     reviews: '/reviews',
     resetPassword: '/reset-password',
     dashboard,
-    help: `${dashboard}help`,
-    profile: `${dashboard}profile`,
-    reports: `${dashboard}reports`,
+    help: `${dashboard}/help`,
+    profile: `${dashboard}/profile`,
+    reports: `${dashboard}/reports`,
 }
 
 export const createResetPasswordLink = (token: string) => `${process.env.NEXT_PUBLIC_BASE_URL}${urlPaths.newPassword}?token=${token}`
