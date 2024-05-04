@@ -2,8 +2,8 @@ import { toast } from 'sonner';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
-import { sendPasswordResetLink } from '@/features/user/actions/user';
 import { RESET_PASSWORD_DEFAULT_VALUES, RESET_PASSWORD_FORM_SCHEMA } from '../schemas/reset-password-form-schema';
+import { sendPasswordResetLink } from '../actions/create-new-password';
 
 export function useResetPasswordForm() {
   const DELAY_ERROR = 300;

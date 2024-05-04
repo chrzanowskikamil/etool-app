@@ -1,4 +1,3 @@
-import { createNewPassword } from '@/features/user/actions/user';
 import { urlPaths } from '@/utils/paths';
 import { toast } from 'sonner';
 import { z } from 'zod';
@@ -6,6 +5,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
 import { NEW_PASSWORD_DEFAULT_VALUES, NEW_PASSWORD_FORM_SCHEMA } from '../schemas/new-password-form-schema';
+import { createNewPassword } from '../actions/create-new-password';
 
 export function useNewPasswordForm() {
   const DELAY_ERROR = 300;
