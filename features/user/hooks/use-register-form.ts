@@ -1,4 +1,3 @@
-import { signUpUser } from '@/features/user/actions/user';
 import { toast } from 'sonner';
 import { urlPaths } from '@/utils/paths';
 import z from 'zod';
@@ -6,6 +5,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
 import { REGISTER_DEFAULT_VALUES, REGISTER_FORM_SCHEMA } from '../schemas/register-form-schema';
+import { signUpUser } from '../actions/sign-up-user';
 
 export function useRegisterForm() {
   const router = useRouter();
