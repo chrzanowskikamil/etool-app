@@ -1,10 +1,10 @@
 'use server'
 
-import { z } from "zod";
-import { REGISTER_FORM_SCHEMA } from "../schemas/register-form-schema";
-import { findUser } from "./find-user";
 import { createUser } from "./create-user";
-import { createSession } from "@/features/session/session";
+import { createSession } from "@/lib/auth/create-session";
+import { findUser } from "./find-user";
+import { REGISTER_FORM_SCHEMA } from "../schemas/register-form-schema";
+import { z } from "zod";
 
 export const signUpUser = async (credentials: z.infer<typeof REGISTER_FORM_SCHEMA>) => {
     const { username } = credentials;

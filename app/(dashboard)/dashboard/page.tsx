@@ -1,7 +1,7 @@
-import { getSession } from '@/features/session/session';
-import { urlPaths } from '@/utils/paths';
 import { redirect } from 'next/navigation';
 import { Sidebar } from '@/components/sidebar';
+import { urlPaths } from '@/utils/paths';
+import { getSession } from '@/lib/auth/get-session';
 
 export default async function DashboardPage(): Promise<JSX.Element> {
   const { user } = await getSession();

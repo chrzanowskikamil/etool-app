@@ -1,7 +1,7 @@
 'use server';
 
 import { Argon2id } from 'oslo/password';
-import { createSession} from '../../session/session';
+import { createSession } from '@/lib/auth/create-session';
 import { findUser } from './find-user';
 import { LOGIN_FORM_SCHEMA } from '@/features/user/schemas/login-form-schema';
 import { z } from 'zod';

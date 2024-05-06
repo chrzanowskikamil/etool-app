@@ -1,9 +1,9 @@
 import Link from 'next/link';
 import { redirect } from 'next/navigation';
-import { getSession } from '@/features/session/session';
 import { urlPaths } from '@/utils/paths';
 import LoginForm from '@/features/user/components/login-form';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import { getSession } from '@/lib/auth/get-session';
 
 export default async function LoginPage(): Promise<JSX.Element> {
   const { user } = await getSession();

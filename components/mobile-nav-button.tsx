@@ -1,9 +1,9 @@
 import Link from 'next/link';
-import { getSession } from '@/features/session/session';
 import { urlPaths } from '@/utils/paths';
 import { Button } from './ui/button';
 import { HamburgerMenuIcon } from '@radix-ui/react-icons';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuTrigger } from './ui/dropdown-menu';
+import { getSession } from '@/lib/auth/get-session';
 
 export async function MobileNavButton() {
   const { user } = await getSession();

@@ -1,7 +1,7 @@
 'use server'
 
-import { getSession } from "@/features/session/session";
 import { auth } from "@/lib/auth";
+import { getSession } from "@/lib/auth/get-session";
 import { cookies } from "next/headers";
 
 export const signOutUser = async () => {

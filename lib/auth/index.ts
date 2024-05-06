@@ -1,4 +1,4 @@
-import { database } from '../db';
+import { database } from '../../db';
 import { Lucia } from 'lucia';
 import { PrismaAdapter } from '@lucia-auth/adapter-prisma';
 
