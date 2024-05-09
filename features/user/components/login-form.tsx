@@ -1,14 +1,14 @@
 'use client';
 
 import Link from 'next/link';
-import { urlPaths } from '@/utils/paths';
 import { Button } from '../../../components/ui/button';
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '../../../components/ui/form';
 import { Input } from '../../../components/ui/input';
 import { EyeClosedIcon, EyeOpenIcon } from '@radix-ui/react-icons';
 import { LoadingSpinner } from '../../../components/icons';
-import { useState } from 'react';
 import { useLoginForm } from '@/features/user/hooks/use-login-form';
+import { urlPaths } from '@/utils/paths';
+import { useState } from 'react';
 
 export default function LoginForm() {
   const { form, onSubmit } = useLoginForm();

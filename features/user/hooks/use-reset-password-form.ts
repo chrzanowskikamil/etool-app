@@ -1,18 +1,18 @@
+import { RESET_PASSWORD_DEFAULT_VALUES, RESET_PASSWORD_FORM_SCHEMA } from '../schemas/reset-password-form-schema';
+import { sendPasswordResetLink } from '../actions/create-new-password';
 import { toast } from 'sonner';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm } from 'react-hook-form';
-import { RESET_PASSWORD_DEFAULT_VALUES, RESET_PASSWORD_FORM_SCHEMA } from '../schemas/reset-password-form-schema';
-import { sendPasswordResetLink } from '../actions/create-new-password';
+import { UseFormReturn, useForm } from 'react-hook-form';
 
-export function useResetPasswordForm() {
+export function useResetPasswordForm(): { form: UseFormReturn<z.infer<typeof RESET_PASSWORD_FORM_SCHEMA>>; onSubmit: (value: z.infer<typeof RESET_PASSWORD_FORM_SCHEMA>) => Promise<void> } {
   const DELAY_ERROR = 300;
 
   const form = useForm<z.infer<typeof RESET_PASSWORD_FORM_SCHEMA>>({
-    resolver: zodResolver(RESET_PASSWORD_FORM_SCHEMA),
+    delayError: DELAY_ERROR,
     defaultValues: RESET_PASSWORD_DEFAULT_VALUES,
     mode: 'onTouched',
-    delayError: DELAY_ERROR,
+    resolver: zodResolver(RESET_PASSWORD_FORM_SCHEMA),
   });
 
   const { setError } = form;

@@ -1,21 +1,21 @@
-import { urlPaths } from '@/utils/paths';
+import { createNewPassword } from '../actions/create-new-password';
+import { NEW_PASSWORD_DEFAULT_VALUES, NEW_PASSWORD_FORM_SCHEMA } from '../schemas/new-password-form-schema';
 import { toast } from 'sonner';
+import { urlPaths } from '@/utils/paths';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm } from 'react-hook-form';
+import { UseFormReturn, useForm } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
-import { NEW_PASSWORD_DEFAULT_VALUES, NEW_PASSWORD_FORM_SCHEMA } from '../schemas/new-password-form-schema';
-import { createNewPassword } from '../actions/create-new-password';
 
-export function useNewPasswordForm() {
+export function useNewPasswordForm(): { form: UseFormReturn<z.infer<typeof NEW_PASSWORD_FORM_SCHEMA>>; onSubmit: (value: z.infer<typeof NEW_PASSWORD_FORM_SCHEMA>) => Promise<void> } {
   const DELAY_ERROR = 300;
   const router = useRouter();
 
   const form = useForm<z.infer<typeof NEW_PASSWORD_FORM_SCHEMA>>({
-    resolver: zodResolver(NEW_PASSWORD_FORM_SCHEMA),
+    delayError: DELAY_ERROR,
     defaultValues: NEW_PASSWORD_DEFAULT_VALUES,
     mode: 'onTouched',
-    delayError: DELAY_ERROR,
+    resolver: zodResolver(NEW_PASSWORD_FORM_SCHEMA),
   });
 
   async function onSubmit(value: z.infer<typeof NEW_PASSWORD_FORM_SCHEMA>) {
