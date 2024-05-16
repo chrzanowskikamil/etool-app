@@ -38,7 +38,7 @@ export async function Navbar() {
   ));
 
   return (
-    <nav className='sticky top-0 z-50 w-full border-b border-border/80 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60'>
+    <nav className='absolute top-0 z-50 w-full border-b border-border/80 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60'>
       <header className='container flex max-w-screen-2xl items-center w-full'>
         <ul className='mr-8'>
           <li>
