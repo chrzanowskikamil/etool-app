@@ -19,7 +19,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
     <html
       lang='en'
       suppressHydrationWarning>
-      <body className={`${montserratFont.className} relative flex min-h-screen`}>
+      <body className={montserratFont.className}>
         <Providers>
           <ThemeProvider
             attribute='class'
