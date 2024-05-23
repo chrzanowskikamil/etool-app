@@ -4,6 +4,7 @@ import { Montserrat } from 'next/font/google';
 import { ThemeProvider } from '@/components/theme-provider';
 import Providers from '@/lib/providers';
 import { Toaster } from 'sonner';
+import { Navbar } from '@/components/navbar';
 
 export const metadata: Metadata = {
   title: 'ETool',
@@ -24,6 +25,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           <ThemeProvider
             attribute='class'
             defaultTheme='dark'>
+            <Navbar />
             {children}
             <Toaster
               toastOptions={{

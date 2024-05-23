@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { DashboardIcon, LockOpen1Icon } from '@radix-ui/react-icons';
+import { DashboardIcon, LockOpen1Icon, PersonIcon } from '@radix-ui/react-icons';
 import { buttonVariants } from './ui/button';
 import { Logo } from './logo';
 import { MobileNavButton } from './mobile-nav-button';
@@ -64,13 +64,22 @@ export async function Navbar() {
               </Link>
             </li>
           ) : (
-            <li className='hidden md:inline-flex'>
-              <Link
-                href={urlPaths.dashboard}
-                className={cn(buttonVariants({ variant: 'outline' }))}>
-                <DashboardIcon className='mr-2' /> Dashboard
-              </Link>
-            </li>
+            <>
+              <li className='hidden md:inline-flex'>
+                <Link
+                  href={urlPaths.dashboard}
+                  className={cn(buttonVariants({ variant: 'outline' }))}>
+                  <DashboardIcon className='mr-2' /> Dashboard
+                </Link>
+              </li>
+              <li className='hidden md:inline-flex'>
+                <Link
+                  href={urlPaths.profile}
+                  className={cn(buttonVariants({ variant: 'outline' }))}>
+                  <PersonIcon className='mr-2' /> {user.username}
+                </Link>
+              </li>
+            </>
           )}
           <li className='md:hidden'>
             <MobileNavButton />
