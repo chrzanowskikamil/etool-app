@@ -1,55 +1,22 @@
 'use server';
-
+import { action } from '@/lib/safe-action';
 import { Argon2id } from 'oslo/password';
 import { createSession } from '@/lib/auth/create-session';
-import { findUser } from './find-user';
+import { getUserByUsername } from '@/db/queries/user';
 import { LOGIN_FORM_SCHEMA } from '@/features/user/schemas/login-form-schema';
-import { z } from 'zod';
-import { action } from '@/lib/safe-action';
 
-export const signInUser = async (credentials: z.infer<typeof LOGIN_FORM_SCHEMA>) => {
-  const { username, password } = credentials;
-
+export const signInUser = action(LOGIN_FORM_SCHEMA, async ({ username, password }) => {
   try {
-    const { success, error, message, user, isUserExist } = await findUser(username);
+    const existingUser = await getUserByUsername(username);
+    if (!existingUser) return { error: 'Bad credentials' };
 
-    if (!user) return { success, error, message, isUserExist };
+    const isPasswordValid = await new Argon2id().verify(existingUser.hashed_password, password);
+    if (!isPasswordValid) return { error: 'Bad credentials' };
 
-    const isPasswordValid = await new Argon2id().verify(user.hashed_password, password);
-
-    if (!isPasswordValid) return { success: false, error: 'Bad credentials', message: 'Wrong password', isPasswordValid };
-
-    await createSession(user.id);
-    return { success: true, error: '', message };
+    await createSession(existingUser.id);
+    return { success: 'You are logged in!' };
   } catch (error) {
     console.error(`Error in signIn function: ${error}`);
-    return {
-      success: false,
-      error: 'Internal server error',
-      message: 'An error occurred while signing in',
-    };
-  }
-};
-
-export const signInUser_SAFE_ACTION_FEATURE = action(LOGIN_FORM_SCHEMA, async ({ username, password }) => {
-  console.log(username, password);
-  try {
-    const { success, error, message, user, isUserExist } = await findUser(username);
-
-    if (!user) return { success, error, message, isUserExist };
-
-    const isPasswordValid = await new Argon2id().verify(user.hashed_password, password);
-
-    if (!isPasswordValid) return { success: false, error: 'Bad credentials', message: 'Wrong password', isPasswordValid };
-
-    await createSession(user.id);
-    return { success: true, error: '', message };
-  } catch (error) {
-    console.error(`Error in signIn function: ${error}`);
-    return {
-      success: false,
-      error: 'Internal server error',
-      message: 'An error occurred while signing in',
-    };
+    return { error: 'Internal server error' };
   }
 });

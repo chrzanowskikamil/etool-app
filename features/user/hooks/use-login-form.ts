@@ -1,6 +1,6 @@
 import { LOGIN_DEFAULT_VALUES, LOGIN_FORM_SCHEMA } from '@/features/user/schemas/login-form-schema';
+import { signInUser } from '@/features/user/actions/sign-in-user';
 import { toast } from 'sonner';
-import { signInUser, signInUser_SAFE_ACTION_FEATURE } from '@/features/user/actions/sign-in-user';
 import z from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm, UseFormReturn } from 'react-hook-form';
@@ -14,32 +14,20 @@ export function useLoginForm(): { form: UseFormReturn<z.infer<typeof LOGIN_FORM_
     mode: 'onTouched',
     resolver: zodResolver(LOGIN_FORM_SCHEMA),
   });
-
   const { setError } = form;
 
   async function onSubmit(values: z.infer<typeof LOGIN_FORM_SCHEMA>) {
-    // const { success, error, message, isPasswordValid, isUserExist } = await signInUser(values);
-    const { data, serverError, validationErrors } = await signInUser_SAFE_ACTION_FEATURE(values);
+    const { data } = await signInUser(values);
 
-    console.log(data, serverError, validationErrors);
+    if (data?.error) {
+      setError('username', { message: data.error });
+      setError('password', { message: data.error });
+      toast.error(data.error);
+    }
 
-    //     if (data?.isPasswordValid === false) {
-    //       setError('password', {
-    //         data.message,
-    //       });
-    //       toast.error(error, { description: message });
-    //     }
-    //
-    //     if (data?.isUserExist === false) {
-    //       setError('username', {
-    //         data.message,
-    //       });
-    //       toast.error(error, { description: message });
-    //     }
-    //
-    //     if (data?.success) {
-    //       toast.success(data.success, { description: data.message });
-    //     }
+    if (data?.success) {
+      toast.success(data.success);
+    }
   }
   return { form, onSubmit };
 }
