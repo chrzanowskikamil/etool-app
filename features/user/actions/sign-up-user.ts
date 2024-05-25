@@ -1,34 +1,20 @@
 'use server';
-
-import { createUser } from './create-user';
+import { action } from '@/lib/safe-action';
 import { createSession } from '@/lib/auth/create-session';
-import { findUser } from './find-user';
+import { createNewUser } from './create-new-user';
+import { getUserByUsername } from '@/db/queries/user';
 import { REGISTER_FORM_SCHEMA } from '../schemas/register-form-schema';
-import { z } from 'zod';
 
-export const signUpUser = async (credentials: z.infer<typeof REGISTER_FORM_SCHEMA>) => {
-  const { username } = credentials;
-
+export const signUpUser = action(REGISTER_FORM_SCHEMA, async (credentials) => {
   try {
-    const { isUserExist } = await findUser(username);
+    const isUserExist = await getUserByUsername(credentials.username);
+    if (isUserExist) return { error: 'User already exists' };
 
-    if (isUserExist) {
-      return {
-        error: 'Register Failed',
-        message: 'This email is already registered',
-      };
-    }
-
-    const user = await createUser(credentials);
-    user && (await createSession(user.id));
-    return {
-      success: 'Register Success',
-      message: 'You have successfully registered',
-    };
+    const { data } = await createNewUser(credentials);
+    data?.user && (await createSession(data.user.id));
+    return { success: 'You are registered!' };
   } catch (error) {
-    return {
-      error: 'Register Failed',
-      message: 'Something went wrong',
-    };
+    console.error(`Error in signUpUser function: ${error}`);
+    return { error: 'Internal server error' };
   }
-};
+});
