@@ -21,18 +21,17 @@ export function useRegisterForm(): { form: UseFormReturn<z.infer<typeof REGISTER
   const { setError } = form;
 
   async function onSubmit(values: z.infer<typeof REGISTER_FORM_SCHEMA>) {
-    const { success, error, message } = await signUpUser(values);
+    const { data } = await signUpUser(values);
 
-    if (error) {
-      setError('username', { message });
-      toast.error(error, { description: message });
+    if (data?.error) {
+      setError('username', { message: data.error });
+      toast.error(data.error);
     }
 
-    if (success) {
-      toast.success(success, { description: message });
+    if (data?.success) {
+      toast.success(data.success);
       router.push(urlPaths.dashboard);
     }
   }
-
   return { form, onSubmit };
 }
