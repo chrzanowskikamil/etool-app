@@ -1,13 +1,10 @@
 'use server';
-
 import { Argon2id } from 'oslo/password';
 import { auth } from '@/lib/auth';
 import { createResetPasswordLink } from '@/utils/paths';
-import { generateId } from 'lucia';
 import { RESET_PASSWORD_FORM_SCHEMA } from '../schemas/reset-password-form-schema';
 import { sendEmail } from '@/features/email/send-email';
-import { TimeSpan, createDate } from 'oslo';
-import { createResetPasswordToken, deleteResetPasswordTokenById, deleteResetPasswordTokenByUserId, getResetPasswordToken, getUserByUsername, updateUserPassword } from '@/db/queries/user';
+import { deleteResetPasswordTokenById, getResetPasswordToken, getUserByUsername, updateUserPassword } from '@/db/queries/user';
 import { generateResetPasswordToken } from './tokens';
 
 export const createNewPassword = async (newPassword: string, verificationToken: string) => {
