@@ -8,6 +8,7 @@ import { RESET_PASSWORD_FORM_SCHEMA } from '../schemas/reset-password-form-schem
 import { sendEmail } from '@/features/email/send-email';
 import { TimeSpan, createDate } from 'oslo';
 import { createResetPasswordToken, deleteResetPasswordTokenById, deleteResetPasswordTokenByUserId, getResetPasswordToken, getUserByUsername, updateUserPassword } from '@/db/queries/user';
+import { generateResetPasswordToken } from './tokens';
 
 export const createNewPassword = async (newPassword: string, verificationToken: string) => {
   try {
@@ -29,16 +30,6 @@ export const createNewPassword = async (newPassword: string, verificationToken: 
   }
 };
 
-export const createPasswordResetToken = async (userId: string) => {
-  const EXPIRE_AT = new TimeSpan(2, 'h');
-
-  await deleteResetPasswordTokenByUserId(userId);
-  const tokenId = generateId(40);
-  await createResetPasswordToken(userId, tokenId, createDate(EXPIRE_AT));
-
-  return tokenId;
-};
-
 export const sendPasswordResetLink = async (username: string) => {
   const parsedData = RESET_PASSWORD_FORM_SCHEMA.parse({ username });
 
@@ -53,7 +44,7 @@ export const sendPasswordResetLink = async (username: string) => {
       };
     }
 
-    const resetPasswordToken = await createPasswordResetToken(user.id);
+    const resetPasswordToken = await generateResetPasswordToken(user.id);
     sendEmail({ to: username, subject: 'Reset your password', text: `Click on this link to reset your password: ${createResetPasswordLink(resetPasswordToken)}` });
 
     return {
