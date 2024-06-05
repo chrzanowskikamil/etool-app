@@ -4,11 +4,10 @@ import { Argon2id } from 'oslo/password';
 import { createUserByCredentials } from '@/db/queries/user';
 import { REGISTER_FORM_SCHEMA } from '../schemas/register-form-schema';
 import { User, generateId } from 'lucia';
-
-const USERID_LENGTH = 15;
+import { USER_ID_LENGTH } from './utils';
 
 export const createNewUser = action(REGISTER_FORM_SCHEMA, async (credentials) => {
-  const userId = generateId(USERID_LENGTH);
+  const userId = generateId(USER_ID_LENGTH);
   const { firstName, lastName, username, password } = credentials;
   const hashedPassword = await new Argon2id().hash(password);
 

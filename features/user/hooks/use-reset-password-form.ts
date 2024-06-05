@@ -1,5 +1,5 @@
 import { RESET_PASSWORD_DEFAULT_VALUES, RESET_PASSWORD_FORM_SCHEMA } from '../schemas/reset-password-form-schema';
-import { sendPasswordResetLink } from '../actions/create-new-password';
+import { sendPasswordResetLink } from '@/features/email/actions/send-password-reset-link';
 import { toast } from 'sonner';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -19,15 +19,15 @@ export function useResetPasswordForm(): { form: UseFormReturn<z.infer<typeof RES
 
   async function onSubmit(value: z.infer<typeof RESET_PASSWORD_FORM_SCHEMA>) {
     const { username } = value;
-    const { success, error, message } = await sendPasswordResetLink(username);
+    const { data } = await sendPasswordResetLink({ username });
 
-    if (error) {
-      setError('username', { message });
-      toast.error(error, { description: message });
+    if (data?.error) {
+      setError('username', { message: data.error });
+      toast.error(data.error, { description: data.message });
     }
 
-    if (success) {
-      toast.success(success, { description: message });
+    if (data?.success) {
+      toast.success(data.success, { description: data.message });
     }
   }
   return { form, onSubmit };

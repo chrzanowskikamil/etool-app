@@ -1,13 +1,14 @@
+'use server';
 import { Resend } from 'resend';
+
+const ADMIN_EMAIL = 'reset-password@etool.solutions';
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 interface EmailOptions {
   to: string;
   subject: string;
   text: string;
 }
-
-const resend = new Resend(process.env.RESEND_API_KEY);
-const ADMIN_EMAIL = 'reset-password@etool.solutions';
 
 export async function sendEmail(options: EmailOptions) {
   const { to, subject, text } = options;
