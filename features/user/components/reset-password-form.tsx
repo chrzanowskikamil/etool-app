@@ -17,10 +17,7 @@ export default function ResetPasswordForm() {
   return (
     <Form {...form}>
       {isSubmitSuccessful ? (
-        <div className='flex text-green-700'>
-          <EnvelopeClosedIcon className='w-12 h-12 mx-auto text-primary-600' />
-          <p className='text-center'>Please check your email and follow the instructions.</p>
-        </div>
+        <p className='text-center text-green-600'>Please check your email and follow the instructions.</p>
       ) : (
         <form
           className='flex flex-col gap-6'

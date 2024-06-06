@@ -18,6 +18,8 @@ export function useNewPasswordForm(): { form: UseFormReturn<z.infer<typeof NEW_P
     resolver: zodResolver(NEW_PASSWORD_FORM_SCHEMA),
   });
 
+  const { setError } = form;
+
   async function onSubmit(value: z.infer<typeof NEW_PASSWORD_FORM_SCHEMA>) {
     const { password } = value;
     const verificationToken = new URLSearchParams(window.location.search).get('token');
@@ -26,6 +28,7 @@ export function useNewPasswordForm(): { form: UseFormReturn<z.infer<typeof NEW_P
       const { error, success, message } = await createNewPassword(password, verificationToken);
 
       if (error) {
+        setError('password', { message });
         toast.error(error, { description: message });
       }
 

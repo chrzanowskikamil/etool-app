@@ -14,7 +14,6 @@ export const signUpUser = action(REGISTER_FORM_SCHEMA, async (credentials) => {
     data?.user && (await createSession(data.user.id));
     return { success: 'You are registered!' };
   } catch (error) {
-    console.error(`Error in signUpUser function: ${error}`);
     return { error: 'Internal server error' };
   }
 });
