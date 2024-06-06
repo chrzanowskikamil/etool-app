@@ -22,11 +22,11 @@ export function useLoginForm(): { form: UseFormReturn<z.infer<typeof LOGIN_FORM_
     if (data?.error) {
       setError('username', { message: data.error });
       setError('password', { message: data.error });
-      toast.error(data.error);
+      toast.error(data.error, { description: data.message });
     }
 
     if (data?.success) {
-      toast.success(data.success);
+      toast.success(data.success, { description: data.message });
     }
   }
   return { form, onSubmit };

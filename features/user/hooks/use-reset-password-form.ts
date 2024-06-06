@@ -22,7 +22,7 @@ export function useResetPasswordForm(): { form: UseFormReturn<z.infer<typeof RES
     const { data } = await sendPasswordResetLink({ username });
 
     if (data?.error) {
-      setError('username', { message: data.error });
+      setError('username', { message: data.message });
       toast.error(data.error, { description: data.message });
     }
 

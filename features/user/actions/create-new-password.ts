@@ -7,18 +7,15 @@ export const createNewPassword = async (newPassword: string, verificationToken: 
   try {
     const token = await getResetPasswordToken(verificationToken);
 
-    if (!token) {
-      return { success: null, error: 'Setting a new password - failed', message: 'The token is invalid or expired' };
-    }
+    if (!token) return { error: 'Setting a new password - failed', message: 'The token is invalid or expired. Try reset your password again.' };
 
-    if (token) deleteResetPasswordTokenById(verificationToken);
-
+    await deleteResetPasswordTokenById(verificationToken);
     await auth.invalidateUserSessions(token.userId);
     const newHashedPassword = await new Argon2id().hash(newPassword);
     await updateUserPassword(token.userId, newHashedPassword);
 
     return { success: 'Setting a new password - success', message: 'Your password has been changed - log in using your new credentials' };
   } catch (error) {
-    return { success: null, error: 'Setting a new password - failed', message: 'Oops, something went wrong on the server' };
+    return { error: 'Setting a new password - failed', message: 'Oops, something went wrong on the server' };
   }
 };
