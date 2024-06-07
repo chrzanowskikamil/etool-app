@@ -14,7 +14,7 @@ export const signInUser = action(LOGIN_FORM_SCHEMA, async ({ username, password 
     if (!isPasswordValid) return { error: 'Bad credentials', message: 'Check your email or password' };
 
     await createSession(existingUser.id);
-    return { success: 'You are logged in!', message: `Welcome back, ${existingUser.username}` };
+    return { success: 'You are logged in!', message: `Welcome back, ${existingUser.firstName}` };
   } catch (error) {
     console.error(`Error in signIn function: ${error}`);
     return { error: 'Internal server error' };

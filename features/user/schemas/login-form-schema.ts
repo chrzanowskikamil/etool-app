@@ -1,5 +1,5 @@
 import { object, string } from 'zod';
-import { VALIDATION_CONSTANTS } from '../utils';
+import { VALIDATION_CONSTANTS } from './utils';
 
 export const LOGIN_DEFAULT_VALUES = {
   username: '',
