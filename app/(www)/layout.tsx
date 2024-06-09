@@ -3,7 +3,6 @@ import type { Metadata } from 'next';
 import { Montserrat } from 'next/font/google';
 import { ThemeProvider } from '@/components/theme-provider';
 import { Toaster } from '@/components/ui/sonner';
-import { Navbar } from '@/components/navbar';
 import Providers from '@/lib/providers';
 
 export const metadata: Metadata = {
@@ -20,12 +19,11 @@ export default async function RootLayout({ children }: { children: React.ReactNo
     <html
       lang='en'
       suppressHydrationWarning>
-      <body className={`${montserratFont.className} h-screen`}>
+      <body className={`${montserratFont.className} flex flex-col h-screen`}>
         <Providers>
           <ThemeProvider
             attribute='class'
             defaultTheme='dark'>
-            <Navbar />
             <Toaster
               toastOptions={{
                 style: {

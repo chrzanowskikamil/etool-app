@@ -79,7 +79,7 @@ export default function LoginForm() {
             </FormItem>
           )}
         />
-        <Button type='submit'>Login {isSubmitting ? <LoadingSpinner /> : null}</Button>
+        <Button type='submit'>Submit {isSubmitting ? <LoadingSpinner /> : null}</Button>
       </form>
     </Form>
   );
