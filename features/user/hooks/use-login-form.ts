@@ -4,9 +4,12 @@ import { toast } from 'sonner';
 import z from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm, UseFormReturn } from 'react-hook-form';
+import { urlPaths } from '@/utils/paths';
+import { useRouter } from 'next/navigation';
 
 export function useLoginForm(): { form: UseFormReturn<z.infer<typeof LOGIN_FORM_SCHEMA>>; onSubmit: (values: z.infer<typeof LOGIN_FORM_SCHEMA>) => Promise<void> } {
   const DELAY_ERROR = 300;
+  const router = useRouter();
 
   const form = useForm<z.infer<typeof LOGIN_FORM_SCHEMA>>({
     delayError: DELAY_ERROR,
@@ -27,6 +30,7 @@ export function useLoginForm(): { form: UseFormReturn<z.infer<typeof LOGIN_FORM_
 
     if (data?.success) {
       toast.success(data.success, { description: data.message });
+      router.push(urlPaths.dashboard);
     }
   }
   return { form, onSubmit };

@@ -5,6 +5,7 @@ import { ThemeProvider } from '@/components/theme-provider';
 import Providers from '@/lib/providers';
 import { Toaster } from 'sonner';
 import { Navbar } from '@/components/navbar';
+import { getSession } from '@/lib/auth/get-session';
 
 export const metadata: Metadata = {
   title: 'ETool',
@@ -16,6 +17,7 @@ const toastPosition = 'top-right';
 const toastOffset = '52px';
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  const { user } = await getSession();
   return (
     <html
       lang='en'
@@ -25,7 +27,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           <ThemeProvider
             attribute='class'
             defaultTheme='dark'>
-            <Navbar />
+            <Navbar user={user} />
             {children}
             <Toaster
               toastOptions={{
