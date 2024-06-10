@@ -1,5 +1,4 @@
 'use client';
-
 import { Button } from '../../../components/ui/button';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '../../../components/ui/form';
 import { Input } from '../../../components/ui/input';
@@ -18,7 +17,7 @@ export default function RegisterForm() {
   return (
     <Form {...form}>
       <form
-        className='flex flex-col gap-6'
+        className='flex flex-col gap-4'
         onSubmit={form.handleSubmit(onSubmit)}>
         <FormField
           control={form.control}

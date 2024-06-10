@@ -1,13 +1,12 @@
 'use client';
-
 import Link from 'next/link';
 import { Button } from '../../../components/ui/button';
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '../../../components/ui/form';
 import { Input } from '../../../components/ui/input';
-import { EyeClosedIcon, EyeOpenIcon } from '@radix-ui/react-icons';
 import { LoadingSpinner } from '../../../components/icons';
-import { useLoginForm } from '@/features/user/hooks/use-login-form';
+import { EyeClosedIcon, EyeOpenIcon } from '@radix-ui/react-icons';
 import { urlPaths } from '@/utils/paths';
+import { useLoginForm } from '@/features/user/hooks/use-login-form';
 import { useState } from 'react';
 
 export default function LoginForm() {
@@ -20,7 +19,7 @@ export default function LoginForm() {
   return (
     <Form {...form}>
       <form
-        className='flex flex-col gap-6'
+        className='flex flex-col gap-4'
         onSubmit={form.handleSubmit(onSubmit)}>
         <FormField
           control={form.control}
