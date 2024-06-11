@@ -1,4 +1,3 @@
-import { AuthHero } from '@/components/auth-hero';
 import { Button } from '@/components/ui/button';
 import { Logo } from '@/components/logo';
 import LoginForm from '@/features/user/components/login-form';
@@ -16,8 +15,8 @@ export default async function LoginPage() {
   }
 
   return (
-    <main className='flex items-center h-full'>
-      <section className='flex flex-col p-8 w-1/3'>
+    <main className='flex justify-center items-center h-full'>
+      <section className='flex flex-col w-[500px] p-8'>
         <Link
           href={urlPaths.home}
           className='my-8 self-center'>
@@ -47,7 +46,6 @@ export default async function LoginPage() {
           Dont have account? <strong>Create one here.</strong>
         </Link>
       </section>
-      <AuthHero />
     </main>
   );
 }

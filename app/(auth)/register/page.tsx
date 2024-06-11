@@ -4,7 +4,6 @@ import RegisterForm from '@/features/user/components/register-form';
 import { redirect } from 'next/navigation';
 import { urlPaths } from '@/utils/paths';
 import { Logo } from '@/components/logo';
-import { AuthHero } from '@/components/auth-hero';
 import { Button } from '@/components/ui/button';
 import { GitHubLogoIcon, LinkedInLogoIcon } from '@radix-ui/react-icons';
 
@@ -16,8 +15,8 @@ export default async function RegisterPage() {
   }
 
   return (
-    <main className='flex items-center h-full'>
-      <section className='flex flex-col p-8 w-1/3'>
+    <main className='flex justify-center items-center h-full'>
+      <section className='flex flex-col p-8 w-[500px]'>
         <Link
           href={urlPaths.home}
           className='my-8 self-center'>
@@ -47,7 +46,6 @@ export default async function RegisterPage() {
           Already have an account? <strong>Log in</strong>
         </Link>
       </section>
-      <AuthHero />
     </main>
   );
 }
