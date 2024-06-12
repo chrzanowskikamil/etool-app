@@ -15,11 +15,11 @@ export default async function RegisterPage() {
   }
 
   return (
-    <main className='flex justify-center items-center h-full'>
+    <main className='flex justify-center items-center h-full animate-in slide-in-from-left-96 '>
       <section className='flex flex-col p-8 w-[500px]'>
         <Link
           href={urlPaths.home}
-          className='my-8 self-center'>
+          className='hidden lg:block my-8 self-center'>
           <Logo
             title='ETool'
             size='40px'

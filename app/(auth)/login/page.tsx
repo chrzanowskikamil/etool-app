@@ -15,11 +15,11 @@ export default async function LoginPage() {
   }
 
   return (
-    <main className='flex justify-center items-center h-full'>
-      <section className='flex flex-col w-[500px] p-8'>
+    <main className='flex justify-center items-center h-full animate-in slide-in-from-left-96 '>
+      <section className='flex flex-col w-[500px] p-8 '>
         <Link
           href={urlPaths.home}
-          className='my-8 self-center'>
+          className='hidden lg:y-8 self-center '>
           <Logo
             title='ETool'
             size='40px'

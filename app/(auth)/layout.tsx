@@ -14,7 +14,7 @@ export default async function AuthLayout({ children }: { children: React.ReactNo
     <html
       lang='en'
       suppressHydrationWarning>
-      <body className={`${montserratFont.className} flex h-screen`}>
+      <body className={`${montserratFont.className} lg:flex h-screen`}>
         <Providers>
           {children}
           <AuthHero />
