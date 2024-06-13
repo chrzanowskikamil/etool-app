@@ -1,11 +1,11 @@
 import { Button } from '@/components/ui/button';
+import { getSession } from '@/lib/auth/get-session';
+import { GitHubLogoIcon, LinkedInLogoIcon } from '@radix-ui/react-icons';
+import Link from 'next/link';
 import { Logo } from '@/components/logo';
 import LoginForm from '@/features/user/components/login-form';
-import { GitHubLogoIcon, LinkedInLogoIcon } from '@radix-ui/react-icons';
-import { getSession } from '@/lib/auth/get-session';
-import { urlPaths } from '@/utils/paths';
 import { redirect } from 'next/navigation';
-import Link from 'next/link';
+import { urlPaths } from '@/utils/paths';
 
 export default async function LoginPage() {
   const { user } = await getSession();
@@ -15,11 +15,11 @@ export default async function LoginPage() {
   }
 
   return (
-    <main className='flex justify-center items-center h-full animate-in slide-in-from-left-96 '>
-      <section className='flex flex-col w-[500px] p-8 '>
+    <main className='flex justify-center items-center h-full animate-in slide-in-from-left-96'>
+      <section className='flex flex-col w-[500px] p-8'>
         <Link
           href={urlPaths.home}
-          className='hidden lg:y-8 self-center '>
+          className='hidden lg:block my-8 self-center'>
           <Logo
             title='ETool'
             size='40px'

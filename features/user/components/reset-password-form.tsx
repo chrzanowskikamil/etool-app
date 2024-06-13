@@ -1,7 +1,5 @@
 'use client';
-
 import { Button } from '../../../components/ui/button';
-import { EnvelopeClosedIcon } from '@radix-ui/react-icons';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '../../../components/ui/form';
 import { Input } from '../../../components/ui/input';
 import { LoadingSpinner } from '../../../components/icons';
@@ -17,7 +15,7 @@ export default function ResetPasswordForm() {
   return (
     <Form {...form}>
       {isSubmitSuccessful ? (
-        <p className='text-center text-green-600'>Please check your email and follow the instructions.</p>
+        <p className='text-center'>Please check your email and follow the instructions.</p>
       ) : (
         <form
           className='flex flex-col gap-6'
