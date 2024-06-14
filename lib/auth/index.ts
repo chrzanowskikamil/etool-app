@@ -4,6 +4,7 @@ import { PrismaAdapter } from '@lucia-auth/adapter-prisma';
 
 interface DatabaseUserAttributes {
   id: string;
+  github_id: string | null;
   username: string;
   hashed_password: string;
   firstName: string | null;
@@ -28,6 +29,7 @@ export const auth = new Lucia(adapter, {
   getUserAttributes: (attributes) => {
     return {
       id: attributes.id,
+      githubId: attributes.github_id,
       username: attributes.username,
       hashed_password: attributes.hashed_password,
       firstName: attributes.firstName,

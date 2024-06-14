@@ -11,7 +11,7 @@ export const createNewUser = action(REGISTER_FORM_SCHEMA, async (credentials) =>
   const { firstName, lastName, username, password } = credentials;
   const hashedPassword = await new Argon2id().hash(password);
 
-  const userCredentials: User = {
+  const userCredentials: Omit<User, 'githubId'> = {
     id: userId,
     firstName,
     lastName,
