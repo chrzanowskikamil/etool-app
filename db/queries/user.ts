@@ -1,7 +1,7 @@
 import { database } from '../prisma';
 import { User } from 'lucia';
 
-export const createUserByCredentials = async (credentials: User) => {
+export const createUserByCredentials = async (credentials: Omit<User, 'githubId'>) => {
   return await database.user.create({
     data: credentials,
   });
