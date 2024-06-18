@@ -28,6 +28,7 @@ export default async function LoginPage() {
         <h1 className='text-3xl font-semibold text-center'>Welcome back!</h1>
         <p className='text-sm text-muted-foreground my-4'>Sing into ETool with credentials or socials providers.</p>
         <LoginForm />
+        <Link href='login/github'>Continue with Github</Link>
         <Button
           className='mt-4'
           variant='secondary'>
