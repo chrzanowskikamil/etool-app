@@ -1,4 +1,5 @@
 import { database } from '../../db/prisma';
+import { GitHub } from 'arctic';
 import { Lucia } from 'lucia';
 import { PrismaAdapter } from '@lucia-auth/adapter-prisma';
 
@@ -37,3 +38,5 @@ export const auth = new Lucia(adapter, {
     };
   },
 });
+
+export const githubOAuth = new GitHub(process.env.GITHUB_CLIENT_ID!, process.env.GITHUB_CLIENT_SECRET!);
