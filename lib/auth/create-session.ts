@@ -1,5 +1,4 @@
 'use server';
-
 import { auth } from '@/lib/auth';
 import { cookies } from 'next/headers';
 

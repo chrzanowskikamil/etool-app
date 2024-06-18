@@ -1,6 +1,6 @@
-import { githubOAuth } from '@/lib/auth';
-import { generateState } from 'arctic';
 import { cookies } from 'next/headers';
+import { generateState } from 'arctic';
+import { githubOAuth } from '@/lib/auth';
 
 export async function GET(): Promise<Response> {
   const state = generateState();
@@ -8,7 +8,7 @@ export async function GET(): Promise<Response> {
 
   cookies().set('github_oauth_state', state, {
     path: '/',
-    secure: false,
+    secure: process.env.NODE_ENV === 'production',
     httpOnly: true,
     maxAge: 60 * 10,
     sameSite: 'lax',

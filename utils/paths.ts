@@ -14,10 +14,12 @@ interface UrlPaths {
   resetPassword: string;
 }
 
+interface EndpointsPaths {
+  githubUserApi: string;
+}
+
 const home = '/';
 const dashboard = '/dashboard';
-
-export const githubProfileUrl = 'https://github.com/chrzanowskikamil';
 
 export const urlPaths: UrlPaths = {
   home,
@@ -35,4 +37,9 @@ export const urlPaths: UrlPaths = {
   reports: `${dashboard}/reports`,
 };
 
+export const endpointsPaths: EndpointsPaths = {
+  githubUserApi: 'https://api.github.com/user',
+};
+
 export const createResetPasswordLink = (token: string) => `${process.env.NEXT_PUBLIC_BASE_URL}${urlPaths.newPassword}?token=${token}`;
+export const githubProfileUrl = 'https://github.com/chrzanowskikamil';
