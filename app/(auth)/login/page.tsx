@@ -1,4 +1,4 @@
-import { Button } from '@/components/ui/button';
+import { Button, buttonVariants } from '@/components/ui/button';
 import { getSession } from '@/lib/auth/get-session';
 import { GitHubLogoIcon, LinkedInLogoIcon } from '@radix-ui/react-icons';
 import Link from 'next/link';
@@ -28,14 +28,14 @@ export default async function LoginPage() {
         <h1 className='text-3xl font-semibold text-center'>Welcome back!</h1>
         <p className='text-sm text-muted-foreground my-4'>Sing into ETool with credentials or socials providers.</p>
         <LoginForm />
-        <Link href='login/github'>Continue with Github</Link>
-        <Button
-          className='mt-4'
-          variant='secondary'>
+        <Link
+          href={urlPaths.githubAuth}
+          className={buttonVariants({ variant: 'secondary', size: 'lg', className: 'mt-4' })}>
           <GitHubLogoIcon className='w-6 h-6 mr-2' />
           Continue with Github
-        </Button>
+        </Link>
         <Button
+          disabled
           className='mt-4'
           variant='secondary'>
           <LinkedInLogoIcon className='w-6 h-6 mr-2' />

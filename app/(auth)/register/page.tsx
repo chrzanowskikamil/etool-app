@@ -1,11 +1,11 @@
+import { Button, buttonVariants } from '@/components/ui/button';
 import { getSession } from '@/lib/auth/get-session';
-import Link from 'next/link';
-import RegisterForm from '@/features/user/components/register-form';
-import { redirect } from 'next/navigation';
-import { urlPaths } from '@/utils/paths';
-import { Logo } from '@/components/logo';
-import { Button } from '@/components/ui/button';
 import { GitHubLogoIcon, LinkedInLogoIcon } from '@radix-ui/react-icons';
+import Link from 'next/link';
+import { Logo } from '@/components/logo';
+import { redirect } from 'next/navigation';
+import RegisterForm from '@/features/user/components/register-form';
+import { urlPaths } from '@/utils/paths';
 
 export default async function RegisterPage() {
   const { user } = await getSession();
@@ -28,13 +28,14 @@ export default async function RegisterPage() {
         <h1 className='text-3xl font-semibold text-center'>Get started</h1>
         <p className='text-sm text-muted-foreground my-4'>Create your ETool account by signing in with credentials or providers.</p>
         <RegisterForm />
-        <Button
-          className='mt-4'
-          variant='secondary'>
+        <Link
+          href={urlPaths.githubAuth}
+          className={buttonVariants({ variant: 'secondary', size: 'lg', className: 'mt-4' })}>
           <GitHubLogoIcon className='w-6 h-6 mr-2' />
           Continue with Github
-        </Button>
+        </Link>
         <Button
+          disabled
           className='mt-4'
           variant='secondary'>
           <LinkedInLogoIcon className='w-6 h-6 mr-2' />
