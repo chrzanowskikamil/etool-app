@@ -7,6 +7,8 @@ interface UrlPaths {
   help: string;
   home: string;
   login: string;
+  linkedInAuth: string;
+  linkedInCallback: string;
   newPassword: string;
   profile: string;
   register: string;
@@ -29,6 +31,8 @@ export const urlPaths: UrlPaths = {
   docs: '/docs',
   githubAuth: '/login/github',
   login: '/login',
+  linkedInAuth: '/login/linkedin',
+  linkedInCallback: '/login/linkedin/callback',
   newPassword: '/new-password',
   register: '/register',
   reviews: '/reviews',

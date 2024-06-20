@@ -1,7 +1,8 @@
 import { database } from '../../db/prisma';
-import { GitHub } from 'arctic';
+import { GitHub, LinkedIn } from 'arctic';
 import { Lucia } from 'lucia';
 import { PrismaAdapter } from '@lucia-auth/adapter-prisma';
+import { urlPaths } from '@/utils/paths';
 
 interface DatabaseUserAttributes {
   id: string;
@@ -22,6 +23,7 @@ declare module 'lucia' {
 const adapter = new PrismaAdapter(database.session, database.user);
 
 export const githubOAuth = new GitHub(process.env.GITHUB_CLIENT_ID!, process.env.GITHUB_CLIENT_SECRET!);
+export const linkedInOAuth = new LinkedIn(process.env.LINKEDIN_CLIENT_ID!, process.env.LINKEDIN_CLIENT_SECRET!, `${process.env.NEXT_PUBLIC_BASE_URL}${urlPaths.linkedInCallback}`);
 
 export const auth = new Lucia(adapter, {
   sessionCookie: {
