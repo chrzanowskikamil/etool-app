@@ -6,12 +6,14 @@ import { REGISTER_FORM_SCHEMA } from '../schemas/register-form-schema';
 import { User, generateId } from 'lucia';
 import { USER_ID_LENGTH } from './utils';
 
+type UserCredentials = Omit<User, 'githubId' | 'linkedInId'>;
+
 export const createNewUser = action(REGISTER_FORM_SCHEMA, async (credentials) => {
   const userId = generateId(USER_ID_LENGTH);
   const { firstName, lastName, username, password } = credentials;
   const hashedPassword = await new Argon2id().hash(password);
 
-  const userCredentials: Omit<User, 'githubId'> = {
+  const userCredentials: UserCredentials = {
     id: userId,
     firstName,
     lastName,

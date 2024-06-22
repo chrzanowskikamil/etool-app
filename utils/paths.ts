@@ -7,6 +7,8 @@ interface UrlPaths {
   help: string;
   home: string;
   login: string;
+  linkedInAuth: string;
+  linkedInCallback: string;
   newPassword: string;
   profile: string;
   register: string;
@@ -17,6 +19,7 @@ interface UrlPaths {
 
 interface EndpointsPaths {
   githubUserApi: string;
+  linkedInUserApi: string;
 }
 
 const home = '/';
@@ -29,6 +32,8 @@ export const urlPaths: UrlPaths = {
   docs: '/docs',
   githubAuth: '/login/github',
   login: '/login',
+  linkedInAuth: '/login/linkedin',
+  linkedInCallback: '/login/linkedin/callback',
   newPassword: '/new-password',
   register: '/register',
   reviews: '/reviews',
@@ -41,6 +46,7 @@ export const urlPaths: UrlPaths = {
 
 export const endpointsPaths: EndpointsPaths = {
   githubUserApi: 'https://api.github.com/user',
+  linkedInUserApi: 'https://api.linkedin.com/v2/userinfo',
 };
 
 export const createResetPasswordLink = (token: string) => `${process.env.NEXT_PUBLIC_BASE_URL}${urlPaths.newPassword}?token=${token}`;

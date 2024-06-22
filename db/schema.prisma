@@ -11,6 +11,7 @@ datasource db {
 model User {
   id              String    @id
   githubId        Int?   @unique
+  linkedInId      String? @unique
   username        String    @unique
   hashed_password String
   firstName       String?
