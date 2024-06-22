@@ -19,6 +19,7 @@ interface UrlPaths {
 
 interface EndpointsPaths {
   githubUserApi: string;
+  linkedInUserApi: string;
 }
 
 const home = '/';
@@ -45,6 +46,7 @@ export const urlPaths: UrlPaths = {
 
 export const endpointsPaths: EndpointsPaths = {
   githubUserApi: 'https://api.github.com/user',
+  linkedInUserApi: 'https://api.linkedin.com/v2/userinfo',
 };
 
 export const createResetPasswordLink = (token: string) => `${process.env.NEXT_PUBLIC_BASE_URL}${urlPaths.newPassword}?token=${token}`;

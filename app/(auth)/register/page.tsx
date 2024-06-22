@@ -34,13 +34,12 @@ export default async function RegisterPage() {
           <GitHubLogoIcon className='w-6 h-6 mr-2' />
           Continue with Github
         </Link>
-        <Button
-          disabled
-          className='mt-4'
-          variant='secondary'>
+        <Link
+          href={urlPaths.linkedInAuth}
+          className={buttonVariants({ variant: 'secondary', size: 'lg', className: 'mt-4' })}>
           <LinkedInLogoIcon className='w-6 h-6 mr-2' />
           Continue with LinkedIn
-        </Button>
+        </Link>
         <Link
           className='my-2 text-sm text-center text-foreground/60 hover:text-foreground/80'
           href={urlPaths.login}>

@@ -1,13 +1,12 @@
-import { linkedInOAuth } from '@/lib/auth';
-import { generateState } from 'arctic';
 import { cookies } from 'next/headers';
+import { generateState } from 'arctic';
+import { linkedInOAuth } from '@/lib/auth';
 
 export async function GET(): Promise<Response> {
   const state = generateState();
-  const url = await linkedInOAuth.createAuthorizationURL(state);
-
-  console.log(state);
-  console.log(url);
+  const url: URL = await linkedInOAuth.createAuthorizationURL(state, {
+    scopes: ['profile', 'email'],
+  });
 
   cookies().set('linkedin_oauth_state', state, {
     path: '/',

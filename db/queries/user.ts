@@ -1,7 +1,7 @@
 import { database } from '../prisma';
 import { User } from 'lucia';
 
-export const createUserByCredentials = async (credentials: Omit<User, 'githubId'>) => {
+export const createUserByCredentials = async (credentials: Omit<User, 'githubId' | 'linkedInId'>) => {
   return await database.user.create({
     data: credentials,
   });
@@ -22,6 +22,25 @@ export const getUserByGitHubId = async (githubId: number) => {
   return await database.user.findUnique({
     where: {
       githubId: githubId,
+    },
+  });
+};
+
+export const createUserByLinkedInId = async (id: string, linkedInId: string, username: string) => {
+  return await database.user.create({
+    data: {
+      id: id,
+      linkedInId: linkedInId,
+      username: username,
+      hashed_password: '',
+    },
+  });
+};
+
+export const getUserByLinkedInId = async (linkedInId: string) => {
+  return await database.user.findUnique({
+    where: {
+      linkedInId: linkedInId,
     },
   });
 };
