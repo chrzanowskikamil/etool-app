@@ -1,9 +1,10 @@
-import Link from 'next/link';
-import { urlPaths } from '@/utils/paths';
 import { Button } from './ui/button';
-import { HamburgerMenuIcon } from '@radix-ui/react-icons';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuTrigger } from './ui/dropdown-menu';
 import { getSession } from '@/lib/auth/get-session';
+import { HamburgerMenuIcon } from '@radix-ui/react-icons';
+import Link from 'next/link';
+import { LogoutButton } from './logout-button';
+import { urlPaths } from '@/utils/paths';
 
 export async function MobileNavButton() {
   const { user } = await getSession();
@@ -56,6 +57,11 @@ export async function MobileNavButton() {
           )}
           {mobileNavbarItems}
         </DropdownMenuGroup>
+        {user && (
+          <DropdownMenuItem asChild>
+            <LogoutButton />
+          </DropdownMenuItem>
+        )}
       </DropdownMenuContent>
     </DropdownMenu>
   );
