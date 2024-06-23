@@ -1,12 +1,13 @@
-import Link from 'next/link';
-import { DashboardIcon, LockOpen1Icon, PersonIcon } from '@radix-ui/react-icons';
 import { buttonVariants } from './ui/button';
+import { DashboardIcon, LockOpen1Icon } from '@radix-ui/react-icons';
+import { cn } from '@/utils/cn';
+import Link from 'next/link';
 import { Logo } from './logo';
 import { MobileNavButton } from './mobile-nav-button';
 import { ThemeToggleButton } from './theme-toggle-button';
 import { urlPaths } from '@/utils/paths';
-import { cn } from '@/utils/cn';
 import { User } from 'lucia';
+import UserDropdownMenu from '@/features/user/components/user-dropdown-menu';
 
 interface NavbarProps {
   user: User | null;
@@ -75,12 +76,8 @@ export async function Navbar({ user }: NavbarProps) {
                   <DashboardIcon className='mr-2' /> Dashboard
                 </Link>
               </li>
-              <li className='hidden md:inline-flex'>
-                <Link
-                  href={urlPaths.profile}
-                  className={cn(buttonVariants({ variant: 'outline' }))}>
-                  <PersonIcon className='mr-2' /> {user.username}
-                </Link>
+              <li className='hidden md:flex'>
+                <UserDropdownMenu user={user} />
               </li>
             </>
           )}
