@@ -10,8 +10,9 @@ datasource db {
 
 model User {
   id              String    @id
-  githubId        Int?   @unique
-  linkedInId      String? @unique
+  emailVerified   Boolean   @default(false)
+  githubId        Int?      @unique
+  linkedInId      String?   @unique
   username        String    @unique
   hashed_password String
   firstName       String?
@@ -30,5 +31,13 @@ model ResetPasswordToken {
   id        String   @id
   token     String
   userId    String
+  expiresAt DateTime
+}
+
+model EmailVerificationToken {
+  id        String   @id
+  code      String   
+  userId    String   @unique
+  email     String
   expiresAt DateTime
 }

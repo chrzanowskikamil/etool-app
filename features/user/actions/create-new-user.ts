@@ -15,6 +15,7 @@ export const createNewUser = action(REGISTER_FORM_SCHEMA, async (credentials) =>
 
   const userCredentials: UserCredentials = {
     id: userId,
+    emailVerified: false,
     firstName,
     lastName,
     username,

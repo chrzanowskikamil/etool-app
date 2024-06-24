@@ -1,9 +1,9 @@
 'use server';
 import { action } from '@/lib/safe-action';
-import { createSession } from '@/lib/auth/create-session';
 import { createNewUser } from './create-new-user';
 import { getUserByUsername } from '@/db/queries/user';
 import { REGISTER_FORM_SCHEMA } from '../schemas/register-form-schema';
+import { sendVerificationEmailCode } from '@/features/email/actions/send-verification-email-code';
 
 export const signUpUser = action(REGISTER_FORM_SCHEMA, async (credentials) => {
   try {
@@ -11,9 +11,13 @@ export const signUpUser = action(REGISTER_FORM_SCHEMA, async (credentials) => {
     if (isUserExist) return { error: 'User already exists' };
 
     const { data } = await createNewUser(credentials);
-    data?.user && (await createSession(data.user.id));
-    return { success: 'You are registered!' };
+    if (data?.user) {
+      await sendVerificationEmailCode(data.user.username);
+    }
+
+    return { success: 'You are registered! Check your email adress to verify account.' };
   } catch (error) {
+    console.error(error);
     return { error: 'Internal server error' };
   }
 });
