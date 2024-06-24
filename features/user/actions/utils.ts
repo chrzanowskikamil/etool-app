@@ -1,4 +1,8 @@
-export const EXPIRATION_TIME_VALUE = 2; // in hours
-export const EXPIRATION_TIME_UNIT = 'h'; // hours
+export const RESET_PASSWORD_TOKEN_EXPIRATION_TIME_VALUE = 2; // in hours
+export const RESET_PASSWORD_TOKEN_EXPIRATION_TIME_UNIT = 'h'; // hours
+export const VERIFICATION_EMAIL_CODE_EXPIRATION_TIME_VALUE = 15; // in minutes
+export const VERIFICATION_EMAIL_CODE_EXPIRATION_TIME_UNIT = 'm'; // minutes
 export const TOKEN_ID_LENGTH = 40;
 export const USER_ID_LENGTH = 15;
+export const VERIFICATION_EMAIL_CODE_LENGTH = 4;
+export const VERIFICATION_EMAIL_CODE_PATTERN = '0-9'; // numeric

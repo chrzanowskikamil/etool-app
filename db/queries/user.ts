@@ -64,6 +64,26 @@ export const updateUserPassword = async (userId: string, newHashedPassword: stri
   });
 };
 
+export const createVerificationEmailToken = async (userId: string, email: string, code: string, expiresAt: Date) => {
+  await database.emailVerificationToken.create({
+    data: {
+      id: userId,
+      userId: userId,
+      email: email,
+      code: code,
+      expiresAt: expiresAt,
+    },
+  });
+};
+
+export const deleteVerificationEmailCodeByUserId = async (userId: string) => {
+  await database.emailVerificationToken.deleteMany({
+    where: {
+      userId: userId,
+    },
+  });
+};
+
 export const createResetPasswordToken = async (userId: string, tokenId: string, expiresAt: Date) => {
   await database.resetPasswordToken.create({
     data: {

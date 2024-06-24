@@ -8,6 +8,7 @@ interface DatabaseUserAttributes {
   id: string;
   github_id: number | null;
   linkedin_id: string | null;
+  email_verified: boolean;
   username: string;
   hashed_password: string;
   firstName: string | null;
@@ -37,6 +38,7 @@ export const auth = new Lucia(adapter, {
       id: attributes.id,
       githubId: attributes.github_id,
       linkedInId: attributes.linkedin_id,
+      emailVerified: attributes.email_verified,
       username: attributes.username,
       hashed_password: attributes.hashed_password,
       firstName: attributes.firstName,
