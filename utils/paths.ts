@@ -2,6 +2,7 @@ interface UrlPaths {
   about: string;
   contact: string;
   dashboard: string;
+  emailVerification: string;
   docs: string;
   githubAuth: string;
   help: string;
@@ -30,6 +31,7 @@ export const urlPaths: UrlPaths = {
   about: '/about',
   contact: '/contact',
   docs: '/docs',
+  emailVerification: '/email-verification',
   githubAuth: '/login/github',
   login: '/login',
   linkedInAuth: '/login/linkedin',

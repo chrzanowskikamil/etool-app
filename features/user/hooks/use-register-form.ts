@@ -30,7 +30,7 @@ export function useRegisterForm(): { form: UseFormReturn<z.infer<typeof REGISTER
 
     if (data?.success) {
       toast.success(data.success);
-      router.replace(urlPaths.login);
+      router.replace(urlPaths.emailVerification);
     }
   }
   return { form, onSubmit };

@@ -24,3 +24,7 @@ export const generateVerificationEmailCode = async (userId: string, email: strin
 
   return code;
 };
+
+export const checkEmailVerificationCode = async (code: string) => {
+  return code;
+};
