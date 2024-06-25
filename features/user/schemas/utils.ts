@@ -1,4 +1,6 @@
 export interface ValidateConstants {
+  EMAIL_VERIFICATION_CODE_MESSAGE: string;
+  MIN_EMAIL_VERIFICATION_CODE_LENGTH: number;
   MIN_FIRST_NAME_LENGTH: number;
   MAX_FIRST_NAME_LENGTH: number;
   MIN_PASSWORD_LENGTH: number;
@@ -10,6 +12,8 @@ export interface ValidateConstants {
 }
 
 export const VALIDATION_CONSTANTS: ValidateConstants = {
+  EMAIL_VERIFICATION_CODE_MESSAGE: 'Your code must be 4 digits.',
+  MIN_EMAIL_VERIFICATION_CODE_LENGTH: 4,
   MIN_FIRST_NAME_LENGTH: 2,
   MAX_FIRST_NAME_LENGTH: 30,
   MIN_PASSWORD_LENGTH: 8,
