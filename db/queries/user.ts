@@ -1,4 +1,5 @@
 import { database } from '../prisma';
+import { isWithinExpirationDate } from 'oslo';
 import { User } from 'lucia';
 
 export const createUserByCredentials = async (credentials: Omit<User, 'githubId' | 'linkedInId'>) => {
@@ -64,6 +65,17 @@ export const updateUserPassword = async (userId: string, newHashedPassword: stri
   });
 };
 
+export const updateEmailVerifiedStatus = async (userId: string, emailVerified: boolean) => {
+  await database.user.update({
+    where: {
+      id: userId,
+    },
+    data: {
+      emailVerified: emailVerified,
+    },
+  });
+};
+
 export const createVerificationEmailToken = async (userId: string, email: string, code: string, expiresAt: Date) => {
   await database.emailVerificationToken.create({
     data: {
@@ -81,6 +93,31 @@ export const deleteVerificationEmailCodeByUserId = async (userId: string) => {
     where: {
       userId: userId,
     },
+  });
+};
+
+export const verifyVerificationEmailCode = async (user: User, code: string): Promise<boolean> => {
+  return await database.$transaction(async (prisma) => {
+    const databaseVerificationCode = await prisma.emailVerificationToken.findUnique({
+      where: {
+        userId: user.id,
+      },
+    });
+
+    if (!databaseVerificationCode || databaseVerificationCode.code !== code) return false;
+
+    if (!isWithinExpirationDate(databaseVerificationCode.expiresAt)) return false;
+
+    await prisma.emailVerificationToken.deleteMany({
+      where: {
+        code: code,
+      },
+    });
+
+    const databaseUser = await getUserByUsername(user.username);
+    if (databaseUser?.username !== user.username) return false;
+
+    return true;
   });
 };
 

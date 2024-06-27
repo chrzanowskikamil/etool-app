@@ -1,9 +1,10 @@
 'use server';
-import { createResetPasswordToken, createVerificationEmailToken, deleteResetPasswordTokenByUserId, deleteVerificationEmailCodeByUserId } from '@/db/queries/user';
+import { createResetPasswordToken, createVerificationEmailToken, deleteResetPasswordTokenByUserId, deleteVerificationEmailCodeByUserId, updateEmailVerifiedStatus, verifyVerificationEmailCode } from '@/db/queries/user';
 import { generateId } from 'lucia';
 import { generateRandomString, alphabet } from 'oslo/crypto';
 import { TimeSpan, createDate } from 'oslo';
 import { RESET_PASSWORD_TOKEN_EXPIRATION_TIME_UNIT, RESET_PASSWORD_TOKEN_EXPIRATION_TIME_VALUE, TOKEN_ID_LENGTH, VERIFICATION_EMAIL_CODE_EXPIRATION_TIME_UNIT, VERIFICATION_EMAIL_CODE_EXPIRATION_TIME_VALUE, VERIFICATION_EMAIL_CODE_LENGTH, VERIFICATION_EMAIL_CODE_PATTERN } from './utils';
+import { getSession } from '@/lib/auth/get-session';
 
 export const generateResetPasswordToken = async (userId: string) => {
   const TOKEN_EXPIRATION_TIME = new TimeSpan(RESET_PASSWORD_TOKEN_EXPIRATION_TIME_VALUE, RESET_PASSWORD_TOKEN_EXPIRATION_TIME_UNIT);
@@ -26,5 +27,12 @@ export const generateVerificationEmailCode = async (userId: string, email: strin
 };
 
 export const checkEmailVerificationCode = async (code: string) => {
-  return code;
+  const { user } = await getSession();
+  if (!user) return { error: 'Verification failed', message: 'Make sure you have entered the correct email.' };
+
+  const isCodeValid = await verifyVerificationEmailCode(user, code);
+  if (!isCodeValid) return { error: 'Invalid code', message: 'The code is invalid or has expired.' };
+
+  await updateEmailVerifiedStatus(user.id, isCodeValid);
+  return { success: 'Verification completed', message: 'Your email has been verified successfully.' };
 };

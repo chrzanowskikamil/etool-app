@@ -1,11 +1,12 @@
 'use client';
-import { Button } from '@/components/ui/button';
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { InputOTP, InputOTPGroup, InputOTPSlot } from '@/components/ui/input-otp';
+import { LoadingSpinner } from '@/components/icons';
 import { useEmailVerificationForm } from '../hooks/use-email-verification-form';
 
 export function EmailVerificationForm() {
   const { form, onSubmit } = useEmailVerificationForm();
+  const { isSubmitting } = form.formState;
 
   return (
     <Form {...form}>
@@ -21,6 +22,7 @@ export function EmailVerificationForm() {
               <FormControl>
                 <InputOTP
                   maxLength={4}
+                  onComplete={form.handleSubmit(onSubmit)}
                   {...field}>
                   <InputOTPGroup>
                     <InputOTPSlot index={0} />
@@ -31,11 +33,11 @@ export function EmailVerificationForm() {
                 </InputOTP>
               </FormControl>
               <FormDescription>Please enter the code sent to your mailbox.</FormDescription>
+              {isSubmitting && <LoadingSpinner />}
               <FormMessage />
             </FormItem>
           )}
         />
-        <Button type='submit'>Submit</Button>
       </form>
     </Form>
   );
