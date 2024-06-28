@@ -3,10 +3,31 @@ import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, For
 import { InputOTP, InputOTPGroup, InputOTPSlot } from '@/components/ui/input-otp';
 import { LoadingSpinner } from '@/components/icons';
 import { useEmailVerificationForm } from '../hooks/use-email-verification-form';
+import { Button } from '@/components/ui/button';
+import { User } from 'lucia';
+import { sendVerificationEmailCode } from '@/features/email/actions/send-verification-email-code';
+import { useRouter } from 'next/navigation';
+import { urlPaths } from '@/utils/paths';
+import { toast } from 'sonner';
 
-export function EmailVerificationForm() {
+interface EmailVerificationFormProps {
+  user: User | null;
+}
+
+export function EmailVerificationForm({ user }: EmailVerificationFormProps) {
   const { form, onSubmit } = useEmailVerificationForm();
   const { isSubmitting } = form.formState;
+  const router = useRouter();
+
+  if (!user) {
+    router.push(urlPaths.login);
+    return null;
+  }
+
+  const handleResedVericationCode = async () => {
+    await sendVerificationEmailCode(user.username);
+    toast.success('Verification code sent', { description: 'We sent you a new verification code to your email.' });
+  };
 
   return (
     <Form {...form}>
@@ -32,9 +53,19 @@ export function EmailVerificationForm() {
                   </InputOTPGroup>
                 </InputOTP>
               </FormControl>
-              <FormDescription>Please enter the code sent to your mailbox.</FormDescription>
-              {isSubmitting && <LoadingSpinner />}
               <FormMessage />
+              <FormDescription>Please enter the code sent to your mailbox.</FormDescription>
+              <FormDescription>
+                Did you not recive the code or is it expired?
+                <Button
+                  type='button'
+                  className='p-1'
+                  variant='link'
+                  onClick={() => handleResedVericationCode()}>
+                  Resend
+                </Button>
+              </FormDescription>
+              {isSubmitting && <LoadingSpinner />}
             </FormItem>
           )}
         />

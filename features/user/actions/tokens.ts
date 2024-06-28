@@ -28,7 +28,7 @@ export const generateVerificationEmailCode = async (userId: string, email: strin
 
 export const checkEmailVerificationCode = async (code: string) => {
   const { user } = await getSession();
-  if (!user) return { error: 'Verification failed', message: 'Make sure you have entered the correct email.' };
+  if (!user) return { error: 'Verification failed', message: 'Unauthorized user - please log in.' };
 
   const isCodeValid = await verifyVerificationEmailCode(user, code);
   if (!isCodeValid) return { error: 'Invalid code', message: 'The code is invalid or has expired.' };
