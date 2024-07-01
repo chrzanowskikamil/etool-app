@@ -8,8 +8,8 @@ export default function Providers({ children }: { children: ReactNode }) {
   return (
     <QueryProvider>
       <ThemeProvider>
-        <ToasterProvider />
         {children}
+        <ToasterProvider />
       </ThemeProvider>
     </QueryProvider>
   );
