@@ -17,7 +17,7 @@ export const signUpUser = action(REGISTER_FORM_SCHEMA, async (credentials) => {
       await sendVerificationEmailCode(data.user.username);
     }
 
-    return { success: 'You are registered! Check your email adress to verify account.' };
+    return { success: 'Account created! Check your mailbox to verify email address.' };
   } catch (error) {
     console.error(error);
     return { error: 'Internal server error' };
