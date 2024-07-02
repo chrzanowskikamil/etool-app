@@ -31,6 +31,15 @@ export default function UserDropdownMenu({ user }: UserDropdownMenuProps) {
             {user.username}
           </Link>
         </DropdownMenuItem>
+        {!user.emailVerified && (
+          <DropdownMenuItem>
+            <Link
+              className='flex-1 text-xs text-center hover:underline'
+              href={urlPaths.emailVerification}>
+              Email addres not verified
+            </Link>
+          </DropdownMenuItem>
+        )}
         <Separator />
         <DropdownMenuItem>
           <Button

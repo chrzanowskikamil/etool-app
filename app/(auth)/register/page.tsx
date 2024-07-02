@@ -1,4 +1,4 @@
-import { Button, buttonVariants } from '@/components/ui/button';
+import { buttonVariants } from '@/components/ui/button';
 import { getSession } from '@/lib/auth/get-session';
 import { GitHubLogoIcon, LinkedInLogoIcon } from '@radix-ui/react-icons';
 import Link from 'next/link';

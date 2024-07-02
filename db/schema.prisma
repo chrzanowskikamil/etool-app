@@ -10,13 +10,13 @@ datasource db {
 
 model User {
   id              String    @id
-  emailVerified   Boolean   @default(false)
-  githubId        Int?      @unique
-  linkedInId      String?   @unique
   username        String    @unique
   hashed_password String
   firstName       String?
   lastName        String?
+  githubId        Int?      @unique
+  linkedInId      String?   @unique
+  emailVerified   Boolean   @default(false)
   sessions        Session[]
 }
 
@@ -24,7 +24,7 @@ model Session {
   id        String   @id
   userId    String
   expiresAt DateTime
-  user      User     @relation(references: [id], fields: [userId], onDelete: Cascade)
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model ResetPasswordToken {
@@ -36,7 +36,7 @@ model ResetPasswordToken {
 
 model EmailVerificationToken {
   id        String   @id
-  code      String   
+  code      String
   userId    String   @unique
   email     String
   expiresAt DateTime

@@ -9,10 +9,7 @@ import { sendEmail } from './send-email';
 export const sendPasswordResetLink = action(RESET_PASSWORD_FORM_SCHEMA, async ({ username }) => {
   try {
     const user = await getUserByUsername(username);
-
-    if (!user) {
-      return { error: 'Reseting - failed', message: 'User not found' };
-    }
+    if (!user) return { error: 'Reseting - failed', message: 'User not found' };
 
     const resetPasswordToken = await generateResetPasswordToken(user.id);
     await sendEmail({ to: username, subject: 'Reset your password', text: `Click on this link to reset your password: ${createResetPasswordLink(resetPasswordToken)}` });
