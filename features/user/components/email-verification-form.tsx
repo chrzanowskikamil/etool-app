@@ -1,33 +1,19 @@
 'use client';
+import { Button } from '@/components/ui/button';
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { InputOTP, InputOTPGroup, InputOTPSlot } from '@/components/ui/input-otp';
 import { LoadingSpinner } from '@/components/icons';
+import { resendVerificationCode } from '../utils/resend-verification-code';
 import { useEmailVerificationForm } from '../hooks/use-email-verification-form';
-import { Button } from '@/components/ui/button';
 import { User } from 'lucia';
-import { sendVerificationEmailCode } from '@/features/email/actions/send-verification-email-code';
-import { useRouter } from 'next/navigation';
-import { urlPaths } from '@/utils/paths';
-import { toast } from 'sonner';
 
 interface EmailVerificationFormProps {
-  user: User | null;
+  user: User;
 }
 
 export function EmailVerificationForm({ user }: EmailVerificationFormProps) {
   const { form, onSubmit } = useEmailVerificationForm();
   const { isSubmitting } = form.formState;
-  const router = useRouter();
-
-  if (!user) {
-    router.push(urlPaths.login);
-    return null;
-  }
-
-  const handleResedVericationCode = async () => {
-    await sendVerificationEmailCode(user.username);
-    toast.success('Verification code sent', { description: 'We sent you a new verification code to your email.' });
-  };
 
   return (
     <Form {...form}>
@@ -61,7 +47,7 @@ export function EmailVerificationForm({ user }: EmailVerificationFormProps) {
                   type='button'
                   className='p-1'
                   variant='link'
-                  onClick={() => handleResedVericationCode()}>
+                  onClick={() => resendVerificationCode(user)}>
                   Resend
                 </Button>
               </FormDescription>
