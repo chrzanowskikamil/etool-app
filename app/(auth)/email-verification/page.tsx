@@ -3,9 +3,13 @@ import Link from 'next/link';
 import { Logo } from '@/components/logo';
 import { urlPaths } from '@/utils/paths';
 import { getSession } from '@/lib/auth/get-session';
+import { redirect } from 'next/navigation';
 
 export default async function EmailVerificationPage() {
   const { user } = await getSession();
+  if (!user) redirect(urlPaths.login);
+  if (user.emailVerified) redirect(urlPaths.dashboard);
+
   return (
     <main className='flex justify-center items-center h-full animate-in slide-in-from-left-96'>
       <section className='flex flex-col w-[500px] p-8'>
