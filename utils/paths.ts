@@ -20,6 +20,7 @@ interface UrlPaths {
 
 interface EndpointsPaths {
   githubUserApi: string;
+  githubUserEmailsApi: string;
   linkedInUserApi: string;
 }
 
@@ -48,6 +49,7 @@ export const urlPaths: UrlPaths = {
 
 export const endpointsPaths: EndpointsPaths = {
   githubUserApi: 'https://api.github.com/user',
+  githubUserEmailsApi: 'https://api.github.com/user/emails',
   linkedInUserApi: 'https://api.linkedin.com/v2/userinfo',
 };
 
