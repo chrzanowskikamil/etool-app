@@ -1,6 +1,7 @@
+import { Argon2id } from 'oslo/password';
 import { cookies } from 'next/headers';
 import { createSession } from '@/lib/auth/create-session';
-import { createUserByGitHubId, getUserByGitHubId } from '@/db/queries/user';
+import { createUserByGitHubId, getUserByUsername, updateUserGithubIdByEmail } from '@/db/queries/user';
 import { endpointsPaths } from '@/utils/paths';
 import { generateId } from 'lucia';
 import { githubOAuth } from '@/lib/auth';
@@ -9,7 +10,14 @@ import { USER_ID_LENGTH } from '@/features/user/actions/utils';
 
 interface GitHubUser {
   id: number;
-  login: string;
+  name: string;
+}
+
+interface GitHubUserEmails {
+  email: string;
+  primary: boolean;
+  verified: boolean;
+  visibility: 'public' | 'private' | null;
 }
 
 export async function GET(request: Request): Promise<Response> {
@@ -24,22 +32,36 @@ export async function GET(request: Request): Promise<Response> {
 
   try {
     const tokens = await githubOAuth.validateAuthorizationCode(code);
+
     const githubUserResponse = await fetch(endpointsPaths.githubUserApi, {
       headers: {
         Authorization: `Bearer ${tokens.accessToken}`,
       },
     });
 
+    const githubUserEmailResponse = await fetch(endpointsPaths.githubUserEmailsApi, {
+      headers: {
+        Authorization: `Bearer ${tokens.accessToken}`,
+      },
+    });
+
     const githubUser: GitHubUser = await githubUserResponse.json();
-    const existingUser = await getUserByGitHubId(githubUser.id);
+    const githubUserEmails: GitHubUserEmails[] = await githubUserEmailResponse.json();
+    const verifiedGithubUser = githubUserEmails.find((email) => email.primary && email.verified);
+
+    if (!verifiedGithubUser) return new Response('Primary email not found or not verified', { status: 400 });
+
+    const existingUser = await getUserByUsername(verifiedGithubUser.email);
 
     if (existingUser) {
+      await updateUserGithubIdByEmail(verifiedGithubUser.email, githubUser.id, verifiedGithubUser.verified);
       await createSession(existingUser.id);
       return new Response(null, { status: 302, headers: { Location: '/' } });
     }
 
     const userId = generateId(USER_ID_LENGTH);
-    await createUserByGitHubId(userId, githubUser.id, githubUser.login);
+    const hashedPassword = await new Argon2id().hash(userId);
+    await createUserByGitHubId(userId, githubUser.id, verifiedGithubUser.email, hashedPassword, githubUser.name, verifiedGithubUser.verified);
     await createSession(userId);
 
     return new Response(null, { status: 302, headers: { Location: '/' } });

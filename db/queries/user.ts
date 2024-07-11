@@ -8,21 +8,15 @@ export const createUserByCredentials = async (credentials: Omit<User, 'githubId'
   });
 };
 
-export const createUserByGitHubId = async (id: string, githubId: number, username: string) => {
+export const createUserByGitHubId = async (id: string, githubId: number, username: string, hashedPassword: string, firstName: string, emailVerified: boolean) => {
   return await database.user.create({
     data: {
       id: id,
       githubId: githubId,
       username: username,
-      hashed_password: '',
-    },
-  });
-};
-
-export const getUserByGitHubId = async (githubId: number) => {
-  return await database.user.findUnique({
-    where: {
-      githubId: githubId,
+      hashed_password: hashedPassword,
+      firstName: firstName,
+      emailVerified: emailVerified,
     },
   });
 };
@@ -50,6 +44,18 @@ export const getUserByUsername = async (username: string) => {
   return await database.user.findUnique({
     where: {
       username: username,
+    },
+  });
+};
+
+export const updateUserGithubIdByEmail = async (githubEmail: string, githubId: number, emailVerified: boolean) => {
+  await database.user.update({
+    where: {
+      username: githubEmail,
+    },
+    data: {
+      githubId: githubId,
+      emailVerified: emailVerified,
     },
   });
 };
