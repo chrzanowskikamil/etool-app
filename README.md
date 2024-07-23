@@ -1,23 +1,33 @@
+> **Warning**
+> This project is a work in progress.
+
+## ETool - A Modern Fullstack Application for Workshop Management
+
 <div align="center">
-  <h1 align="center">ETool</h3>
-  <p align="center">
-    First online assistant to help you effectively manage repairs in your workshop!
-  </p>
+<a href="https://etool-app.vercel.app/">
+<img src="https://github.com/user-attachments/assets/bf7e8e50-5852-4bc4-af81-ea1e49b31d59" alt="thubnail">
+</a>
 </div>
 
-## 📰 About The Project
+<br>
+<br>
 
-<p> It's a web application built using NextJS 14 that enables users to manage repairs</p>
+### 📰 About The Project
+<p>Application in progress..<p>
+<br>
 
-## ️🔴 Live Preview
+### ️🔴 Live Preview
+<p>Click on this <a href="https://etool-app.vercel.app/">link</a> to see a live app preview.</p>
+<br>
 
-Click on this <b>[link](https://etool-app.vercel.app/)</b> to see a live app preview.
+### 🔐 Login Credentials
+<p>You can <a href="https://etool-app.vercel.app/register">register with your own credentials or social account like <b>GitHub</b> or <b>LinkedIn</b>...</p></a> 
 
-## 🔐 Login Credentials
+<p>... or you can <a href="https://etool-app.vercel.app/login">login with preview account</a> with following credentials:</p>
 
-**Email:** admin@mail.com  
-**Password:** password
+email: ```admin@mail.com```
 
-**OR**
+password: ```password```
 
-You can <b>register</b> with your own credentials!
+<br>
+<br>
