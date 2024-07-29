@@ -1,6 +1,7 @@
+import { Argon2id } from 'oslo/password';
 import { cookies } from 'next/headers';
 import { createSession } from '@/lib/auth/create-session';
-import { createUserByLinkedInId, getUserByLinkedInId } from '@/db/queries/user';
+import { createUserByLinkedInId, getUserByUsername, updateUserLinkedinIdByEmail } from '@/db/queries/user';
 import { endpointsPaths } from '@/utils/paths';
 import { generateId } from 'lucia';
 import { linkedInOAuth } from '@/lib/auth';
@@ -40,15 +41,17 @@ export async function GET(request: Request): Promise<Response> {
     });
 
     const linkedInUser: LinkedInUser = await linkedInUserResponse.json();
-    const existingUser = await getUserByLinkedInId(linkedInUser.sub);
+    const existingUser = await getUserByUsername(linkedInUser.email);
 
     if (existingUser) {
+      await updateUserLinkedinIdByEmail(linkedInUser.email, linkedInUser.sub, linkedInUser.email_verified);
       await createSession(existingUser.id);
       return new Response(null, { status: 302, headers: { Location: '/' } });
     }
 
     const userId = generateId(USER_ID_LENGTH);
-    await createUserByLinkedInId(userId, linkedInUser.sub, linkedInUser.email);
+    const hashedPassword = await new Argon2id().hash(userId);
+    await createUserByLinkedInId(userId, linkedInUser.sub, linkedInUser.email, hashedPassword, linkedInUser.given_name, linkedInUser.family_name, linkedInUser.email_verified);
     await createSession(userId);
 
     return new Response(null, { status: 302, headers: { Location: '/' } });

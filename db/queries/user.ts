@@ -21,21 +21,16 @@ export const createUserByGitHubId = async (id: string, githubId: number, usernam
   });
 };
 
-export const createUserByLinkedInId = async (id: string, linkedInId: string, username: string) => {
+export const createUserByLinkedInId = async (id: string, linkedInId: string, username: string, hashedPassword: string, firstName: string, lastName: string, emailVerified: boolean) => {
   return await database.user.create({
     data: {
       id: id,
       linkedInId: linkedInId,
       username: username,
-      hashed_password: '',
-    },
-  });
-};
-
-export const getUserByLinkedInId = async (linkedInId: string) => {
-  return await database.user.findUnique({
-    where: {
-      linkedInId: linkedInId,
+      hashed_password: hashedPassword,
+      firstName: firstName,
+      lastName: lastName,
+      emailVerified: emailVerified,
     },
   });
 };
@@ -55,6 +50,18 @@ export const updateUserGithubIdByEmail = async (githubEmail: string, githubId: n
     },
     data: {
       githubId: githubId,
+      emailVerified: emailVerified,
+    },
+  });
+};
+
+export const updateUserLinkedinIdByEmail = async (linkedInEmail: string, linkedInId: string, emailVerified: boolean) => {
+  await database.user.update({
+    where: {
+      username: linkedInEmail,
+    },
+    data: {
+      linkedInId: linkedInId,
       emailVerified: emailVerified,
     },
   });
