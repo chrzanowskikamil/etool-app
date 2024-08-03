@@ -2,7 +2,7 @@ import { Argon2id } from 'oslo/password';
 import { cookies } from 'next/headers';
 import { createSession } from '@/lib/auth/create-session';
 import { createUserByLinkedInId, getUserByUsername, updateUserLinkedinIdByEmail } from '@/db/queries/user';
-import { endpointsPaths } from '@/utils/paths';
+import { endpointsPaths, urlPaths } from '@/utils/paths';
 import { generateId } from 'lucia';
 import { linkedInOAuth } from '@/lib/auth';
 import { USER_ID_LENGTH } from '@/features/user/actions/utils';
@@ -46,7 +46,7 @@ export async function GET(request: Request): Promise<Response> {
     if (existingUser) {
       await updateUserLinkedinIdByEmail(linkedInUser.email, linkedInUser.sub, linkedInUser.email_verified);
       await createSession(existingUser.id);
-      return new Response(null, { status: 302, headers: { Location: '/' } });
+      return new Response(null, { status: 302, headers: { Location: urlPaths.dashboard } });
     }
 
     const userId = generateId(USER_ID_LENGTH);
@@ -54,9 +54,10 @@ export async function GET(request: Request): Promise<Response> {
     await createUserByLinkedInId(userId, linkedInUser.sub, linkedInUser.email, hashedPassword, linkedInUser.given_name, linkedInUser.family_name, linkedInUser.email_verified);
     await createSession(userId);
 
-    return new Response(null, { status: 302, headers: { Location: '/' } });
+    return new Response(null, { status: 302, headers: { Location: urlPaths.dashboard } });
   } catch (error) {
     console.log(error);
-    return new Response('Something went wrong on the server.', { status: 500 });
+
+    return new Response('Sorry, something went wrong on the Linkedin servers. Please try again or use other method to authorize.', { status: 500 });
   }
 }

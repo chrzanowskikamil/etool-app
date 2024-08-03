@@ -5,7 +5,7 @@ import { linkedInOAuth } from '@/lib/auth';
 export async function GET(): Promise<Response> {
   const state = generateState();
   const url: URL = await linkedInOAuth.createAuthorizationURL(state, {
-    scopes: ['profile', 'email'],
+    scopes: ['openid', 'profile', 'email'],
   });
 
   cookies().set('linkedin_oauth_state', state, {
