@@ -1,3 +1,6 @@
+export const GITHUB_COOKIE_NAME = 'github_oauth_state';
+export const LINKEDIN_COOKIE_NAME = 'linkedin_oauth_state';
+export const LINKEDIN_OAUTH_SCOPES = ['openid', 'profile', 'email'];
 export const RESET_PASSWORD_TOKEN_EXPIRATION_TIME_VALUE = 2; // in hours
 export const RESET_PASSWORD_TOKEN_EXPIRATION_TIME_UNIT = 'h'; // hours
 export const VERIFICATION_EMAIL_CODE_EXPIRATION_TIME_VALUE = 15; // in minutes

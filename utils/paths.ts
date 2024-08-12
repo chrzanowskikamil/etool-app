@@ -4,11 +4,9 @@ interface UrlPaths {
   dashboard: string;
   emailVerification: string;
   docs: string;
-  githubAuth: string;
   help: string;
   home: string;
   login: string;
-  linkedInAuth: string;
   linkedInCallback: string;
   newPassword: string;
   profile: string;
@@ -33,9 +31,7 @@ export const urlPaths: UrlPaths = {
   contact: '/contact',
   docs: '/docs',
   emailVerification: '/email-verification',
-  githubAuth: '/login/github',
   login: '/login',
-  linkedInAuth: '/login/linkedin',
   linkedInCallback: '/login/linkedin/callback',
   newPassword: '/new-password',
   register: '/register',
