@@ -1,10 +1,8 @@
-import { buttonVariants } from '@/components/ui/button';
 import { getSession } from '@/lib/auth/get-session';
-import { GitHubLogoIcon, LinkedInLogoIcon } from '@radix-ui/react-icons';
 import Link from 'next/link';
 import { Logo } from '@/components/logo';
 import LoginForm from '@/features/user/components/login-form';
-import { OAuthButton } from '@/components/oauth-button';
+import { OAuthProvidersButtons } from '@/features/user/components/oauth-providers-buttons';
 import { redirect } from 'next/navigation';
 import { urlPaths } from '@/utils/paths';
 
@@ -29,18 +27,7 @@ export default async function LoginPage() {
         <h1 className='text-3xl font-semibold text-center'>Welcome back!</h1>
         <p className='text-sm text-muted-foreground my-4'>Sign into ETool with credentials or socials providers.</p>
         <LoginForm />
-        <OAuthButton
-          className={buttonVariants({ variant: 'secondary', size: 'lg', className: 'mt-4' })}
-          icon={<GitHubLogoIcon className='w-6 h-6 mr-2' />}
-          title={'Continue with Github'}
-          provider={'github'}
-        />
-        <OAuthButton
-          className={buttonVariants({ variant: 'secondary', size: 'lg', className: 'mt-4' })}
-          icon={<LinkedInLogoIcon className='w-6 h-6 mr-2' />}
-          title={'Continue with LinkedIn'}
-          provider={'linkedin'}
-        />
+        <OAuthProvidersButtons />
         <Link
           className='my-2 text-sm text-center text-foreground/60 hover:text-foreground/80'
           href={urlPaths.register}>
