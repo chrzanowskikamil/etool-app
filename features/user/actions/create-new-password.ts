@@ -6,7 +6,6 @@ import { deleteResetPasswordTokenById, getResetPasswordToken, updateUserPassword
 export const createNewPassword = async (newPassword: string, verificationToken: string) => {
   try {
     const token = await getResetPasswordToken(verificationToken);
-
     if (!token) return { error: 'Setting a new password - failed', message: 'The token is invalid or expired. Try reset your password again.' };
 
     await deleteResetPasswordTokenById(verificationToken);

@@ -1,17 +1,14 @@
 import { getSession } from '@/lib/auth/get-session';
 import Link from 'next/link';
 import { Logo } from '@/components/logo';
-import LoginForm from '@/features/user/components/login-form';
+import { LoginForm } from '@/features/user/components/login-form';
 import { OAuthProvidersButtons } from '@/features/user/components/oauth-providers-buttons';
 import { redirect } from 'next/navigation';
 import { urlPaths } from '@/utils/paths';
 
 export default async function LoginPage() {
   const { user } = await getSession();
-
-  if (user) {
-    redirect(urlPaths.dashboard);
-  }
+  if (user) redirect(urlPaths.dashboard);
 
   return (
     <main className='flex justify-center items-center h-full animate-in slide-in-from-left-96'>

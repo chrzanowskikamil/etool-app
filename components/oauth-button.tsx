@@ -12,19 +12,19 @@ interface OAuthButtonProps {
 }
 
 export const OAuthButton: FC<OAuthButtonProps> = ({ className, title, icon, provider }) => {
-  const [loading, setLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleSignInUserByOAuth = async () => {
-    setLoading(true);
+    setIsLoading(true);
     await signInUserByOAuth(provider);
   };
 
   return (
     <Button
       className={className}
-      disabled={loading}
+      disabled={isLoading}
       onClick={handleSignInUserByOAuth}>
-      {icon} {title} {loading && <LoadingSpinner />}
+      {icon} {title} {isLoading && <LoadingSpinner />}
     </Button>
   );
 };

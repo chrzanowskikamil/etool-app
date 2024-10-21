@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { Logo } from '@/components/logo';
-import NewPasswordForm from '@/features/user/components/new-password-form';
+import { NewPasswordForm } from '@/features/user/components/new-password-form';
 import { urlPaths } from '@/utils/paths';
 
 export default async function NewPasswordPage() {

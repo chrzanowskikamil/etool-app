@@ -1,21 +1,19 @@
 'use client';
-
-import { Button } from '../../../components/ui/button';
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '../../../components/ui/form';
-import { Input } from '../../../components/ui/input';
-import { LoadingSpinner } from '../../../components/icons';
+import { Button } from '@/components/ui/button';
 import { EyeClosedIcon, EyeOpenIcon } from '@radix-ui/react-icons';
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
+import { LoadingSpinner } from '@/components/icons';
 import { useNewPasswordForm } from '@/features/user/hooks/use-new-password-form';
 import { useState } from 'react';
 
-export default function NewPasswordForm() {
+export function NewPasswordForm() {
   const { form, onSubmit } = useNewPasswordForm();
   const { isSubmitting } = form.formState;
-  const [passwordVisible, setPasswordVisible] = useState(false);
-  const [confirmPasswordVisible, setConfirmPasswordVisible] = useState(false);
-
-  const handleShowPassword = () => setPasswordVisible(!passwordVisible);
-  const handleShowConfirmPassword = () => setConfirmPasswordVisible(!confirmPasswordVisible);
+  const [isConfirmPasswordVisible, setIsConfirmPasswordVisible] = useState(false);
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+  const handleConfirmPasswordVisibility = () => setIsConfirmPasswordVisible(!isConfirmPasswordVisible);
+  const handlePasswordVisibility = () => setIsPasswordVisible(!isPasswordVisible);
 
   return (
     <Form {...form}>
@@ -37,14 +35,14 @@ export default function NewPasswordForm() {
                     disabled={isSubmitting}
                     id='password'
                     placeholder='********'
-                    type={passwordVisible ? 'text' : 'password'}
+                    type={isPasswordVisible ? 'text' : 'password'}
                     {...field}
                   />
                   <Button
-                    onClick={handleShowPassword}
+                    onClick={handlePasswordVisibility}
                     type='button'
                     variant={'outline'}>
-                    {passwordVisible ? <EyeOpenIcon /> : <EyeClosedIcon />}
+                    {isPasswordVisible ? <EyeOpenIcon /> : <EyeClosedIcon />}
                   </Button>
                 </div>
               </FormControl>
@@ -67,14 +65,14 @@ export default function NewPasswordForm() {
                     disabled={isSubmitting}
                     id='confirmPassword'
                     placeholder='********'
-                    type={confirmPasswordVisible ? 'text' : 'password'}
+                    type={isConfirmPasswordVisible ? 'text' : 'password'}
                     {...field}
                   />
                   <Button
-                    onClick={handleShowConfirmPassword}
+                    onClick={handleConfirmPasswordVisibility}
                     type='button'
                     variant={'outline'}>
-                    {confirmPasswordVisible ? <EyeOpenIcon /> : <EyeClosedIcon />}
+                    {isConfirmPasswordVisible ? <EyeOpenIcon /> : <EyeClosedIcon />}
                   </Button>
                 </div>
               </FormControl>
