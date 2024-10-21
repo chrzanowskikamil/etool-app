@@ -14,6 +14,7 @@ interface EmailVerificationFormProps {
 export function EmailVerificationForm({ user }: EmailVerificationFormProps) {
   const { form, onSubmit } = useEmailVerificationForm();
   const { isSubmitting } = form.formState;
+  const VERIFICATION_CODE_LENGTH = 4;
 
   return (
     <Form {...form}>
@@ -28,7 +29,7 @@ export function EmailVerificationForm({ user }: EmailVerificationFormProps) {
               <FormLabel>Code</FormLabel>
               <FormControl>
                 <InputOTP
-                  maxLength={4}
+                  maxLength={VERIFICATION_CODE_LENGTH}
                   onComplete={form.handleSubmit(onSubmit)}
                   {...field}>
                   <InputOTPGroup>

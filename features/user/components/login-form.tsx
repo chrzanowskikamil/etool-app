@@ -1,20 +1,19 @@
 'use client';
-import Link from 'next/link';
-import { Button } from '../../../components/ui/button';
-import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '../../../components/ui/form';
-import { Input } from '../../../components/ui/input';
-import { LoadingSpinner } from '../../../components/icons';
+import { Button } from '@/components/ui/button';
 import { EyeClosedIcon, EyeOpenIcon } from '@radix-ui/react-icons';
+import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
+import Link from 'next/link';
+import { LoadingSpinner } from '@/components/icons';
 import { urlPaths } from '@/utils/paths';
 import { useLoginForm } from '@/features/user/hooks/use-login-form';
 import { useState } from 'react';
 
-export default function LoginForm() {
+export function LoginForm() {
   const { form, onSubmit } = useLoginForm();
   const { isSubmitting } = form.formState;
-  const [passwordVisible, setPasswordVisible] = useState(false);
-
-  const handleShowPassword = () => setPasswordVisible(!passwordVisible);
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+  const handlePasswordVisibility = () => setIsPasswordVisible(!isPasswordVisible);
 
   return (
     <Form {...form}>
@@ -55,15 +54,15 @@ export default function LoginForm() {
                     autoCapitalize='off'
                     disabled={isSubmitting}
                     id='password'
-                    type={passwordVisible ? 'text' : 'password'}
+                    type={isPasswordVisible ? 'text' : 'password'}
                     placeholder='********'
                     {...field}
                   />
                   <Button
-                    onClick={handleShowPassword}
+                    onClick={handlePasswordVisibility}
                     type='button'
                     variant={'outline'}>
-                    {passwordVisible ? <EyeOpenIcon /> : <EyeClosedIcon />}
+                    {isPasswordVisible ? <EyeOpenIcon /> : <EyeClosedIcon />}
                   </Button>
                 </div>
               </FormControl>

@@ -1,9 +1,9 @@
 import { RESET_PASSWORD_DEFAULT_VALUES, RESET_PASSWORD_FORM_SCHEMA } from '../schemas/reset-password-form-schema';
 import { sendPasswordResetLink } from '@/features/email/actions/send-password-reset-link';
 import { toast } from 'sonner';
+import { UseFormReturn, useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { UseFormReturn, useForm } from 'react-hook-form';
 
 export function useResetPasswordForm(): { form: UseFormReturn<z.infer<typeof RESET_PASSWORD_FORM_SCHEMA>>; onSubmit: (value: z.infer<typeof RESET_PASSWORD_FORM_SCHEMA>) => Promise<void> } {
   const DELAY_ERROR = 300;

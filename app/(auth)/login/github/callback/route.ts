@@ -2,7 +2,7 @@ import { Argon2id } from 'oslo/password';
 import { cookies } from 'next/headers';
 import { createSession } from '@/lib/auth/create-session';
 import { createUserByGitHubId, getUserByUsername, updateUserGithubIdByEmail } from '@/db/queries/user';
-import { endpointsPaths } from '@/utils/paths';
+import { endpointsPaths, urlPaths } from '@/utils/paths';
 import { generateId } from 'lucia';
 import { githubOAuth } from '@/lib/auth';
 import { OAuth2RequestError } from 'arctic';
@@ -56,7 +56,7 @@ export async function GET(request: Request): Promise<Response> {
     if (existingUser) {
       await updateUserGithubIdByEmail(verifiedGithubUser.email, githubUser.id, verifiedGithubUser.verified);
       await createSession(existingUser.id);
-      return new Response(null, { status: 302, headers: { Location: '/' } });
+      return new Response(null, { status: 302, headers: { Location: urlPaths.dashboard } });
     }
 
     const userId = generateId(USER_ID_LENGTH);
@@ -64,7 +64,7 @@ export async function GET(request: Request): Promise<Response> {
     await createUserByGitHubId(userId, githubUser.id, verifiedGithubUser.email, hashedPassword, githubUser.name, verifiedGithubUser.verified);
     await createSession(userId);
 
-    return new Response(null, { status: 302, headers: { Location: '/' } });
+    return new Response(null, { status: 302, headers: { Location: urlPaths.dashboard } });
   } catch (error) {
     if (error instanceof OAuth2RequestError) {
       return new Response(error.message, { status: 400 });

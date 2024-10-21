@@ -1,9 +1,9 @@
 import { EmailVerificationForm } from '@/features/user/components/email-verification-form';
+import { getSession } from '@/lib/auth/get-session';
 import Link from 'next/link';
 import { Logo } from '@/components/logo';
-import { urlPaths } from '@/utils/paths';
-import { getSession } from '@/lib/auth/get-session';
 import { redirect } from 'next/navigation';
+import { urlPaths } from '@/utils/paths';
 
 export default async function EmailVerificationPage() {
   const { user } = await getSession();
