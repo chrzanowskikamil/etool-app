@@ -5,6 +5,7 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigge
 import Link from 'next/link';
 import { LogoutButton } from '@/components/logout-button';
 import { PersonIcon } from '@radix-ui/react-icons';
+import { Settings } from 'lucide-react';
 import { Separator } from '@/components/ui/separator';
 import { urlPaths } from '@/utils/paths';
 import { User } from 'lucia';
@@ -18,7 +19,7 @@ export default function UserDropdownMenu({ user }: UserDropdownMenuProps) {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button variant='outline'>
-          <PersonIcon />
+          <PersonIcon className='mr-2' /> Profile
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent
@@ -34,7 +35,7 @@ export default function UserDropdownMenu({ user }: UserDropdownMenuProps) {
         {!user.emailVerified && (
           <DropdownMenuItem>
             <Link
-              className='flex-1 text-xs text-center hover:underline'
+              className='flex-1 text-xs text-center text-foreground/60 hover:underline'
               href={urlPaths.emailVerification}>
               Email addres not verified
             </Link>
@@ -42,13 +43,14 @@ export default function UserDropdownMenu({ user }: UserDropdownMenuProps) {
         )}
         <Separator />
         <DropdownMenuItem>
+          <Settings />
           <Button
             className='w-full'
             variant='ghost'>
             Account Settings
           </Button>
         </DropdownMenuItem>
-        <DropdownMenuItem>
+        <DropdownMenuItem asChild>
           <LogoutButton />
         </DropdownMenuItem>
       </DropdownMenuContent>

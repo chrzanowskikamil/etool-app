@@ -28,6 +28,7 @@
     "clsx": "^2.1.0",
     "input-otp": "^1.2.4",
     "lucia": "^3.0.1",
+    "lucide-react": "^0.456.0",
     "next": "14.1",
     "next-safe-action": "^6.2.0",
     "next-themes": "^0.2.1",

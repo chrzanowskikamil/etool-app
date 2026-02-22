@@ -15,6 +15,8 @@ export async function sendEmail(options: EmailOptions) {
 
   console.log('Sending email...' + to);
   console.log('Text: ' + text);
+  console.log(resend);
+
   const { data, error } = await resend.emails.send({
     from: ADMIN_EMAIL,
     to,
